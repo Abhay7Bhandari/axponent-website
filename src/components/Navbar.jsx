@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-const NAV_LINKS = ['Home', 'Advertisers', 'Publishers', 'Our Products', 'Web', 'Careers']
+const NAV_LINKS = ['Home', 'Advertisers', 'Publishers', 'Our Products', 'Web', 'Careers', 'Venture Capital']
 
 export default function Navbar({ activePage, setActivePage }) {
   const [open, setOpen] = useState(false)

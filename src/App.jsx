@@ -15,11 +15,12 @@ import Testimonials    from './components/Testimonials'
 import Events          from './components/Events'
 
 // Sub-pages
-import AdvertisersPage  from './components/AdvertisersPage'
-import PublishersPage   from './components/PublishersPage'
-import OurProductsPage  from './components/OurProductsPage'
-import WebPage          from './components/WebPage'
-import CareersPage      from './components/CareersPage'
+import AdvertisersPage    from './components/AdvertisersPage'
+import PublishersPage     from './components/PublishersPage'
+import OurProductsPage   from './components/OurProductsPage'
+import WebPage            from './components/WebPage'
+import CareersPage        from './components/CareersPage'
+import VentureCapitalPage from './components/VentureCapitalPage'
 
 function HomePage() {
   return (
@@ -43,12 +44,13 @@ export default function App() {
 
   const renderPage = () => {
     switch (activePage) {
-      case 'Advertisers':   return <AdvertisersPage />
-      case 'Publishers':    return <PublishersPage />
-      case 'Our Products':  return <OurProductsPage />
-      case 'Web':           return <WebPage />
-      case 'Careers':       return <CareersPage />
-      default:              return <HomePage />
+      case 'Advertisers':      return <AdvertisersPage />
+      case 'Publishers':       return <PublishersPage />
+      case 'Our Products':     return <OurProductsPage />
+      case 'Web':              return <WebPage />
+      case 'Careers':          return <CareersPage />
+      case 'Venture Capital':  return <VentureCapitalPage />
+      default:                 return <HomePage />
     }
   }
 
