@@ -1,6 +1,40 @@
 import { useState } from "react";
 import FadeSection from "./FadeSection";
 
+// ─────────────────────────────────────────────
+//  IMAGE IMPORTS
+//  File locations inside your project:
+//
+//  src/assets/images/publishers/
+//    ├── monetization/
+//    │   ├── fill-rates.png            ← card_3__1_.png
+//    │   ├── mcm.png                   ← card_4__1_.png
+//    │   └── improve-relevance.png     ← card_5__1_.png  (or card_3__2_ / card_4__2_)
+//    ├── categories/
+//    │   └── publisher-categories.png  ← Group_1171276755.png
+//    └── expect/
+//        ├── global-campaign-demand.png     ← card_7.png
+//        ├── competitive-payouts.png        ← card_8.png
+//        ├── transparent-tracking.png       ← card_9.png
+//        ├── dedicated-support.png          ← (export from Figma — missing)
+//        └── long-term-scaling.png          ← (export from Figma — missing)
+// ─────────────────────────────────────────────
+
+// Monetization cards
+import fillRatesImg      from "../assets/images/publishers/monetization/fill-rates.png";
+import mcmImg            from "../assets/images/publishers/monetization/mcm.png";
+import improveRelImg     from "../assets/images/publishers/monetization/improve-relevance.png";
+
+// Publisher categories — full grid PNG
+import categoriesImg     from "../assets/images/publishers/categories/publisher-categories.png";
+
+// What You Can Expect cards
+import globalDemandImg   from "../assets/images/publishers/expect/global-campaign-demand.png";
+import payoutsImg        from "../assets/images/publishers/expect/competitive-payouts.png";
+import trackingImg       from "../assets/images/publishers/expect/transparent-tracking.png";
+import supportImg        from "../assets/images/publishers/expect/dedicated-support.png";
+import scalingImg        from "../assets/images/publishers/expect/long-term-scaling.png";
+
 /* ── Section 1: Hero ── */
 function PublishersHero() {
   return (
@@ -23,66 +57,9 @@ function PublishersHero() {
 /* ── Section 2: App Monetization Cards ── */
 function MonetizationCards() {
   const cards = [
-    {
-      title: "Fill Rate",
-      desc: "By optimising ad placements in real-time to app environment, we can ensure high fill rates while increasing eCPM.",
-      icon: (
-        <svg
-          width="28"
-          height="28"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="#00A8FF"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <line x1="18" y1="20" x2="18" y2="10" />
-          <line x1="12" y1="20" x2="12" y2="4" />
-          <line x1="6" y1="20" x2="6" y2="14" />
-          <polyline points="2,20 22,20" />
-        </svg>
-      ),
-    },
-    {
-      title: "MCM",
-      desc: "Add your account as a partner under our GAM 360 account to unlock seamless, efficient monetization.",
-      icon: (
-        <svg
-          width="28"
-          height="28"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="#00A8FF"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <circle cx="12" cy="12" r="3" />
-          <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
-        </svg>
-      ),
-    },
-    {
-      title: "Improve Relevance",
-      desc: "We ensure that ads displayed are relevant to your traffic demographics, delivering improved CTRs.",
-      icon: (
-        <svg
-          width="28"
-          height="28"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="#00A8FF"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.42 2 2 0 0 1 3.57 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
-          <path d="M14.05 2a9 9 0 0 1 8 7.94" />
-          <path d="M14.05 6A5 5 0 0 1 18 10" />
-        </svg>
-      ),
-    },
+    { img: fillRatesImg,   alt: "Fill Rates" },
+    { img: mcmImg,         alt: "MCM" },
+    { img: improveRelImg,  alt: "Improve Relevance" },
   ];
 
   return (
@@ -101,28 +78,12 @@ function MonetizationCards() {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {cards.map((card, i) => (
-                <div
+                <img
                   key={i}
-                  className="rounded-xl p-6 flex flex-col gap-4 transition-all duration-300 hover:scale-[1.02]"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, rgba(0,60,180,0.25) 0%, rgba(5,10,40,0.8) 100%)",
-                    border: "1px solid rgba(0,100,255,0.2)",
-                  }}
-                >
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center"
-                    style={{ background: "rgba(0,100,255,0.15)" }}
-                  >
-                    {card.icon}
-                  </div>
-                  <h3 className="font-display font-semibold text-white text-base">
-                    {card.title}
-                  </h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">
-                    {card.desc}
-                  </p>
-                </div>
+                  src={card.img}
+                  alt={card.alt}
+                  className="w-full rounded-xl object-cover transition-all duration-300 hover:scale-[1.02]"
+                />
               ))}
             </div>
           </div>
@@ -133,124 +94,9 @@ function MonetizationCards() {
 }
 
 /* ── Section 3: Publisher Categories ── */
+// Using the full Figma-exported PNG (Group_1171276755.png) — it already
+// contains all 6 category tiles exactly as designed.
 function PublisherCategories() {
-  const categories = [
-    {
-      label: "Fintech",
-      icon: (
-        <svg
-          width="32"
-          height="32"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="#00A8FF"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <circle cx="12" cy="12" r="10" />
-          <path d="M12 6v6l4 2" />
-          <path d="M9 2.46A10 10 0 0 1 12 2c5.52 0 10 4.48 10 10" />
-          <circle cx="12" cy="12" r="3" />
-          <path d="M12 8v1M12 15v1M8 12H7M17 12h-1" />
-        </svg>
-      ),
-    },
-    {
-      label: "E-commerce",
-      icon: (
-        <svg
-          width="32"
-          height="32"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="#00A8FF"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <circle cx="9" cy="21" r="1" />
-          <circle cx="20" cy="21" r="1" />
-          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-        </svg>
-      ),
-    },
-    {
-      label: "Utilities",
-      icon: (
-        <svg
-          width="32"
-          height="32"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="#00A8FF"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <circle cx="12" cy="12" r="3" />
-          <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07M8.46 8.46a5 5 0 0 0 0 7.07" />
-        </svg>
-      ),
-    },
-    {
-      label: "Gaming",
-      icon: (
-        <svg
-          width="32"
-          height="32"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="#00A8FF"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <rect x="2" y="6" width="20" height="12" rx="2" />
-          <path d="M6 12h4M8 10v4M15 11h.01M17 13h.01" />
-        </svg>
-      ),
-    },
-    {
-      label: "Sports Betting\n& Casino",
-      icon: (
-        <svg
-          width="32"
-          height="32"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="#00A8FF"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M12 2C8 2 5 5 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-4-3-7-7-7z" />
-          <circle cx="12" cy="9" r="3" />
-          <path d="M9 21l3-3 3 3" />
-        </svg>
-      ),
-    },
-    {
-      label: "Entertainment",
-      icon: (
-        <svg
-          width="32"
-          height="32"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="#00A8FF"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <rect x="2" y="7" width="20" height="15" rx="2" />
-          <path d="M16 2l-4 5-4-5" />
-          <path d="M10 12l5 3-5 3V12z" fill="#00A8FF" fillOpacity="0.3" />
-        </svg>
-      ),
-    },
-  ];
-
   return (
     <FadeSection>
       <section className="py-16 px-4">
@@ -260,43 +106,11 @@ function PublisherCategories() {
             <br />
             Needs with Precision
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {categories.map((cat, i) => (
-              <div
-                key={i}
-                className="rounded-2xl p-8 flex items-center justify-between cursor-pointer transition-all duration-300 hover:scale-[1.02] min-h-[110px] relative overflow-hidden"
-                style={{
-                  background: "rgba(8, 10, 28, 0.95)",
-                  border: "1px solid rgba(40, 50, 100, 0.5)",
-                }}
-              >
-                {/* Top light shimmer like Image 1 */}
-                <div
-                  className="absolute top-0 left-6 right-6 h-px"
-                  style={{
-                    background:
-                      "linear-gradient(90deg, transparent, rgba(180,180,255,0.4), transparent)",
-                  }}
-                />
-
-                <span className="text-white text-base font-medium whitespace-pre-line leading-snug">
-                  {cat.label}
-                </span>
-
-                {/* White icon, larger */}
-                <div
-                  className="flex-shrink-0 ml-6"
-                  style={{
-                    filter: "brightness(0) invert(1)",
-                    transform: "scale(1.5)",
-                    transformOrigin: "center right",
-                  }}
-                >
-                  {cat.icon}
-                </div>
-              </div>
-            ))}
-          </div>
+          <img
+            src={categoriesImg}
+            alt="Publisher Categories — Fintech, E-commerce, Utilities, Gaming, Sports Betting & Casino, Entertainment"
+            className="w-full rounded-2xl object-cover"
+          />
         </div>
       </section>
     </FadeSection>
@@ -305,119 +119,20 @@ function PublisherCategories() {
 
 /* ── Section 4: What You Can Expect ── */
 function WhatToExpect() {
-  const features = [
-    {
-      label: "Consistent global\ncampaign demand",
-      icon: (
-        <svg
-          width="36"
-          height="36"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="#00A8FF"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <circle cx="12" cy="12" r="10" />
-          <line x1="2" y1="12" x2="22" y2="12" />
-          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-        </svg>
-      ),
-    },
-    {
-      label: "Competitive and\ntimely payouts",
-      icon: (
-        <svg
-          width="36"
-          height="36"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="#00A8FF"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M12 2v4M12 18v4M6.93 6.93l-2.83 2.83M19.9 19.9l-2.83-2.83M2 12h4M18 12h4M6.93 17.07l-2.83-2.83M19.9 4.1l-2.83 2.83" />
-          <circle cx="12" cy="12" r="5" />
-          <path d="M12 9v3l2 2" />
-        </svg>
-      ),
-    },
-    {
-      label: "Transparent tracking &\nattribution",
-      icon: (
-        <svg
-          width="36"
-          height="36"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="#00A8FF"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <rect x="3" y="3" width="18" height="18" rx="2" />
-          <circle cx="12" cy="12" r="3" />
-          <path d="M12 9V7M12 17v-2M9 12H7M17 12h-2" />
-          <path d="M10.17 10.17L8.75 8.75M15.25 15.25l-1.42-1.42M13.83 10.17l1.42-1.42M8.75 15.25l1.42-1.42" />
-        </svg>
-      ),
-    },
-    {
-      label: "Dedicated publisher\nsupport",
-      icon: (
-        <svg
-          width="36"
-          height="36"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="#00A8FF"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-          <circle cx="12" cy="7" r="4" />
-          <path d="M9 14l2 2 4-4" stroke="#00A8FF" strokeWidth="1.8" />
-        </svg>
-      ),
-    },
-    {
-      label: "Long-term scaling\nopportunities",
-      icon: (
-        <svg
-          width="36"
-          height="36"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="#00A8FF"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <circle cx="12" cy="12" r="10" />
-          <path d="M12 8v4l3 3" />
-          <path
-            d="M8 3.5A9 9 0 0 1 21 12"
-            stroke="#00A8FF"
-            strokeOpacity="0.4"
-          />
-          <path
-            d="M3.5 8A9 9 0 0 0 12 21"
-            stroke="#00A8FF"
-            strokeOpacity="0.4"
-          />
-          <circle cx="12" cy="12" r="3" fill="#00A8FF" fillOpacity="0.15" />
-        </svg>
-      ),
-    },
+  // Top row — 3 cards, bottom row — 2 cards
+  const topRow = [
+    { img: globalDemandImg, alt: "Consistent global campaign demand" },
+    { img: payoutsImg,      alt: "Competitive and timely payouts" },
+    { img: trackingImg,     alt: "Transparent tracking & attribution" },
+  ];
+  const bottomRow = [
+    { img: supportImg,  alt: "Dedicated publisher support" },
+    { img: scalingImg,  alt: "Long-term scaling opportunities" },
   ];
 
   return (
     <FadeSection>
       <section className="py-16 px-4 relative overflow-hidden">
-        {/* Background glow */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -429,52 +144,28 @@ function WhatToExpect() {
           <h2 className="font-display font-bold text-3xl md:text-4xl text-white text-center mb-12">
             What You Can Expect
           </h2>
+
           {/* Top row — 3 cards */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
-            {features.slice(0, 3).map((f, i) => (
-              <div
+            {topRow.map((card, i) => (
+              <img
                 key={i}
-                className="rounded-xl p-6 flex flex-col items-center text-center gap-4 transition-all duration-300 hover:scale-[1.02]"
-                style={{
-                  background:
-                    "linear-gradient(135deg, rgba(0,40,140,0.3) 0%, rgba(5,10,40,0.85) 100%)",
-                  border: "1px solid rgba(0,80,200,0.25)",
-                }}
-              >
-                <div
-                  className="w-16 h-16 rounded-xl flex items-center justify-center"
-                  style={{ background: "rgba(0,80,200,0.15)" }}
-                >
-                  {f.icon}
-                </div>
-                <p className="text-white text-sm font-medium whitespace-pre-line leading-snug">
-                  {f.label}
-                </p>
-              </div>
+                src={card.img}
+                alt={card.alt}
+                className="w-full rounded-xl object-cover transition-all duration-300 hover:scale-[1.02]"
+              />
             ))}
           </div>
+
           {/* Bottom row — 2 cards centered */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
-            {features.slice(3).map((f, i) => (
-              <div
+            {bottomRow.map((card, i) => (
+              <img
                 key={i}
-                className="rounded-xl p-6 flex flex-col items-center text-center gap-4 transition-all duration-300 hover:scale-[1.02]"
-                style={{
-                  background:
-                    "linear-gradient(135deg, rgba(0,40,140,0.3) 0%, rgba(5,10,40,0.85) 100%)",
-                  border: "1px solid rgba(0,80,200,0.25)",
-                }}
-              >
-                <div
-                  className="w-16 h-16 rounded-xl flex items-center justify-center"
-                  style={{ background: "rgba(0,80,200,0.15)" }}
-                >
-                  {f.icon}
-                </div>
-                <p className="text-white text-sm font-medium whitespace-pre-line leading-snug">
-                  {f.label}
-                </p>
-              </div>
+                src={card.img}
+                alt={card.alt}
+                className="w-full rounded-xl object-cover transition-all duration-300 hover:scale-[1.02]"
+              />
             ))}
           </div>
         </div>
@@ -517,7 +208,6 @@ function BecomePublisher() {
           boxShadow: "0 0 80px rgba(0,120,255,0.2)",
         }}
       />
-      {/* Extra bright core */}
       <div
         className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none"
         style={{
@@ -530,7 +220,6 @@ function BecomePublisher() {
         }}
       />
 
-      {/* SCROLL DOWN side label */}
       <div className="hidden lg:flex flex-col items-center gap-2 fixed right-6 top-1/2 -translate-y-1/2 z-10">
         <span
           className="text-gray-500 text-xs tracking-widest select-none"
@@ -558,7 +247,6 @@ function BecomePublisher() {
         </h2>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          {/* Name + Email */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <input
               name="name"
@@ -581,7 +269,7 @@ function BecomePublisher() {
             <input
               name="email"
               type="email"
-              placeholder="Enter You Mail"
+              placeholder="Enter Your Mail"
               value={form.email}
               onChange={handleChange}
               className="px-4 py-3 rounded-lg text-sm text-white outline-none placeholder-gray-500 transition-all"
@@ -598,7 +286,6 @@ function BecomePublisher() {
             />
           </div>
 
-          {/* Message */}
           <textarea
             name="message"
             placeholder="Your Message..."
@@ -613,10 +300,11 @@ function BecomePublisher() {
             onFocus={(e) =>
               (e.target.style.borderColor = "rgba(0,180,255,0.7)")
             }
-            onBlur={(e) => (e.target.style.borderColor = "rgba(0,120,255,0.3)")}
+            onBlur={(e) =>
+              (e.target.style.borderColor = "rgba(0,120,255,0.3)")
+            }
           />
 
-          {/* Submit */}
           <button
             type="submit"
             className="w-full py-3 rounded-lg text-white font-semibold text-sm transition-all hover:opacity-90"
