@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import FadeSection from "./FadeSection";
 import careerMock from "../utils/careerMock.json";
 
@@ -68,7 +68,581 @@ function CareersHero() {
 }
 
 /* ── Section 2: Why Work Here card ── */
+
 function WhyWorkHere() {
+  const [current, setCurrent] = useState(0);
+
+  const slides = [
+    {
+      number: "01",
+      title: "Exposure to global markets and ",
+      highlight: "large-scale campaigns",
+      image: (
+        <svg
+          viewBox="0 0 700 380"
+          className="w-full h-full"
+          preserveAspectRatio="xMidYMid slice"
+        >
+          <defs>
+            <radialGradient id="g1" cx="50%" cy="50%" r="60%">
+              <stop offset="0%" stopColor="#003870" stopOpacity="0.9" />
+              <stop offset="100%" stopColor="#001030" stopOpacity="1" />
+            </radialGradient>
+            <linearGradient id="fadeTop" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#040815" stopOpacity="0.6" />
+              <stop offset="100%" stopColor="#040815" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+          <rect x="0" y="0" width="700" height="380" fill="url(#g1)" />
+          <ellipse
+            cx="350"
+            cy="260"
+            rx="320"
+            ry="90"
+            fill="rgba(0,60,120,0.5)"
+            stroke="rgba(0,120,200,0.3)"
+            strokeWidth="1"
+          />
+          <g opacity="0.5" fill="#1a4a7a" stroke="#3a8aaa" strokeWidth="0.5">
+            <path d="M120 200 Q160 170 210 180 Q240 175 255 195 Q265 215 248 228 Q220 240 185 232 Q145 222 120 200Z" />
+            <path d="M270 185 Q305 168 340 172 Q365 174 372 190 Q377 208 362 218 Q340 228 312 222 Q285 215 272 198Z" />
+            <path d="M390 178 Q430 162 465 168 Q488 172 492 188 Q495 205 478 215 Q455 224 425 218 Q396 210 388 194Z" />
+            <path d="M300 230 Q322 220 342 225 Q358 229 360 244 Q361 258 345 265 Q325 271 308 264 Q292 256 291 242Z" />
+            <path d="M175 238 Q195 229 210 234 Q222 238 223 252 Q223 265 210 270 Q196 274 184 268 Q172 261 171 248Z" />
+          </g>
+          {[
+            ["155,210", "315,195"],
+            ["315,195", "438,188"],
+            ["438,188", "480,200"],
+            ["315,195", "330,248"],
+            ["155,210", "188,245"],
+          ].map(([s, e], i) => {
+            const [x1, y1] = s.split(",").map(Number),
+              [x2, y2] = e.split(",").map(Number);
+            return (
+              <path
+                key={i}
+                d={`M${x1},${y1} Q${(x1 + x2) / 2},${Math.min(y1, y2) - 25} ${x2},${y2}`}
+                fill="none"
+                stroke="white"
+                strokeWidth="1"
+                strokeDasharray="5 3"
+                opacity="0.6"
+              />
+            );
+          })}
+          {[
+            [155, 210],
+            [315, 195],
+            [438, 188],
+            [480, 200],
+            [330, 248],
+            [188, 245],
+          ].map(([x, y], i) => (
+            <g key={i}>
+              <circle
+                cx={x}
+                cy={y}
+                r="6"
+                fill="rgba(100,180,255,0.3)"
+                stroke="white"
+                strokeWidth="1"
+              />
+              <circle cx={x} cy={y} r="3" fill="white" opacity="0.9" />
+            </g>
+          ))}
+          {[
+            [100, 155],
+            [210, 125],
+            [350, 115],
+            [490, 125],
+            [600, 155],
+          ].map(([x, y], i) => (
+            <g key={i}>
+              <ellipse
+                cx={x}
+                cy={y - 8}
+                rx="16"
+                ry="18"
+                fill="#2a3a5a"
+                stroke="#3a5a8a"
+                strokeWidth="1"
+              />
+              <rect
+                x={x - 18}
+                y={y + 8}
+                width="36"
+                height="35"
+                rx="6"
+                fill="#2a3a5a"
+                stroke="#3a5a8a"
+                strokeWidth="1"
+              />
+            </g>
+          ))}
+          {[
+            [180, 235],
+            [490, 240],
+          ].map(([x, y], i) => (
+            <g key={i}>
+              <rect
+                x={x - 28}
+                y={y - 15}
+                width="56"
+                height="35"
+                rx="3"
+                fill="#0a1840"
+                stroke="#0060C0"
+                strokeWidth="1"
+              />
+              <rect
+                x={x - 32}
+                y={y + 20}
+                width="64"
+                height="7"
+                rx="2"
+                fill="#0a1840"
+                stroke="#0060C0"
+                strokeWidth="1"
+              />
+            </g>
+          ))}
+          {[
+            [280, 258],
+            [420, 255],
+          ].map(([x, y], i) => (
+            <g key={i}>
+              <ellipse
+                cx={x}
+                cy={y}
+                rx="14"
+                ry="9"
+                fill="#1a2050"
+                stroke="#0060C0"
+                strokeWidth="1"
+              />
+              <rect
+                x={x - 8}
+                y={y - 16}
+                width="16"
+                height="18"
+                rx="3"
+                fill="#1a2050"
+                stroke="#0060C0"
+                strokeWidth="1"
+              />
+            </g>
+          ))}
+          <path
+            d="M0 310 Q80 270 160 260 Q180 258 185 270 Q170 280 80 300 Q40 315 0 330Z"
+            fill="#c8956a"
+            opacity="0.7"
+          />
+          <path
+            d="M700 320 Q620 280 560 272 Q540 270 538 282 Q555 292 630 310 Q665 320 700 335Z"
+            fill="#c8956a"
+            opacity="0.6"
+          />
+          <rect
+            x="0"
+            y="0"
+            width="700"
+            height="60"
+            fill="url(#fadeTop)"
+            opacity="0.8"
+          />
+        </svg>
+      ),
+    },
+    {
+      number: "02",
+      title: "Culture of ownership, learning, ",
+      highlight: "and accountability",
+      image: (
+        <svg
+          viewBox="0 0 700 380"
+          className="w-full h-full"
+          preserveAspectRatio="xMidYMid slice"
+        >
+          <defs>
+            <radialGradient id="g2" cx="50%" cy="40%" r="70%">
+              <stop offset="0%" stopColor="#1a2a3a" stopOpacity="1" />
+              <stop offset="100%" stopColor="#050810" stopOpacity="1" />
+            </radialGradient>
+          </defs>
+          <rect x="0" y="0" width="700" height="380" fill="url(#g2)" />
+          <rect
+            x="420"
+            y="0"
+            width="280"
+            height="220"
+            fill="rgba(100,140,200,0.08)"
+            rx="4"
+          />
+          <rect
+            x="440"
+            y="10"
+            width="120"
+            height="180"
+            fill="rgba(120,160,220,0.06)"
+            rx="2"
+          />
+          <rect
+            x="570"
+            y="10"
+            width="120"
+            height="180"
+            fill="rgba(120,160,220,0.06)"
+            rx="2"
+          />
+          <ellipse
+            cx="350"
+            cy="310"
+            rx="340"
+            ry="55"
+            fill="rgba(30,40,60,0.8)"
+            stroke="rgba(60,80,120,0.4)"
+            strokeWidth="1"
+          />
+          {[...Array(8)].map((_, i) => (
+            <g key={i}>
+              <rect
+                x={320}
+                y={180 - i * 22}
+                width={60}
+                height={16}
+                rx="2"
+                fill={`rgba(${180 + i * 5},${140 + i * 3},${80 + i * 4},0.9)`}
+                stroke={`rgba(${160 + i * 5},${120 + i * 3},${60 + i * 4},0.6)`}
+                strokeWidth="0.8"
+                transform={
+                  i % 2 === 0
+                    ? `rotate(0,350,${188 - i * 22})`
+                    : `rotate(90,350,${188 - i * 22})`
+                }
+              />
+            </g>
+          ))}
+          {[
+            [80, 240],
+            [200, 205],
+            [350, 195],
+            [500, 205],
+            [620, 240],
+          ].map(([x, y], i) => (
+            <g key={i}>
+              <ellipse
+                cx={x}
+                cy={y - 15}
+                rx="22"
+                ry="26"
+                fill={
+                  ["#2a3a5a", "#3a3a4a", "#2a3050", "#3a3a50", "#2a3560"][i]
+                }
+                stroke={
+                  ["#4a6a9a", "#5a5a7a", "#4a5080", "#5a5a80", "#4a6090"][i]
+                }
+                strokeWidth="1"
+              />
+              <rect
+                x={x - 25}
+                y={y + 10}
+                width="50"
+                height="45"
+                rx="8"
+                fill={
+                  ["#2a3a5a", "#3a3a4a", "#2a3050", "#3a3a50", "#2a3560"][i]
+                }
+                stroke={
+                  ["#4a6a9a", "#5a5a7a", "#4a5080", "#5a5a80", "#4a6090"][i]
+                }
+                strokeWidth="1"
+              />
+              <path
+                d={`M${x} ${y + 10} Q${350 + (x - 350) * 0.3} ${230} ${330 + i * 8} ${240}`}
+                fill="none"
+                stroke="#c8956a"
+                strokeWidth="4"
+                strokeLinecap="round"
+                opacity="0.6"
+              />
+            </g>
+          ))}
+          {[
+            [250, 290],
+            [450, 290],
+          ].map(([x, y], i) => (
+            <g key={i}>
+              <rect
+                x={x - 6}
+                y={y - 30}
+                width="12"
+                height="35"
+                rx="4"
+                fill="rgba(0,100,50,0.7)"
+                stroke="rgba(0,150,80,0.5)"
+                strokeWidth="1"
+              />
+              <ellipse
+                cx={x}
+                cy={y - 30}
+                rx="6"
+                ry="4"
+                fill="rgba(0,120,60,0.8)"
+              />
+            </g>
+          ))}
+        </svg>
+      ),
+    },
+    {
+      number: "03",
+      title: "Opportunity to work with leading ",
+      highlight: "platforms and partners",
+      image: (
+        <svg
+          viewBox="0 0 700 380"
+          className="w-full h-full"
+          preserveAspectRatio="xMidYMid slice"
+        >
+          <defs>
+            <radialGradient id="g3" cx="40%" cy="50%" r="70%">
+              <stop offset="0%" stopColor="#1a2535" stopOpacity="1" />
+              <stop offset="100%" stopColor="#050810" stopOpacity="1" />
+            </radialGradient>
+          </defs>
+          <rect x="0" y="0" width="700" height="380" fill="url(#g3)" />
+          <rect
+            x="0"
+            y="40"
+            width="700"
+            height="280"
+            fill="rgba(20,30,50,0.4)"
+          />
+          {[0, 1, 2].map((i) => (
+            <rect
+              key={i}
+              x={i * 160}
+              y={50}
+              width={150}
+              height={180}
+              rx="4"
+              fill="rgba(15,25,45,0.6)"
+              stroke="rgba(30,50,80,0.3)"
+              strokeWidth="1"
+            />
+          ))}
+          <rect
+            x="600"
+            y="100"
+            width="20"
+            height="120"
+            rx="4"
+            fill="rgba(30,50,30,0.7)"
+          />
+          <ellipse
+            cx="610"
+            cy="100"
+            rx="30"
+            ry="40"
+            fill="rgba(30,80,30,0.6)"
+            stroke="rgba(50,120,50,0.4)"
+            strokeWidth="1"
+          />
+          <ellipse
+            cx="595"
+            cy="115"
+            rx="20"
+            ry="28"
+            fill="rgba(40,90,40,0.5)"
+          />
+          <ellipse
+            cx="625"
+            cy="108"
+            rx="22"
+            ry="30"
+            fill="rgba(35,85,35,0.5)"
+          />
+          <ellipse
+            cx="350"
+            cy="310"
+            rx="300"
+            ry="45"
+            fill="rgba(25,35,55,0.9)"
+            stroke="rgba(40,60,100,0.4)"
+            strokeWidth="1"
+          />
+          <rect
+            x="280"
+            y="255"
+            width="140"
+            height="90"
+            rx="4"
+            fill="#0a1020"
+            stroke="#1a3060"
+            strokeWidth="1.5"
+          />
+          <rect
+            x="270"
+            y="342"
+            width="160"
+            height="10"
+            rx="3"
+            fill="#0a1020"
+            stroke="#1a3060"
+            strokeWidth="1"
+          />
+          <rect
+            x="288"
+            y="262"
+            width="124"
+            height="76"
+            rx="2"
+            fill="rgba(0,100,200,0.15)"
+          />
+          <rect
+            x="292"
+            y="266"
+            width="116"
+            height="68"
+            rx="1"
+            fill="rgba(20,80,180,0.2)"
+          />
+          {[
+            [60, 200],
+            [160, 170],
+            [290, 160],
+            [430, 165],
+            [540, 175],
+            [650, 200],
+          ].map(([x, y], i) => (
+            <g key={i}>
+              <ellipse
+                cx={x}
+                cy={y - 15}
+                rx="20"
+                ry="24"
+                fill={
+                  [
+                    "#2a3a5a",
+                    "#3a2a3a",
+                    "#2a3050",
+                    "#4a3a2a",
+                    "#2a3a4a",
+                    "#3a3050",
+                  ][i]
+                }
+                stroke={
+                  [
+                    "#4a6a9a",
+                    "#6a4a6a",
+                    "#4a5080",
+                    "#7a6a4a",
+                    "#4a6a7a",
+                    "#5a5080",
+                  ][i]
+                }
+                strokeWidth="1"
+              />
+              <rect
+                x={x - 22}
+                y={y + 8}
+                width="44"
+                height="50"
+                rx="7"
+                fill={
+                  [
+                    "#2a3a5a",
+                    "#3a2a3a",
+                    "#2a3050",
+                    "#4a3a2a",
+                    "#2a3a4a",
+                    "#3a3050",
+                  ][i]
+                }
+                stroke={
+                  [
+                    "#4a6a9a",
+                    "#6a4a6a",
+                    "#4a5080",
+                    "#7a6a4a",
+                    "#4a6a7a",
+                    "#5a5080",
+                  ][i]
+                }
+                strokeWidth="1"
+              />
+              {i % 2 === 0 && (
+                <path
+                  d={`M${x - 15} ${y + 10} Q${x - 35} ${y - 20} ${x - 25} ${y - 40}`}
+                  fill="none"
+                  stroke="#c8956a"
+                  strokeWidth="6"
+                  strokeLinecap="round"
+                  opacity="0.8"
+                />
+              )}
+              {i % 2 !== 0 && (
+                <path
+                  d={`M${x + 15} ${y + 10} Q${x + 35} ${y - 20} ${x + 25} ${y - 40}`}
+                  fill="none"
+                  stroke="#c8956a"
+                  strokeWidth="6"
+                  strokeLinecap="round"
+                  opacity="0.8"
+                />
+              )}
+            </g>
+          ))}
+          {[
+            [180, 315],
+            [520, 318],
+          ].map(([x, y], i) => (
+            <g key={i}>
+              <rect
+                x={x - 10}
+                y={y - 22}
+                width="20"
+                height="24"
+                rx="3"
+                fill="rgba(40,50,80,0.8)"
+                stroke="rgba(60,80,120,0.6)"
+                strokeWidth="1"
+              />
+              <ellipse
+                cx={x}
+                cy={y - 22}
+                rx="10"
+                ry="5"
+                fill="rgba(50,60,90,0.9)"
+              />
+            </g>
+          ))}
+          <rect
+            x="80"
+            y="295"
+            width="120"
+            height="8"
+            rx="3"
+            fill="rgba(200,180,140,0.4)"
+            stroke="rgba(180,160,120,0.3)"
+            strokeWidth="0.5"
+            transform="rotate(-8,140,299)"
+          />
+        </svg>
+      ),
+    },
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % slides.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [slides.length]);
+
+  const slide = slides[current];
+
   return (
     <FadeSection>
       <section className="py-10 px-4">
@@ -77,7 +651,7 @@ function WhyWorkHere() {
             className="relative rounded-2xl overflow-hidden"
             style={{ border: "1px solid rgba(0,80,200,0.25)" }}
           >
-            {/* Background — globe/world meeting image simulation */}
+            {/* Dark background */}
             <div
               className="absolute inset-0"
               style={{
@@ -86,119 +660,14 @@ function WhyWorkHere() {
               }}
             />
 
-            {/* Globe overlay */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div
-                style={{
-                  width: "85%",
-                  height: "85%",
-                  borderRadius: "50%",
-                  background:
-                    "radial-gradient(ellipse at 40% 60%, rgba(0,60,140,0.6) 0%, rgba(0,30,80,0.3) 50%, transparent 75%)",
-                  border: "1px solid rgba(0,120,255,0.15)",
-                  position: "relative",
-                  overflow: "hidden",
-                }}
-              >
-                {/* World map lines */}
-                <svg
-                  viewBox="0 0 400 220"
-                  className="absolute inset-0 w-full h-full opacity-30"
-                >
-                  {/* Continents outline simplified */}
-                  <path
-                    d="M60 80 Q80 60 110 70 Q130 65 140 80 Q150 95 135 105 Q115 115 95 108 Q70 100 60 80Z"
-                    fill="#1a4a8a"
-                    stroke="#00A8FF"
-                    strokeWidth="0.5"
-                  />
-                  <path
-                    d="M155 60 Q175 50 200 55 Q220 58 230 70 Q235 85 225 95 Q210 105 190 100 Q170 95 158 82 Q150 72 155 60Z"
-                    fill="#1a4a8a"
-                    stroke="#00A8FF"
-                    strokeWidth="0.5"
-                  />
-                  <path
-                    d="M240 65 Q265 55 285 62 Q300 68 305 80 Q308 92 298 100 Q282 110 262 105 Q245 98 238 84 Q232 73 240 65Z"
-                    fill="#1a4a8a"
-                    stroke="#00A8FF"
-                    strokeWidth="0.5"
-                  />
-                  <path
-                    d="M170 115 Q185 108 200 112 Q212 116 215 128 Q217 140 208 148 Q196 155 184 150 Q172 144 168 132 Q164 120 170 115Z"
-                    fill="#1a4a8a"
-                    stroke="#00A8FF"
-                    strokeWidth="0.5"
-                  />
-                  <path
-                    d="M95 120 Q110 113 122 118 Q132 123 133 135 Q133 147 122 152 Q110 157 100 151 Q89 144 87 132 Q85 121 95 120Z"
-                    fill="#1a4a8a"
-                    stroke="#00A8FF"
-                    strokeWidth="0.5"
-                  />
-                  {/* Connection arcs */}
-                  {[
-                    ["95,90", "180,80"],
-                    ["180,80", "285,72"],
-                    ["285,72", "310,85"],
-                    ["180,80", "195,130"],
-                    ["95,90", "110,135"],
-                  ].map(([start, end], i) => {
-                    const [x1, y1] = start.split(",").map(Number);
-                    const [x2, y2] = end.split(",").map(Number);
-                    const mx = (x1 + x2) / 2,
-                      my = Math.min(y1, y2) - 30;
-                    return (
-                      <path
-                        key={i}
-                        d={`M${x1},${y1} Q${mx},${my} ${x2},${y2}`}
-                        fill="none"
-                        stroke="#00A8FF"
-                        strokeWidth="0.8"
-                        strokeDasharray="4 3"
-                        opacity="0.6"
-                      />
-                    );
-                  })}
-                  {/* Dots at nodes */}
-                  {[
-                    [95, 90],
-                    [180, 80],
-                    [285, 72],
-                    [310, 85],
-                    [195, 130],
-                    [110, 135],
-                  ].map(([x, y], i) => (
-                    <circle
-                      key={i}
-                      cx={x}
-                      cy={y}
-                      r="3"
-                      fill="white"
-                      opacity="0.8"
-                    />
-                  ))}
-                </svg>
-              </div>
-            </div>
-
-            {/* Table simulation */}
-            <div
-              className="absolute inset-0"
-              style={{ background: "rgba(5,15,40,0.5)" }}
-            />
-
-            {/* Content */}
-            <div className="relative z-10 p-8 md:p-10 flex flex-col md:flex-row justify-between items-start gap-6">
-              <div className="max-w-md">
-                <h3 className="font-display font-bold text-xl md:text-2xl text-white mb-2 leading-snug">
-                  Exposure to global markets and{" "}
-                  <span style={{ color: "#00A8FF" }}>
-                    large-scale campaigns
-                  </span>
+            {/* Title + badge */}
+            <div className="relative z-10 p-8 md:p-10 flex flex-row justify-between items-start gap-6">
+              <div className="max-w-lg">
+                <h3 className="font-display font-bold text-xl md:text-2xl text-white leading-snug">
+                  {slide.title}
+                  <span style={{ color: "#00A8FF" }}>{slide.highlight}</span>
                 </h3>
               </div>
-              {/* Number badge */}
               <div
                 className="flex-shrink-0 w-14 h-14 rounded-full flex items-center justify-center font-display font-bold text-white text-lg"
                 style={{
@@ -206,175 +675,24 @@ function WhyWorkHere() {
                   boxShadow: "0 4px 20px rgba(0,80,200,0.5)",
                 }}
               >
-                01
+                {slide.number}
               </div>
             </div>
 
-            {/* Image row */}
+            {/* Image */}
             <div className="relative z-10 px-8 pb-8">
               <div
-                className="w-full rounded-xl overflow-hidden"
+                className="w-full rounded-xl overflow-hidden transition-all duration-700"
                 style={{
-                  height: "200px",
-                  background:
-                    "linear-gradient(135deg, #0a1a3a 0%, #0d2040 100%)",
+                  height: "260px",
                   border: "1px solid rgba(0,80,200,0.2)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
                 }}
               >
-                {/* Meeting table illustration */}
-                <svg viewBox="0 0 600 200" className="w-full h-full opacity-80">
-                  <defs>
-                    <radialGradient id="tableGlow" cx="50%" cy="50%" r="50%">
-                      <stop offset="0%" stopColor="#00A8FF" stopOpacity="0.3" />
-                      <stop
-                        offset="100%"
-                        stopColor="#003080"
-                        stopOpacity="0.1"
-                      />
-                    </radialGradient>
-                  </defs>
-                  {/* Table */}
-                  <ellipse
-                    cx="300"
-                    cy="130"
-                    rx="220"
-                    ry="55"
-                    fill="url(#tableGlow)"
-                    stroke="#00A8FF"
-                    strokeWidth="1"
-                    opacity="0.6"
-                  />
-                  {/* World map on table */}
-                  <ellipse
-                    cx="300"
-                    cy="120"
-                    rx="190"
-                    ry="45"
-                    fill="rgba(0,60,140,0.4)"
-                    stroke="#0080FF"
-                    strokeWidth="0.5"
-                    opacity="0.5"
-                  />
-                  {/* Connection lines */}
-                  {[
-                    [180, 110],
-                    [250, 105],
-                    [320, 108],
-                    [390, 112],
-                    [450, 118],
-                  ].map(([x, y], i, arr) => {
-                    if (i === 0) return null;
-                    const px = arr[i - 1][0],
-                      py = arr[i - 1][1];
-                    return (
-                      <line
-                        key={i}
-                        x1={px}
-                        y1={py}
-                        x2={x}
-                        y2={y}
-                        stroke="#00A8FF"
-                        strokeWidth="1"
-                        strokeDasharray="6 3"
-                        opacity="0.7"
-                      />
-                    );
-                  })}
-                  {[
-                    [180, 110],
-                    [250, 105],
-                    [320, 108],
-                    [390, 112],
-                    [450, 118],
-                  ].map(([x, y], i) => (
-                    <circle
-                      key={i}
-                      cx={x}
-                      cy={y}
-                      r="4"
-                      fill="white"
-                      opacity="0.9"
-                    />
-                  ))}
-                  {/* People silhouettes around table */}
-                  {[
-                    [120, 85],
-                    [200, 70],
-                    [300, 65],
-                    [400, 70],
-                    [480, 85],
-                  ].map(([x, y], i) => (
-                    <g key={i}>
-                      <circle
-                        cx={x}
-                        cy={y - 12}
-                        r="10"
-                        fill="#1a3060"
-                        stroke="#2a5090"
-                        strokeWidth="1"
-                      />
-                      <rect
-                        x={x - 10}
-                        y={y - 2}
-                        width="20"
-                        height="22"
-                        rx="4"
-                        fill="#1a3060"
-                        stroke="#2a5090"
-                        strokeWidth="1"
-                      />
-                    </g>
-                  ))}
-                  {/* Laptops */}
-                  {[
-                    [170, 118],
-                    [430, 122],
-                  ].map(([x, y], i) => (
-                    <g key={i}>
-                      <rect
-                        x={x - 18}
-                        y={y - 8}
-                        width="36"
-                        height="22"
-                        rx="2"
-                        fill="#0a1840"
-                        stroke="#0060C0"
-                        strokeWidth="0.8"
-                      />
-                      <rect
-                        x={x - 20}
-                        y={y + 14}
-                        width="40"
-                        height="4"
-                        rx="1"
-                        fill="#0a1840"
-                        stroke="#0060C0"
-                        strokeWidth="0.8"
-                      />
-                    </g>
-                  ))}
-                  {/* Coffee cups */}
-                  {[
-                    [240, 128],
-                    [360, 126],
-                  ].map(([x, y], i) => (
-                    <ellipse
-                      key={i}
-                      cx={x}
-                      cy={y}
-                      rx="8"
-                      ry="5"
-                      fill="#1a2050"
-                      stroke="#0060C0"
-                      strokeWidth="0.8"
-                    />
-                  ))}
-                </svg>
+                {slide.image}
               </div>
             </div>
+
+            {/* ❌ Dots removed */}
           </div>
         </div>
       </section>
