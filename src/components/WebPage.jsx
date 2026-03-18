@@ -1,21 +1,5 @@
 import FadeSection from "./FadeSection";
 
-// ─────────────────────────────────────────────
-//  IMAGE IMPORTS
-//  File locations inside your project:
-//
-//  src/assets/images/web/
-//    ├── deliver-cards/
-//    │   ├── cpa-cpl-cps.png               ← card_3__4_.png
-//    │   ├── conversion-optimized.png       ← card_6__1_.png
-//    │   ├── scalable-mobile-web.png        ← card_7__1_.png
-//    │   ├── incremental-user-growth.png    ← card_8__2_.png
-//    │   ├── full-funnel-acquisition.png    ← card_9__2_.png
-//    │   └── vertical-expertise.png         ← card_10.png
-//    ├── brand-ticker.png                   ← Component_10.png
-//    └── categories.png                     ← Group_1171276755__1_.png
-// ─────────────────────────────────────────────
-
 // "What We Deliver" cards
 import cpaCplImg from "../assets/images/web/deliver-cards/cpa-cpl-cps.png";
 import conversionImg from "../assets/images/web/deliver-cards/conversion-optimized.png";
