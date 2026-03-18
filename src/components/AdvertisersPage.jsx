@@ -1,7 +1,7 @@
 import { useState } from "react";
 import FadeSection from "./FadeSection";
 
-/* ── Section 1: Hero ── */
+/* ── Section 1: Hero section ── */
 function AdvertisersHero() {
   return (
     <section className="relative min-h-[50vh] flex flex-col items-center justify-center text-center px-4 pt-28 pb-16 overflow-hidden">
