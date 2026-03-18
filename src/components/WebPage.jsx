@@ -1,5 +1,34 @@
-import { brands, cards } from "../utils/web.utils";
 import FadeSection from "./FadeSection";
+
+// ─────────────────────────────────────────────
+//  IMAGE IMPORTS
+//  File locations inside your project:
+//
+//  src/assets/images/web/
+//    ├── deliver-cards/
+//    │   ├── cpa-cpl-cps.png               ← card_3__4_.png
+//    │   ├── conversion-optimized.png       ← card_6__1_.png
+//    │   ├── scalable-mobile-web.png        ← card_7__1_.png
+//    │   ├── incremental-user-growth.png    ← card_8__2_.png
+//    │   ├── full-funnel-acquisition.png    ← card_9__2_.png
+//    │   └── vertical-expertise.png         ← card_10.png
+//    ├── brand-ticker.png                   ← Component_10.png
+//    └── categories.png                     ← Group_1171276755__1_.png
+// ─────────────────────────────────────────────
+
+// "What We Deliver" cards
+import cpaCplImg from "../assets/images/web/deliver-cards/cpa-cpl-cps.png";
+import conversionImg from "../assets/images/web/deliver-cards/conversion-optimized.png";
+import scalableImg from "../assets/images/web/deliver-cards/scalable-mobile-web.png";
+import incrementalImg from "../assets/images/web/deliver-cards/incremental-user-growth.png";
+import fullFunnelImg from "../assets/images/web/deliver-cards/full-funnel-acquisition.png";
+import verticalImg from "../assets/images/web/deliver-cards/vertical-expertise.png";
+
+// Brand ticker strip
+import brandTickerImg from "../assets/images/web/brand-ticker.png";
+
+// Categories grid
+import categoriesImg from "../assets/images/web/categories.png";
 
 /* ── Section 1: Hero ── */
 function WebHero() {
@@ -29,6 +58,30 @@ function WebHero() {
 
 /* ── Section 2: What We Deliver ── */
 function WhatWeDeliver() {
+  const deliverCards = [
+    { img: cpaCplImg, alt: "CPA, CPL & CPS-Based Customer Acquisition" },
+    {
+      img: conversionImg,
+      alt: "Conversion-Optimized Web Traffic Built for Performance",
+    },
+    {
+      img: scalableImg,
+      alt: "Scalable Mobile Web & Desktop Campaign Execution",
+    },
+    {
+      img: incrementalImg,
+      alt: "Incremental User Growth Through Premium Global Publishers",
+    },
+    {
+      img: fullFunnelImg,
+      alt: "Full-Funnel Acquisition & Retargeting Strategies",
+    },
+    {
+      img: verticalImg,
+      alt: "Vertical Expertise Across Fintech, Gaming, Ecommerce & Lead Generation",
+    },
+  ];
+
   return (
     <FadeSection>
       <section className="py-10 px-4">
@@ -44,20 +97,13 @@ function WhatWeDeliver() {
               What We Deliver
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {cards.map((card, i) => (
-                <div
+              {deliverCards.map((card, i) => (
+                <img
                   key={i}
-                  className="rounded-xl p-5 transition-all duration-300 hover:scale-[1.02]"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, rgba(0,50,160,0.25) 0%, rgba(5,10,40,0.85) 100%)",
-                    border: "1px solid rgba(0,80,200,0.25)",
-                  }}
-                >
-                  <p className="text-white text-sm font-medium leading-snug">
-                    {card.title}
-                  </p>
-                </div>
+                  src={card.img}
+                  alt={card.alt}
+                  className="w-full rounded-xl object-cover transition-all duration-300 hover:scale-[1.02]"
+                />
               ))}
             </div>
           </div>
@@ -68,146 +114,34 @@ function WhatWeDeliver() {
 }
 
 /* ── Section 3: Brand Ticker ── */
+// Full PNG strip — scrolls via CSS marquee animation
 function BrandTicker() {
   return (
     <div className="py-10 border-y border-white/5 overflow-hidden">
-      <div className="flex animate-marquee gap-16 w-max">
-        {brands.map((b, i) => (
-          <div
-            key={i}
-            className="flex items-center gap-2 text-sm font-bold whitespace-nowrap"
-            style={{ color: b.color }}
-          >
-            <span
-              className="w-5 h-5 rounded-full flex-shrink-0"
-              style={{ background: b.color, opacity: 0.85 }}
-            />
-            {b.name}
-          </div>
-        ))}
+      {/* Duplicate the image side-by-side so the marquee loops seamlessly */}
+      <div className="flex animate-marquee gap-0 w-max">
+        <img
+          src={brandTickerImg}
+          alt="Brand partners — AliExpress, Klook, Lycamobile, Shopify, Malaysia Airlines, Surfshark"
+          className="h-10 object-contain flex-shrink-0"
+          draggable={false}
+        />
+        {/* Second copy for seamless loop */}
+        <img
+          src={brandTickerImg}
+          alt=""
+          aria-hidden="true"
+          className="h-10 object-contain flex-shrink-0"
+          draggable={false}
+        />
       </div>
     </div>
   );
 }
 
 /* ── Section 4: Diverse Needs ── */
+// Full PNG grid — already pixel-perfect from Figma
 function DiverseNeeds() {
-  const categories = [
-    {
-      label: "Finance",
-      icon: (
-        <svg
-          width="32"
-          height="32"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="white"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <circle cx="12" cy="12" r="10" />
-          <path d="M12 6v2M12 16v2M9 9.5C9 8.1 10.3 7 12 7s3 1.1 3 2.5S13.7 12 12 12s-3 1.1-3 2.5S10.3 17 12 17s3-1.1 3-2.5" />
-        </svg>
-      ),
-    },
-    {
-      label: "E-commerce",
-      icon: (
-        <svg
-          width="32"
-          height="32"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="white"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <circle cx="9" cy="21" r="1" />
-          <circle cx="20" cy="21" r="1" />
-          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-          <path d="M9 6h6M9 10h6M9 14h3" strokeWidth="1.2" />
-        </svg>
-      ),
-    },
-    {
-      label: "Travel",
-      icon: (
-        <svg
-          width="32"
-          height="32"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="white"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
-          <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
-          <line x1="12" y1="12" x2="12" y2="16" />
-          <line x1="10" y1="14" x2="14" y2="14" />
-        </svg>
-      ),
-    },
-    {
-      label: "Insurance",
-      icon: (
-        <svg
-          width="32"
-          height="32"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="white"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M12 2L4 6v6c0 5.5 3.5 10.7 8 12 4.5-1.3 8-6.5 8-12V6l-8-4z" />
-          <path d="M9 12l2 2 4-4" />
-        </svg>
-      ),
-    },
-    {
-      label: "Education",
-      icon: (
-        <svg
-          width="32"
-          height="32"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="white"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z" />
-          <path d="M6 12v5c3 3 9 3 12 0v-5" />
-        </svg>
-      ),
-    },
-    {
-      label: "Home\nImprovement",
-      icon: (
-        <svg
-          width="32"
-          height="32"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="white"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-          <polyline points="9,22 9,12 15,12 15,22" />
-          <path d="M14 6l2 2M16 4l1 1" strokeWidth="1.2" />
-        </svg>
-      ),
-    },
-  ];
-
   return (
     <FadeSection>
       <section className="py-16 px-4">
@@ -217,34 +151,11 @@ function DiverseNeeds() {
             <br />
             Needs with Precision
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {categories.map((cat, i) => (
-              <div
-                key={i}
-                className="rounded-2xl p-8 flex items-center justify-between cursor-pointer transition-all duration-300 hover:scale-[1.02] min-h-[100px]"
-                style={{
-                  background:
-                    "linear-gradient(135deg, rgba(10,15,45,0.95) 0%, rgba(5,8,30,0.98) 100%)",
-                  border: "1px solid rgba(30,50,120,0.4)",
-                }}
-              >
-                <span className="text-white text-base font-medium whitespace-pre-line leading-snug">
-                  {cat.label}
-                </span>
-                <div className="flex-shrink-0 ml-6 opacity-100">
-                  {/* Render icon larger */}
-                  <div
-                    style={{
-                      transform: "scale(1.4)",
-                      transformOrigin: "center",
-                    }}
-                  >
-                    {cat.icon}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <img
+            src={categoriesImg}
+            alt="Categories — Finance, E-commerce, Travel, Insurance, Education, Home Improvement"
+            className="w-full rounded-2xl object-cover"
+          />
         </div>
       </section>
     </FadeSection>
@@ -278,7 +189,6 @@ function TrafficChannels() {
     { label: "Google", angle: 120, icon: "🔍" },
   ];
 
-  // Convert polar → % positions (center = 50%,50%, radius = 38%)
   const toPos = (angleDeg, r = 38) => {
     const rad = (angleDeg * Math.PI) / 180;
     return {
@@ -295,7 +205,6 @@ function TrafficChannels() {
             Traffic Channels
           </h2>
 
-          {/* Diagram container */}
           <div
             className="relative mx-auto"
             style={{ width: "100%", maxWidth: "640px", aspectRatio: "1/1" }}
@@ -333,7 +242,7 @@ function TrafficChannels() {
             {/* Connector dots on ring */}
             {nodes.map((node, i) => {
               const rad = (node.angle * Math.PI) / 180;
-              const r = 27.5; // % of container — sits on ring edge
+              const r = 27.5;
               const dotLeft = `${50 + r * Math.cos(rad)}%`;
               const dotTop = `${50 - r * Math.sin(rad)}%`;
               return (
@@ -358,17 +267,16 @@ function TrafficChannels() {
             {/* Node labels */}
             {nodes.map((node, i) => {
               const pos = toPos(node.angle, 44);
-              // Determine text alignment by quadrant
               const rad = (node.angle * Math.PI) / 180;
               const cx = Math.cos(rad);
-              const textAlign =
-                cx > 0.3 ? "left" : cx < -0.3 ? "right" : "center";
               const transform =
                 cx > 0.3
                   ? "translate(0,-50%)"
                   : cx < -0.3
                     ? "translate(-100%,-50%)"
                     : "translate(-50%,-50%)";
+              const textAlign =
+                cx > 0.3 ? "left" : cx < -0.3 ? "right" : "center";
 
               return (
                 <div

@@ -1,7 +1,14 @@
 import { useState } from "react";
 import FadeSection from "./FadeSection";
 
-/* ── Section 1: Hero ── */
+// ── Image imports ──
+import cardViewability from "../assets/images/cards/card 3.png";
+import cardPlacements from "../assets/images/cards/card 4.png";
+import cardPublishers from "../assets/images/cards/card 5.png";
+import measurementImg from "../assets/images/partners/measurement-partners.png";
+import mediaImg from "../assets/images/partners/media-partners.png";
+
+/* ── Section 1: Hero section ── */
 function AdvertisersHero() {
   return (
     <section className="relative min-h-[50vh] flex flex-col items-center justify-center text-center px-4 pt-28 pb-16 overflow-hidden">
@@ -24,63 +31,9 @@ function AdvertisersHero() {
 /* ── Section 2: Precision Advertising Cards ── */
 function PrecisionCards() {
   const cards = [
-    {
-      title: "High Impact Placements",
-      desc: "Up to date mobile and desktop ad management and performance.",
-      icon: (
-        <svg
-          width="28"
-          height="28"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="#00A8FF"
-          strokeWidth="1.8"
-        >
-          <circle cx="12" cy="12" r="10" />
-          <circle cx="12" cy="12" r="4" />
-          <line x1="12" y1="2" x2="12" y2="6" />
-          <line x1="12" y1="18" x2="12" y2="22" />
-          <line x1="2" y1="12" x2="6" y2="12" />
-          <line x1="18" y1="12" x2="22" y2="12" />
-        </svg>
-      ),
-    },
-    {
-      title: "Exclusive Placements",
-      desc: "Smarter, more effective placements with media buying and scalable video, display, and native.",
-      icon: (
-        <svg
-          width="28"
-          height="28"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="#00A8FF"
-          strokeWidth="1.8"
-        >
-          <rect x="2" y="3" width="20" height="14" rx="2" />
-          <path d="M8 21h8M12 17v4" />
-        </svg>
-      ),
-    },
-    {
-      title: "Top-Tier Publishers",
-      desc: "An exclusive network of publishers delivering viewability, completions, video, and native.",
-      icon: (
-        <svg
-          width="28"
-          height="28"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="#00A8FF"
-          strokeWidth="1.8"
-        >
-          <circle cx="12" cy="8" r="4" />
-          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
-          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-          <path d="M21 20c0-3-2-5.5-5-6.5" />
-        </svg>
-      ),
-    },
+    { img: cardViewability, alt: "High Viewability" },
+    { img: cardPlacements, alt: "Exclusive Placements" },
+    { img: cardPublishers, alt: "Top-Tier Publishers" },
   ];
 
   return (
@@ -99,28 +52,12 @@ function PrecisionCards() {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {cards.map((card, i) => (
-                <div
+                <img
                   key={i}
-                  className="rounded-xl p-6 flex flex-col gap-4 transition-all duration-300 hover:scale-[1.02]"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, rgba(0,60,180,0.25) 0%, rgba(5,10,40,0.8) 100%)",
-                    border: "1px solid rgba(0,100,255,0.2)",
-                  }}
-                >
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center"
-                    style={{ background: "rgba(0,100,255,0.15)" }}
-                  >
-                    {card.icon}
-                  </div>
-                  <h3 className="font-display font-semibold text-white text-base">
-                    {card.title}
-                  </h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">
-                    {card.desc}
-                  </p>
-                </div>
+                  src={card.img}
+                  alt={card.alt}
+                  className="w-full rounded-xl object-cover transition-all duration-300 hover:scale-[1.02]"
+                />
               ))}
             </div>
           </div>
@@ -134,31 +71,20 @@ function PrecisionCards() {
 function PartnerTabs() {
   const [activeTab, setActiveTab] = useState("measurement");
 
-  const measurementLogos = [
-    { color: "#4ADE80", symbol: "✦", name: "Adjust" },
-    { color: "#FB923C", symbol: "▲", name: "Appsflyer" },
-    { color: "#38BDF8", symbol: "◎", name: "Kochava" },
-    { color: "#A78BFA", symbol: "≡", name: "Branch" },
-    { color: "#34D399", symbol: "★", name: "Singular" },
-    { color: "#F472B6", symbol: "◆", name: "Skan" },
-    { color: "#60A5FA", symbol: "•••", name: "Airbridge" },
-    { color: "#FBBF24", symbol: "⊕", name: "Smartly" },
-    { color: "#F87171", symbol: "✦", name: "Rockerbox" },
+  const tabs = [
+    {
+      key: "measurement",
+      label: "Measurement & Attribution Partners",
+      img: measurementImg,
+    },
+    {
+      key: "media",
+      label: "Media & Platform Partners",
+      img: mediaImg,
+    },
   ];
 
-  const mediaLogos = [
-    { color: "#1877F2", symbol: "f", name: "Meta" },
-    { color: "#FF0000", symbol: "▶", name: "YouTube" },
-    { color: "#00A8FF", symbol: "𝕏", name: "Twitter/X" },
-    { color: "#E1306C", symbol: "◉", name: "Instagram" },
-    { color: "#0077B5", symbol: "in", name: "LinkedIn" },
-    { color: "#FF6900", symbol: "◈", name: "Taboola" },
-    { color: "#4ADE80", symbol: "◎", name: "DV360" },
-    { color: "#F59E0B", symbol: "★", name: "The Trade Desk" },
-    { color: "#A78BFA", symbol: "▲", name: "Criteo" },
-  ];
-
-  const logos = activeTab === "measurement" ? measurementLogos : mediaLogos;
+  const active = tabs.find((t) => t.key === activeTab);
 
   return (
     <FadeSection>
@@ -166,13 +92,7 @@ function PartnerTabs() {
         <div className="max-w-6xl mx-auto">
           {/* Tab headers */}
           <div className="flex border-b border-white/10 mb-8">
-            {[
-              {
-                key: "measurement",
-                label: "Measurement & Attribution Partners",
-              },
-              { key: "media", label: "Media & Platform Partners" },
-            ].map((tab) => (
+            {tabs.map((tab) => (
               <button
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key)}
@@ -191,47 +111,15 @@ function PartnerTabs() {
             ))}
           </div>
 
-          {/* Tab content */}
-          <div
-            className="rounded-2xl p-8 md:p-10 flex flex-col md:flex-row gap-8 items-center"
-            style={{
-              background:
-                "linear-gradient(135deg, rgba(5,20,80,0.6) 0%, rgba(2,8,40,0.8) 100%)",
-              border: "1px solid rgba(0,80,200,0.2)",
-            }}
-          >
-            {/* Left text */}
-            <div className="md:w-1/3 flex-shrink-0">
-              <h3 className="font-display font-bold text-2xl text-white mb-4 leading-snug">
-                {activeTab === "measurement"
-                  ? "Measurement & Attribution Partners"
-                  : "Media & Platform Partners"}
-              </h3>
-              <p className="text-gray-400 text-sm leading-relaxed">
-                Axponent collaborates with a global ecosystem of trusted
-                partners to deliver transparent, scalable, and
-                performance-driven campaigns across every market.
-              </p>
-            </div>
-
-            {/* Right logo grid */}
-            <div className="flex-1 grid grid-cols-3 sm:grid-cols-4 gap-3">
-              {logos.map((logo, i) => (
-                <div
-                  key={i}
-                  className="aspect-square rounded-xl flex items-center justify-center text-xl font-bold cursor-pointer transition-all duration-200 hover:scale-105"
-                  style={{
-                    background: `${logo.color}18`,
-                    border: `1px solid ${logo.color}35`,
-                    color: logo.color,
-                  }}
-                  title={logo.name}
-                >
-                  {logo.symbol}
-                </div>
-              ))}
-            </div>
-          </div>
+          {/* Full-width banner image — switches on tab click */}
+          <img
+            key={
+              active.key
+            } /* key forces re-render / fade if you add CSS transition */
+            src={active.img}
+            alt={active.label}
+            className="w-full rounded-2xl object-cover transition-opacity duration-300"
+          />
         </div>
       </section>
     </FadeSection>
@@ -483,7 +371,7 @@ function GetInTouch() {
             <input
               name="email"
               type="email"
-              placeholder="Enter You Mail"
+              placeholder="Enter Your Mail"
               value={form.email}
               onChange={handleChange}
               className="px-4 py-3 rounded-lg text-sm text-white outline-none placeholder-gray-500 transition-colors"
