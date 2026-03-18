@@ -113,7 +113,9 @@ function PartnerTabs() {
 
           {/* Full-width banner image — switches on tab click */}
           <img
-            key={active.key}           /* key forces re-render / fade if you add CSS transition */
+            key={
+              active.key
+            } /* key forces re-render / fade if you add CSS transition */
             src={active.img}
             alt={active.label}
             className="w-full rounded-2xl object-cover transition-opacity duration-300"

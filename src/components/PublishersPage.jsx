@@ -21,19 +21,19 @@ import FadeSection from "./FadeSection";
 // ─────────────────────────────────────────────
 
 // Monetization cards
-import fillRatesImg      from "../assets/images/publishers/monetization/fill-rates.png";
-import mcmImg            from "../assets/images/publishers/monetization/mcm.png";
-import improveRelImg     from "../assets/images/publishers/monetization/improve-relevance.png";
+import fillRatesImg from "../assets/images/publishers/monetization/fill-rates.png";
+import mcmImg from "../assets/images/publishers/monetization/mcm.png";
+import improveRelImg from "../assets/images/publishers/monetization/improve-relevance.png";
 
 // Publisher categories — full grid PNG
-import categoriesImg     from "../assets/images/publishers/categories/publisher-categories.png";
+import categoriesImg from "../assets/images/publishers/categories/publisher-categories.png";
 
 // What You Can Expect cards
-import globalDemandImg   from "../assets/images/publishers/expect/global-campaign-demand.png";
-import payoutsImg        from "../assets/images/publishers/expect/competitive-payouts.png";
-import trackingImg       from "../assets/images/publishers/expect/transparent-tracking.png";
-import supportImg        from "../assets/images/publishers/expect/dedicated-support.png";
-import scalingImg        from "../assets/images/publishers/expect/long-term-scaling.png";
+import globalDemandImg from "../assets/images/publishers/expect/global-campaign-demand.png";
+import payoutsImg from "../assets/images/publishers/expect/competitive-payouts.png";
+import trackingImg from "../assets/images/publishers/expect/transparent-tracking.png";
+import supportImg from "../assets/images/publishers/expect/dedicated-support.png";
+import scalingImg from "../assets/images/publishers/expect/long-term-scaling.png";
 
 /* ── Section 1: Hero ── */
 function PublishersHero() {
@@ -57,9 +57,9 @@ function PublishersHero() {
 /* ── Section 2: App Monetization Cards ── */
 function MonetizationCards() {
   const cards = [
-    { img: fillRatesImg,   alt: "Fill Rates" },
-    { img: mcmImg,         alt: "MCM" },
-    { img: improveRelImg,  alt: "Improve Relevance" },
+    { img: fillRatesImg, alt: "Fill Rates" },
+    { img: mcmImg, alt: "MCM" },
+    { img: improveRelImg, alt: "Improve Relevance" },
   ];
 
   return (
@@ -122,12 +122,12 @@ function WhatToExpect() {
   // Top row — 3 cards, bottom row — 2 cards
   const topRow = [
     { img: globalDemandImg, alt: "Consistent global campaign demand" },
-    { img: payoutsImg,      alt: "Competitive and timely payouts" },
-    { img: trackingImg,     alt: "Transparent tracking & attribution" },
+    { img: payoutsImg, alt: "Competitive and timely payouts" },
+    { img: trackingImg, alt: "Transparent tracking & attribution" },
   ];
   const bottomRow = [
-    { img: supportImg,  alt: "Dedicated publisher support" },
-    { img: scalingImg,  alt: "Long-term scaling opportunities" },
+    { img: supportImg, alt: "Dedicated publisher support" },
+    { img: scalingImg, alt: "Long-term scaling opportunities" },
   ];
 
   return (
@@ -300,9 +300,7 @@ function BecomePublisher() {
             onFocus={(e) =>
               (e.target.style.borderColor = "rgba(0,180,255,0.7)")
             }
-            onBlur={(e) =>
-              (e.target.style.borderColor = "rgba(0,120,255,0.3)")
-            }
+            onBlur={(e) => (e.target.style.borderColor = "rgba(0,120,255,0.3)")}
           />
 
           <button

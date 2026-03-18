@@ -17,18 +17,18 @@ import FadeSection from "./FadeSection";
 // ─────────────────────────────────────────────
 
 // "What We Deliver" cards
-import cpaCplImg        from "../assets/images/web/deliver-cards/cpa-cpl-cps.png";
-import conversionImg    from "../assets/images/web/deliver-cards/conversion-optimized.png";
-import scalableImg      from "../assets/images/web/deliver-cards/scalable-mobile-web.png";
-import incrementalImg   from "../assets/images/web/deliver-cards/incremental-user-growth.png";
-import fullFunnelImg    from "../assets/images/web/deliver-cards/full-funnel-acquisition.png";
-import verticalImg      from "../assets/images/web/deliver-cards/vertical-expertise.png";
+import cpaCplImg from "../assets/images/web/deliver-cards/cpa-cpl-cps.png";
+import conversionImg from "../assets/images/web/deliver-cards/conversion-optimized.png";
+import scalableImg from "../assets/images/web/deliver-cards/scalable-mobile-web.png";
+import incrementalImg from "../assets/images/web/deliver-cards/incremental-user-growth.png";
+import fullFunnelImg from "../assets/images/web/deliver-cards/full-funnel-acquisition.png";
+import verticalImg from "../assets/images/web/deliver-cards/vertical-expertise.png";
 
 // Brand ticker strip
-import brandTickerImg   from "../assets/images/web/brand-ticker.png";
+import brandTickerImg from "../assets/images/web/brand-ticker.png";
 
 // Categories grid
-import categoriesImg    from "../assets/images/web/categories.png";
+import categoriesImg from "../assets/images/web/categories.png";
 
 /* ── Section 1: Hero ── */
 function WebHero() {
@@ -59,12 +59,27 @@ function WebHero() {
 /* ── Section 2: What We Deliver ── */
 function WhatWeDeliver() {
   const deliverCards = [
-    { img: cpaCplImg,       alt: "CPA, CPL & CPS-Based Customer Acquisition" },
-    { img: conversionImg,   alt: "Conversion-Optimized Web Traffic Built for Performance" },
-    { img: scalableImg,     alt: "Scalable Mobile Web & Desktop Campaign Execution" },
-    { img: incrementalImg,  alt: "Incremental User Growth Through Premium Global Publishers" },
-    { img: fullFunnelImg,   alt: "Full-Funnel Acquisition & Retargeting Strategies" },
-    { img: verticalImg,     alt: "Vertical Expertise Across Fintech, Gaming, Ecommerce & Lead Generation" },
+    { img: cpaCplImg, alt: "CPA, CPL & CPS-Based Customer Acquisition" },
+    {
+      img: conversionImg,
+      alt: "Conversion-Optimized Web Traffic Built for Performance",
+    },
+    {
+      img: scalableImg,
+      alt: "Scalable Mobile Web & Desktop Campaign Execution",
+    },
+    {
+      img: incrementalImg,
+      alt: "Incremental User Growth Through Premium Global Publishers",
+    },
+    {
+      img: fullFunnelImg,
+      alt: "Full-Funnel Acquisition & Retargeting Strategies",
+    },
+    {
+      img: verticalImg,
+      alt: "Vertical Expertise Across Fintech, Gaming, Ecommerce & Lead Generation",
+    },
   ];
 
   return (

@@ -18,16 +18,16 @@ import FadeSection from "./FadeSection";
 // ─────────────────────────────────────────────
 
 // Inventory / Global Media cards
-import ctvOemImg        from "../assets/images/products/inventory-cards/ctv-oem.png";
-import inAppImg         from "../assets/images/products/inventory-cards/in-app-inventory.png";
-import dspSspImg        from "../assets/images/products/inventory-cards/dsp-ssp.png";
-import dmpImg           from "../assets/images/products/inventory-cards/dmp-targeting.png";
+import ctvOemImg from "../assets/images/products/inventory-cards/ctv-oem.png";
+import inAppImg from "../assets/images/products/inventory-cards/in-app-inventory.png";
+import dspSspImg from "../assets/images/products/inventory-cards/dsp-ssp.png";
+import dmpImg from "../assets/images/products/inventory-cards/dmp-targeting.png";
 
 // Phone screen images
-import gamingImg        from "../assets/images/products/phone-screens/gaming-app.png";
-import entertainImg     from "../assets/images/products/phone-screens/entertainment.png";
-import newsImg          from "../assets/images/products/phone-screens/content-news.png";
-import analyticsImg     from "../assets/images/products/phone-screens/analytics.png";
+import gamingImg from "../assets/images/products/phone-screens/gaming-app.png";
+import entertainImg from "../assets/images/products/phone-screens/entertainment.png";
+import newsImg from "../assets/images/products/phone-screens/content-news.png";
+import analyticsImg from "../assets/images/products/phone-screens/analytics.png";
 
 /* ── Section 1: Hero ── */
 function OwnedAssetsHero() {
@@ -51,10 +51,22 @@ function OwnedAssetsHero() {
 /* ── Section 2: Global Media & Inventory Access ── */
 function GlobalMediaAccess() {
   const cards = [
-    { img: ctvOemImg,   alt: "CTV & OEM inventory for high-impact, brand-safe placements" },
-    { img: inAppImg,    alt: "In-app inventory across leading global applications" },
-    { img: dspSspImg,   alt: "DSP & SSP integrations enabling scalable programmatic reach" },
-    { img: dmpImg,      alt: "DMP-driven targeting for advanced audience segmentation and precision delivery" },
+    {
+      img: ctvOemImg,
+      alt: "CTV & OEM inventory for high-impact, brand-safe placements",
+    },
+    {
+      img: inAppImg,
+      alt: "In-app inventory across leading global applications",
+    },
+    {
+      img: dspSspImg,
+      alt: "DSP & SSP integrations enabling scalable programmatic reach",
+    },
+    {
+      img: dmpImg,
+      alt: "DMP-driven targeting for advanced audience segmentation and precision delivery",
+    },
   ];
 
   return (
@@ -98,10 +110,14 @@ function GlobalMediaAccess() {
 /* ── Section 3: Our Owned & Operated Assets ── */
 function OwnedOperatedAssets() {
   const phones = [
-    { img: gamingImg,    alt: "Gaming App" ,    label: "Gaming App" },
-    { img: entertainImg, alt: "Entertainment",  label: "Entertainment" },
-    { img: newsImg,      alt: "Content / News", label: "Content / News" },
-    { img: analyticsImg, alt: "Analytics Dashboard", label: "Analytics Dashboard" },
+    { img: gamingImg, alt: "Gaming App", label: "Gaming App" },
+    { img: entertainImg, alt: "Entertainment", label: "Entertainment" },
+    { img: newsImg, alt: "Content / News", label: "Content / News" },
+    {
+      img: analyticsImg,
+      alt: "Analytics Dashboard",
+      label: "Analytics Dashboard",
+    },
   ];
 
   return (
