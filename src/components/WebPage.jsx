@@ -1,34 +1,18 @@
 import FadeSection from "./FadeSection";
 
-// ─────────────────────────────────────────────
-//  IMAGE IMPORTS
-//  File locations inside your project:
-//
-//  src/assets/images/web/
-//    ├── deliver-cards/
-//    │   ├── cpa-cpl-cps.png               ← card_3__4_.png
-//    │   ├── conversion-optimized.png       ← card_6__1_.png
-//    │   ├── scalable-mobile-web.png        ← card_7__1_.png
-//    │   ├── incremental-user-growth.png    ← card_8__2_.png
-//    │   ├── full-funnel-acquisition.png    ← card_9__2_.png
-//    │   └── vertical-expertise.png         ← card_10.png
-//    ├── brand-ticker.png                   ← Component_10.png
-//    └── categories.png                     ← Group_1171276755__1_.png
-// ─────────────────────────────────────────────
-
 // "What We Deliver" cards
-import cpaCplImg        from "../assets/images/web/deliver-cards/cpa-cpl-cps.png";
-import conversionImg    from "../assets/images/web/deliver-cards/conversion-optimized.png";
-import scalableImg      from "../assets/images/web/deliver-cards/scalable-mobile-web.png";
-import incrementalImg   from "../assets/images/web/deliver-cards/incremental-user-growth.png";
-import fullFunnelImg    from "../assets/images/web/deliver-cards/full-funnel-acquisition.png";
-import verticalImg      from "../assets/images/web/deliver-cards/vertical-expertise.png";
+import cpaCplImg from "../assets/images/web/deliver-cards/cpa-cpl-cps.png";
+import conversionImg from "../assets/images/web/deliver-cards/conversion-optimized.png";
+import scalableImg from "../assets/images/web/deliver-cards/scalable-mobile-web.png";
+import incrementalImg from "../assets/images/web/deliver-cards/incremental-user-growth.png";
+import fullFunnelImg from "../assets/images/web/deliver-cards/full-funnel-acquisition.png";
+import verticalImg from "../assets/images/web/deliver-cards/vertical-expertise.png";
 
 // Brand ticker strip
-import brandTickerImg   from "../assets/images/web/brand-ticker.png";
+import brandTickerImg from "../assets/images/web/brand-ticker.png";
 
 // Categories grid
-import categoriesImg    from "../assets/images/web/categories.png";
+import categoriesImg from "../assets/images/web/categories.png";
 
 /* ── Section 1: Hero ── */
 function WebHero() {
@@ -59,12 +43,27 @@ function WebHero() {
 /* ── Section 2: What We Deliver ── */
 function WhatWeDeliver() {
   const deliverCards = [
-    { img: cpaCplImg,       alt: "CPA, CPL & CPS-Based Customer Acquisition" },
-    { img: conversionImg,   alt: "Conversion-Optimized Web Traffic Built for Performance" },
-    { img: scalableImg,     alt: "Scalable Mobile Web & Desktop Campaign Execution" },
-    { img: incrementalImg,  alt: "Incremental User Growth Through Premium Global Publishers" },
-    { img: fullFunnelImg,   alt: "Full-Funnel Acquisition & Retargeting Strategies" },
-    { img: verticalImg,     alt: "Vertical Expertise Across Fintech, Gaming, Ecommerce & Lead Generation" },
+    { img: cpaCplImg, alt: "CPA, CPL & CPS-Based Customer Acquisition" },
+    {
+      img: conversionImg,
+      alt: "Conversion-Optimized Web Traffic Built for Performance",
+    },
+    {
+      img: scalableImg,
+      alt: "Scalable Mobile Web & Desktop Campaign Execution",
+    },
+    {
+      img: incrementalImg,
+      alt: "Incremental User Growth Through Premium Global Publishers",
+    },
+    {
+      img: fullFunnelImg,
+      alt: "Full-Funnel Acquisition & Retargeting Strategies",
+    },
+    {
+      img: verticalImg,
+      alt: "Vertical Expertise Across Fintech, Gaming, Ecommerce & Lead Generation",
+    },
   ];
 
   return (

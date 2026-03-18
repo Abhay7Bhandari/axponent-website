@@ -51,10 +51,22 @@ function OwnedAssetsHero() {
 /* ── Section 2: Global Media & Inventory Access ── */
 function GlobalMediaAccess() {
   const cards = [
-    { img: ctvOemImg,   alt: "CTV & OEM inventory for high-impact, brand-safe placements" },
-    { img: inAppImg,    alt: "In-app inventory across leading global applications" },
-    { img: dspSspImg,   alt: "DSP & SSP integrations enabling scalable programmatic reach" },
-    { img: dmpImg,      alt: "DMP-driven targeting for advanced audience segmentation and precision delivery" },
+    {
+      img: ctvOemImg,
+      alt: "CTV & OEM inventory for high-impact, brand-safe placements",
+    },
+    {
+      img: inAppImg,
+      alt: "In-app inventory across leading global applications",
+    },
+    {
+      img: dspSspImg,
+      alt: "DSP & SSP integrations enabling scalable programmatic reach",
+    },
+    {
+      img: dmpImg,
+      alt: "DMP-driven targeting for advanced audience segmentation and precision delivery",
+    },
   ];
 
   return (
@@ -98,10 +110,14 @@ function GlobalMediaAccess() {
 /* ── Section 3: Our Owned & Operated Assets ── */
 function OwnedOperatedAssets() {
   const phones = [
-    { img: gamingImg,    alt: "Gaming App" ,    label: "Gaming App" },
-    { img: entertainImg, alt: "Entertainment",  label: "Entertainment" },
-    { img: newsImg,      alt: "Content / News", label: "Content / News" },
-    { img: analyticsImg, alt: "Analytics Dashboard", label: "Analytics Dashboard" },
+    { img: gamingImg, alt: "Gaming App", label: "Gaming App" },
+    { img: entertainImg, alt: "Entertainment", label: "Entertainment" },
+    { img: newsImg, alt: "Content / News", label: "Content / News" },
+    {
+      img: analyticsImg,
+      alt: "Analytics Dashboard",
+      label: "Analytics Dashboard",
+    },
   ];
 
   return (
