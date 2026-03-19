@@ -84,45 +84,79 @@ function PartnerTabs() {
     },
   ];
 
-  const active = tabs.find((t) => t.key === activeTab);
-
   return (
-    <FadeSection>
-      <section className="py-16 px-4">
-        <div className="max-w-6xl mx-auto">
-          {/* Tab headers */}
-          <div className="flex border-b border-white/10 mb-8">
-            {tabs.map((tab) => (
-              <button
-                key={tab.key}
-                onClick={() => setActiveTab(tab.key)}
-                className="px-6 py-4 text-sm font-medium transition-all"
-                style={{
-                  color: activeTab === tab.key ? "#ffffff" : "#6B7280",
-                  borderBottom:
-                    activeTab === tab.key
-                      ? "2px solid #ffffff"
-                      : "2px solid transparent",
-                  marginBottom: "-1px",
-                }}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
+    <section className="py-16 px-4">
+      <div className="max-w-6xl mx-auto">
 
-          {/* Full-width banner image — switches on tab click */}
-          <img
-            key={
-              active.key
-            } /* key forces re-render / fade if you add CSS transition */
-            src={active.img}
-            alt={active.label}
-            className="w-full rounded-2xl object-cover transition-opacity duration-300"
-          />
+        {/* Tab bar */}
+        <div className="flex border-b border-white/10 mb-10">
+          {tabs.map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key)}
+              className="px-6 py-4 text-sm font-medium transition-all duration-200"
+              style={{
+                color: activeTab === tab.key ? "#ffffff" : "#6B7280",
+                borderBottom:
+                  activeTab === tab.key
+                    ? "2px solid #ffffff"
+                    : "2px solid transparent",
+                marginBottom: "-1px",
+              }}
+            >
+              {tab.label}
+            </button>
+          ))}
         </div>
-      </section>
-    </FadeSection>
+
+        {/* Both cards stacked, each fades in on scroll */}
+        <div className="flex flex-col gap-10">
+          {tabs.map((tab) => (
+            <FadeSection key={tab.key}>
+              <div
+                className="relative cursor-pointer"
+                onClick={() => setActiveTab(tab.key)}
+              >
+                {/* Active left stripe */}
+                {activeTab === tab.key && (
+                  <div
+                    // className="absolute -left-4 top-0 bottom-0 w-1 rounded-full"
+                    style={{
+                      background: "linear-gradient(180deg,#0060FF,#00A8FF)",
+                    }}
+                  />
+                )}
+                <img
+                  src={tab.img}
+                  alt={tab.label}
+                  className="w-full rounded-2xl object-cover transition-all duration-400"
+                  style={{
+                    opacity: activeTab === tab.key ? 1 : 0.45,
+                    transform:
+                      activeTab === tab.key ? "scale(1)" : "scale(0.985)",
+                    boxShadow:
+                      activeTab === tab.key
+                        ? "0 0 0 2px rgba(0,168,255,0.55), 0 20px 60px rgba(0,80,200,0.3)"
+                        : "none",
+                    transition:
+                      "opacity 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease",
+                  }}
+                />
+                {/* <p
+                  className="mt-3 text-sm font-medium text-center"
+                  style={{
+                    color: activeTab === tab.key ? "#ffffff" : "#6B7280",
+                  }}
+                >
+                  {/* {tab.label} */}
+                {/* </p */}
+              </div>
+            </FadeSection>
+          ))}
+        </div>
+
+      </div>
+    </section>
   );
 }
 
