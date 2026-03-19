@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import FadeSection from "./FadeSection";
 import careerMock from "../utils/careerMock.json";
 import globalMarketsImg from "../assets/images/careers/global-markets.png";
@@ -703,108 +703,88 @@ function CareersHero() {
 //   );
 // }
 function WhyWorkHere() {
-  const [current, setCurrent] = useState(0);
-
   const slides = [
     {
       number: "01",
       title: "Exposure to global markets and ",
       highlight: "large-scale campaigns",
-      image: (
-        <img
-          src={globalMarketsImg}
-          alt="Exposure to global markets"
-          className="w-full h-full object-cover"
-        />
-      ),
+      img: globalMarketsImg,
+      alt: "Exposure to global markets",
     },
     {
       number: "02",
       title: "Culture of ownership, learning, ",
       highlight: "and accountability",
-      image: (
-        <img
-          src={cultureImg}
-          alt="Culture of ownership"
-          className="w-full h-full object-cover"
-        />
-      ),
+      img: cultureImg,
+      alt: "Culture of ownership",
     },
     {
       number: "03",
       title: "Opportunity to work with leading ",
       highlight: "platforms and partners",
-      image: (
-        <img
-          src={platformsImg}
-          alt="Platforms and partners"
-          className="w-full h-full object-cover"
-        />
-      ),
+      img: platformsImg,
+      alt: "Platforms and partners",
     },
   ];
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % slides.length);
-    }, 4000);
-    return () => clearInterval(timer);
-  }, [slides.length]);
-
-  const slide = slides[current];
-
   return (
-    <FadeSection>
-      <section className="py-10 px-4">
-        <div className="max-w-5xl mx-auto">
-          <div
-            className="relative rounded-2xl overflow-hidden"
-            style={{ border: "1px solid rgba(0,80,200,0.25)" }}
-          >
-            {/* Dark background */}
+    <section className="py-10 px-4">
+      <div className="max-w-5xl mx-auto flex flex-col gap-8">
+        {slides.map((slide) => (
+          <FadeSection key={slide.number}>
             <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(135deg, #0a1a3a 0%, #051020 50%, #0d1830 100%)",
-              }}
-            />
-
-            {/* Title + badge */}
-            <div className="relative z-10 p-8 md:p-10 flex flex-row justify-between items-start gap-6">
-              <div className="max-w-lg">
-                <h3 className="font-display font-bold text-xl md:text-2xl text-white leading-snug">
-                  {slide.title}
-                  <span style={{ color: "#00A8FF" }}>{slide.highlight}</span>
-                </h3>
-              </div>
+              className="relative rounded-2xl overflow-hidden"
+              style={{ border: "1px solid rgba(0,80,200,0.25)" }}
+            >
+              {/* Dark background */}
               <div
-                className="flex-shrink-0 w-14 h-14 rounded-full flex items-center justify-center font-display font-bold text-white text-lg"
+                className="absolute inset-0"
                 style={{
-                  background: "linear-gradient(135deg, #0050C8, #0080FF)",
-                  boxShadow: "0 4px 20px rgba(0,80,200,0.5)",
+                  background:
+                    "linear-gradient(135deg, #0a1a3a 0%, #051020 50%, #0d1830 100%)",
                 }}
-              >
-                {slide.number}
+              />
+
+              {/* Title + badge */}
+              <div className="relative z-10 p-8 md:p-10 flex flex-row justify-between items-start gap-6">
+                <div className="max-w-lg">
+                  <h3 className="font-display font-bold text-xl md:text-2xl text-white leading-snug">
+                    {slide.title}
+                    <span style={{ color: "#00A8FF" }}>{slide.highlight}</span>
+                  </h3>
+                </div>
+                <div
+                  className="flex-shrink-0 w-14 h-14 rounded-full flex items-center justify-center font-display font-bold text-white text-lg"
+                  style={{
+                    background: "linear-gradient(135deg, #0050C8, #0080FF)",
+                    boxShadow: "0 4px 20px rgba(0,80,200,0.5)",
+                  }}
+                >
+                  {slide.number}
+                </div>
+              </div>
+
+              {/* Image */}
+              <div className="relative z-10 px-8 pb-8">
+                <div
+                  className="w-full rounded-xl overflow-hidden"
+                  style={{
+                    height: "260px",
+                    border: "1px solid rgba(0,80,200,0.2)",
+                  }}
+                >
+                  <img
+                    src={slide.img}
+                    alt={slide.alt}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </div>
             </div>
-
-            {/* Image */}
-            <div className="relative z-10 px-8 pb-8">
-              <div
-                className="w-full rounded-xl overflow-hidden transition-all duration-700"
-                style={{
-                  height: "260px",
-                  border: "1px solid rgba(0,80,200,0.2)",
-                }}
-              >
-                {slide.image}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </FadeSection>
+          </FadeSection>
+        ))}
+      </div>
+    </section>
   );
 }
 

@@ -18,16 +18,16 @@ import FadeSection from "./FadeSection";
 // ─────────────────────────────────────────────
 
 // Inventory / Global Media cards
-import ctvOemImg from "../assets/images/products/inventory-cards/ctv-oem.png";
-import inAppImg from "../assets/images/products/inventory-cards/in-app-inventory.png";
-import dspSspImg from "../assets/images/products/inventory-cards/dsp-ssp.png";
-import dmpImg from "../assets/images/products/inventory-cards/dmp-targeting.png";
+import ctvOemImg        from "../assets/images/products/inventory-cards/ctv-oem.png";
+import inAppImg         from "../assets/images/products/inventory-cards/in-app-inventory.png";
+import dspSspImg        from "../assets/images/products/inventory-cards/dsp-ssp.png";
+import dmpImg           from "../assets/images/products/inventory-cards/dmp-targeting.png";
 
 // Phone screen images
-import gamingImg from "../assets/images/products/phone-screens/gaming-app.png";
-import entertainImg from "../assets/images/products/phone-screens/entertainment.png";
-import newsImg from "../assets/images/products/phone-screens/content-news.png";
-import analyticsImg from "../assets/images/products/phone-screens/analytics.png";
+import gamingImg        from "../assets/images/products/phone-screens/gaming-app.png";
+import entertainImg     from "../assets/images/products/phone-screens/entertainment.png";
+import newsImg          from "../assets/images/products/phone-screens/content-news.png";
+import analyticsImg     from "../assets/images/products/phone-screens/analytics.png";
 
 /* ── Section 1: Hero ── */
 function OwnedAssetsHero() {
@@ -110,13 +110,33 @@ function GlobalMediaAccess() {
 /* ── Section 3: Our Owned & Operated Assets ── */
 function OwnedOperatedAssets() {
   const phones = [
-    { img: gamingImg, alt: "Gaming App", label: "Gaming App" },
-    { img: entertainImg, alt: "Entertainment", label: "Entertainment" },
-    { img: newsImg, alt: "Content / News", label: "Content / News" },
+    {
+      img: gamingImg,
+      alt: "Gaming App",
+      label: "Gaming App",
+      category: "GAMING (WORLDWIDE)",
+      url: "https://play.google.com/store",
+    },
+    {
+      img: entertainImg,
+      alt: "Entertainment",
+      label: "Entertainment",
+      category: "ENTERTAINMENT (WORLDWIDE)",
+      url: "https://play.google.com/store",
+    },
+    {
+      img: newsImg,
+      alt: "Content / News",
+      label: "Content / News",
+      category: "CONTENT & NEWS (WORLDWIDE)",
+      url: "https://play.google.com/store",
+    },
     {
       img: analyticsImg,
       alt: "Analytics Dashboard",
-      label: "Analytics Dashboard",
+      label: "Analytics",
+      category: "ANALYTICS (WORLDWIDE)",
+      url: "https://axponent.com",
     },
   ];
 
@@ -134,27 +154,107 @@ function OwnedOperatedAssets() {
             growth.
           </p>
 
-          {/* 4 phone screenshots in a row */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-5 justify-items-center">
+          <div className="flex flex-row justify-center gap-3 flex-wrap">
             {phones.map((phone, i) => (
               <div
                 key={i}
-                className="flex flex-col items-center gap-3 w-full max-w-[180px]"
+                className="product-card flex-shrink-0"
               >
-                <img
-                  src={phone.img}
-                  alt={phone.alt}
-                  className="w-full rounded-[20px] object-cover transition-transform duration-300 hover:scale-[1.04] hover:-translate-y-1"
+                <div
+                  className="relative rounded-[20px] overflow-hidden"
                   style={{
-                    aspectRatio: "9/18",
+                    width: "252px",
+                    height: "489px",
                     boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
                   }}
-                />
+                >
+                  <img
+                    src={phone.img}
+                    alt={phone.alt}
+                    className="w-full h-full object-cover transition-transform duration-500 product-card-img"
+                  />
+
+                  {/* Gradient overlay */}
+                  <div
+                    className="product-overlay absolute inset-0 flex flex-col justify-end"
+                    style={{
+                      background:
+                        "linear-gradient(to top, rgba(4,8,21,0.97) 0%, rgba(4,8,21,0.55) 45%, transparent 100%)",
+                      opacity: 0,
+                      transition: "opacity 0.35s ease",
+                    }}
+                  >
+                    {/* Slide-up info panel */}
+                    <div
+                      className="product-panel mx-3 mb-3 rounded-xl px-4 py-3"
+                      style={{
+                        background: "rgba(255,255,255,0.96)",
+                        transform: "translateY(20px)",
+                        opacity: 0,
+                        transition:
+                          "transform 0.35s ease, opacity 0.35s ease",
+                      }}
+                    >
+                      <p
+                        className="text-gray-400 font-semibold leading-tight"
+                        style={{ fontSize: "10px", letterSpacing: "0.05em" }}
+                      >
+                        {phone.category}
+                      </p>
+                      <div className="flex items-center justify-between mt-1 gap-2">
+                        <p
+                          className="text-gray-900 font-bold truncate"
+                          style={{ fontSize: "13px" }}
+                        >
+                          {phone.label.toUpperCase()}
+                        </p>
+                        <button
+                          onClick={() => window.open(phone.url, "_blank")}
+                          className="flex-shrink-0 flex items-center justify-center rounded-full transition-all duration-200 hover:scale-110 active:scale-95"
+                          style={{
+                            width: "22px",
+                            height: "22px",
+                            background:
+                              "linear-gradient(135deg, #0050FF, #0090FF)",
+                            boxShadow: "0 2px 8px rgba(0,80,255,0.5)",
+                          }}
+                          aria-label={`Open ${phone.label}`}
+                        >
+                          <svg
+                            width="10"
+                            height="10"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="white"
+                            strokeWidth="3"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
+
+      <style>{`
+        .product-card:hover .product-overlay {
+          opacity: 1 !important;
+        }
+        .product-card:hover .product-panel {
+          transform: translateY(0) !important;
+          opacity: 1 !important;
+        }
+        .product-card:hover .product-card-img {
+          transform: scale(1.06);
+        }
+      `}</style>
     </FadeSection>
   );
 }
