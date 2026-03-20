@@ -99,25 +99,100 @@ function WhatWeDeliver() {
 
 /* ── Section 3: Brand Ticker ── */
 // Full PNG strip — scrolls via CSS marquee animation
+// function BrandTicker() {
+//   return (
+//     <div className="py-10 border-y border-white/5 overflow-hidden">
+//       {/* Duplicate the image side-by-side so the marquee loops seamlessly */}
+//       <div className="flex animate-marquee gap-0 w-max">
+//         <img
+//           src={brandTickerImg}
+//           alt="Brand partners — AliExpress, Klook, Lycamobile, Shopify, Malaysia Airlines, Surfshark"
+//           className="h-10 object-contain flex-shrink-0"
+//           draggable={false}
+//         />
+//         {/* Second copy for seamless loop */}
+//         <img
+//           src={brandTickerImg}
+//           alt=""
+//           aria-hidden="true"
+//           className="h-10 object-contain flex-shrink-0"
+//           draggable={false}
+//         />
+//         <img
+//           src={brandTickerImg}
+//           alt=""
+//           aria-hidden="true"
+//           className="h-10 object-contain flex-shrink-0"
+//           draggable={false}
+//         />
+//         <img
+//           src={brandTickerImg}
+//           alt=""
+//           aria-hidden="true"
+//           className="h-10 object-contain flex-shrink-0"
+//           draggable={false}
+//         />
+//         <img
+//           src={brandTickerImg}
+//           alt=""
+//           aria-hidden="true"
+//           className="h-10 object-contain flex-shrink-0"
+//           draggable={false}
+//         />
+//         <img
+//           src={brandTickerImg}
+//           alt=""
+//           aria-hidden="true"
+//           className="h-10 object-contain flex-shrink-0"
+//           draggable={false}
+//         />
+//         <img
+//           src={brandTickerImg}
+//           alt=""
+//           aria-hidden="true"
+//           className="h-10 object-contain flex-shrink-0"
+//           draggable={false}
+//         />
+//         <img
+//           src={brandTickerImg}
+//           alt=""
+//           aria-hidden="true"
+//           className="h-10 object-contain flex-shrink-0"
+//           draggable={false}
+//         />
+//         <img
+//           src={brandTickerImg}
+//           alt=""
+//           aria-hidden="true"
+//           className="h-10 object-contain flex-shrink-0"
+//           draggable={false}
+//         />
+//       </div>
+//     </div>
+//   );
+// }
 function BrandTicker() {
   return (
     <div className="py-10 border-y border-white/5 overflow-hidden">
-      {/* Duplicate the image side-by-side so the marquee loops seamlessly */}
-      <div className="flex animate-marquee gap-0 w-max">
-        <img
-          src={brandTickerImg}
-          alt="Brand partners — AliExpress, Klook, Lycamobile, Shopify, Malaysia Airlines, Surfshark"
-          className="h-10 object-contain flex-shrink-0"
-          draggable={false}
-        />
-        {/* Second copy for seamless loop */}
-        <img
-          src={brandTickerImg}
-          alt=""
-          aria-hidden="true"
-          className="h-10 object-contain flex-shrink-0"
-          draggable={false}
-        />
+      <div
+        className="flex items-center w-max"
+        style={{ animation: "ticker 30s linear infinite" }}
+      >
+        {[...Array(6)].map((_, i) => (
+          <img
+            key={i}
+            src={brandTickerImg}
+            alt={
+              i === 0
+                ? "Brand partners — AliExpress, Klook, Lycamobile, Shopify, Malaysia, Surfshark"
+                : ""
+            }
+            aria-hidden={i !== 0}
+            className="h-10 object-contain flex-shrink-0"
+            style={{ paddingLeft: "80px", paddingRight: "80px" }}
+            draggable={false}
+          />
+        ))}
       </div>
     </div>
   );
