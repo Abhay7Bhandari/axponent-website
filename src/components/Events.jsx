@@ -1,89 +1,215 @@
-import FadeSection from './FadeSection'
+import { useState, useEffect, useRef } from "react";
+import FadeSection from "./FadeSection";
 
-const EVENTS = [
-  {
-    label: 'Team at Conference',
-    gradient: 'linear-gradient(135deg,#1a2a4a,#0a1528)',
-    icon: (
-      <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
-        <path d="M10 50 Q30 20 50 30 Q30 40 10 50z" fill="rgba(0,120,255,0.3)" stroke="#3B82F6" strokeWidth="1" />
-        <circle cx="30" cy="30" r="8" fill="rgba(37,99,235,0.4)" stroke="#60A5FA" strokeWidth="1.2" />
-      </svg>
-    ),
-  },
-  {
-    label: 'Global Summit 2024',
-    gradient: 'linear-gradient(135deg,#2a1a3a,#150a2a)',
-    icon: (
-      <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
-        <rect x="10" y="10" width="40" height="40" rx="8" fill="rgba(124,58,237,0.2)" stroke="#7C3AED" strokeWidth="1.2" />
-        <path d="M20 30h20M30 20v20" stroke="#A78BFA" strokeWidth="2" strokeLinecap="round" />
-      </svg>
-    ),
-  },
-  {
-    label: 'MWC Barcelona',
-    gradient: 'linear-gradient(135deg,#1a3a2a,#0a1a10)',
-    icon: (
-      <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
-        <circle cx="30" cy="30" r="20" stroke="#10B981" strokeWidth="1.2" fill="rgba(16,185,129,0.1)" />
-        <path d="M22 30l6 6 10-12" stroke="#34D399" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
-  },
-  {
-    label: 'Ad:Tech India',
-    gradient: 'linear-gradient(135deg,#3a1a1a,#1a0a0a)',
-    icon: (
-      <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
-        <path d="M30 10l8 16h18l-14 12 5 17-17-12-17 12 5-17L4 26h18z" fill="rgba(251,191,36,0.3)" stroke="#FBBF24" strokeWidth="1.2" />
-      </svg>
-    ),
-  },
-  {
-    label: 'Performance Summit',
-    gradient: 'linear-gradient(135deg,#1a2a3a,#0a1520)',
-    icon: (
-      <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
-        <path d="M10 44 Q20 20 30 25 Q40 30 50 16" stroke="#60A5FA" strokeWidth="2" fill="none" strokeLinecap="round" />
-        <circle cx="30" cy="25" r="5" fill="#2563EB" />
-        <circle cx="50" cy="16" r="4" fill="#3B82F6" />
-        <circle cx="10" cy="44" r="4" fill="#1D4ED8" />
-      </svg>
-    ),
-  },
-]
+import img0 from "../assets/images/home/events/caraousel-zero.png";
+import img1 from "../assets/images/home/events/caraousel-one.png";
+import img2 from "../assets/images/home/events/caraousel-two.png";
+import img3 from "../assets/images/home/events/caraousel-three.png";
+import img4 from "../assets/images/home/events/caraousel-four.png";
+
+const IMAGES = [img0, img1, img2, img3, img4];
+
+// Figma specs — centre lifted more (top: 60 instead of 109)
+const SLOTS = [
+  { width: 172, height: 270, top: 180, left: 0 },
+  { width: 236, height: 371, top: 120, left: 201 },
+  { width: 296, height: 465, top: 40, left: 466 }, // lifted up more
+  { width: 236, height: 371, top: 120, left: 791 },
+  { width: 172, height: 270, top: 180, left: 1056 },
+];
+
+const CANVAS_HEIGHT = 505;
+const CANVAS_WIDTH = 1228;
 
 export default function Events() {
+  const [current, setCurrent] = useState(0);
+  const timerRef = useRef(null);
+  const n = IMAGES.length;
+
+  const startTimer = () => {
+    clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % n);
+    }, 3000);
+  };
+
+  useEffect(() => {
+    startTimer();
+    return () => clearInterval(timerRef.current);
+  }, []);
+
+  const go = (dir) => {
+    setCurrent((prev) => (prev + dir + n) % n);
+    startTimer();
+  };
+
+  // Arrow vertical position: aligned to the mid-height of the side cards
+  // Side cards: top=180, height=270 → midpoint = 180 + 135 = 315px out of 505
+  const arrowTopPct = ((180 + 135) / CANVAS_HEIGHT) * 100;
+
   return (
     <FadeSection>
-      <section className="py-20 px-4">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="font-display text-4xl md:text-5xl font-bold text-center text-white mb-14">
+      <section className="py-20 pb-8 overflow-hidden">
+        <div className="max-w-[1400px] mx-auto px-2">
+          <h2 className="font-display text-4xl md:text-5xl font-bold text-center text-white mb-16">
             Axponent <span className="text-brand-blue">At Events</span>
           </h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-            {EVENTS.map((ev, i) => (
-              <div
-                key={i}
-                className="event-img rounded-2xl overflow-hidden cursor-pointer relative"
+
+          {/* Carousel canvas with arrows overlaid */}
+          <div
+            className="relative mx-auto"
+            style={{
+              paddingBottom: `${(CANVAS_HEIGHT / CANVAS_WIDTH) * 100}%`,
+            }}
+          >
+            <div className="absolute inset-0">
+              {/* Cards */}
+              {IMAGES.map((src, idx) => {
+                let offset = idx - current;
+                if (offset > Math.floor(n / 2)) offset -= n;
+                if (offset < -Math.floor(n / 2)) offset += n;
+
+                const slotIdx = offset + 2;
+                if (slotIdx < 0 || slotIdx > 4) return null;
+
+                const s = SLOTS[slotIdx];
+                const isCenter = slotIdx === 2;
+
+                const leftPct = (s.left / CANVAS_WIDTH) * 100;
+                const topPct = (s.top / CANVAS_HEIGHT) * 100;
+                const widthPct = (s.width / CANVAS_WIDTH) * 100;
+                const heightPct = (s.height / CANVAS_HEIGHT) * 100;
+
+                return (
+                  <div
+                    key={idx}
+                    onClick={() => {
+                      if (!isCenter) go(offset > 0 ? 1 : -1);
+                    }}
+                    style={{
+                      position: "absolute",
+                      left: `${leftPct}%`,
+                      top: `${topPct}%`,
+                      width: `${widthPct}%`,
+                      height: `${heightPct}%`,
+                      borderRadius: 18,
+                      overflow: "hidden",
+                      zIndex: isCenter
+                        ? 10
+                        : slotIdx === 1 || slotIdx === 3
+                          ? 7
+                          : 4,
+                      border: isCenter
+                        ? "2px solid rgba(0,168,255,0.7)"
+                        : "1px solid rgba(255,255,255,0.10)",
+                      boxShadow: isCenter
+                        ? "0 8px 40px rgba(0,120,255,0.30), 0 2px 16px rgba(0,0,0,0.5)"
+                        : "0 4px 20px rgba(0,0,0,0.35)",
+                      cursor: isCenter ? "default" : "pointer",
+                      transition: "all 0.55s cubic-bezier(0.4,0,0.2,1)",
+                    }}
+                  >
+                    <img
+                      src={src}
+                      alt={`Event ${idx + 1}`}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        display: "block",
+                        filter: isCenter ? "none" : "brightness(0.6)",
+                        transition: "filter 0.55s ease",
+                      }}
+                    />
+                  </div>
+                );
+              })}
+
+              {/* Left arrow — aligned to side-card vertical centre */}
+              <button
+                onClick={() => go(-1)}
                 style={{
-                  background: ev.gradient,
-                  aspectRatio: '3/4',
-                  border: '1px solid rgba(30,50,120,0.4)',
+                  position: "absolute",
+                  left: "-4%",
+                  top: `${arrowTopPct}%`,
+                  transform: "translateY(-50%)",
+                  zIndex: 20,
+                  background: "rgba(255,255,255,0.08)",
+                  border: "1px solid rgba(255,255,255,0.18)",
+                  borderRadius: "50%",
+                  width: 36,
+                  height: 36,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                  transition: "background 0.2s, border-color 0.2s",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "rgba(0,168,255,0.25)";
+                  e.currentTarget.style.borderColor = "rgba(0,168,255,0.5)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "rgba(255,255,255,0.08)";
+                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.18)";
                 }}
               >
-                <div className="absolute inset-0 flex items-center justify-center">
-                  {ev.icon}
-                </div>
-                <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent">
-                  <span className="text-white text-xs font-medium">{ev.label}</span>
-                </div>
-              </div>
-            ))}
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="2.5"
+                >
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+
+              {/* Right arrow */}
+              <button
+                onClick={() => go(1)}
+                style={{
+                  position: "absolute",
+                  right: "-4%",
+                  top: `${arrowTopPct}%`,
+                  transform: "translateY(-50%)",
+                  zIndex: 20,
+                  background: "rgba(255,255,255,0.08)",
+                  border: "1px solid rgba(255,255,255,0.18)",
+                  borderRadius: "50%",
+                  width: 36,
+                  height: 36,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                  transition: "background 0.2s, border-color 0.2s",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "rgba(0,168,255,0.25)";
+                  e.currentTarget.style.borderColor = "rgba(0,168,255,0.5)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "rgba(255,255,255,0.08)";
+                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.18)";
+                }}
+              >
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="2.5"
+                >
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </section>
     </FadeSection>
-  )
+  );
 }
