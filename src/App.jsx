@@ -27,14 +27,14 @@ function HomePage() {
     <>
       <Hero />
       <Stats />
-      <WhatWeDo />
+      <WhatWeDo /> 
       <LogoTicker />
-      <HowWeDo />
+      <HowWeDo /> 
       <FourAs />
-      <CaseStudy />
+      <CaseStudy /> 
       <TrustedBy />
       <Testimonials />
-      <Events />
+      <Events /> 
     </>
   );
 }
