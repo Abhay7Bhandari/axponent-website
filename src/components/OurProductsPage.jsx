@@ -18,16 +18,16 @@ import FadeSection from "./FadeSection";
 // ─────────────────────────────────────────────
 
 // Inventory / Global Media cards
-import ctvOemImg        from "../assets/images/products/inventory-cards/ctv-oem.png";
-import inAppImg         from "../assets/images/products/inventory-cards/in-app-inventory.png";
-import dspSspImg        from "../assets/images/products/inventory-cards/dsp-ssp.png";
-import dmpImg           from "../assets/images/products/inventory-cards/dmp-targeting.png";
+import ctvOemImg from "../assets/images/products/inventory-cards/ctv-oem.png";
+import inAppImg from "../assets/images/products/inventory-cards/in-app-inventory.png";
+import dspSspImg from "../assets/images/products/inventory-cards/dsp-ssp.png";
+import dmpImg from "../assets/images/products/inventory-cards/dmp-targeting.png";
 
 // Phone screen images
-import gamingImg        from "../assets/images/products/phone-screens/gaming-app.png";
-import entertainImg     from "../assets/images/products/phone-screens/entertainment.png";
-import newsImg          from "../assets/images/products/phone-screens/content-news.png";
-import analyticsImg     from "../assets/images/products/phone-screens/analytics.png";
+import gamingImg from "../assets/images/products/phone-screens/gaming-app.png";
+import entertainImg from "../assets/images/products/phone-screens/entertainment.png";
+import newsImg from "../assets/images/products/phone-screens/content-news.png";
+import analyticsImg from "../assets/images/products/phone-screens/analytics.png";
 
 /* ── Section 1: Hero ── */
 function OwnedAssetsHero() {
