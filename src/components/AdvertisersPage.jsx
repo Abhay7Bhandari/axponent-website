@@ -8,6 +8,12 @@ import cardPublishers from "../assets/images/cards/card 5.png";
 import measurementImg from "../assets/images/partners/measurement-partners.png";
 import mediaImg from "../assets/images/partners/media-partners.png";
 
+//Ad imports
+import bannerAd from "../assets/images/advertisers/banner_ad.png";
+import nativeAd from "../assets/images/advertisers/native_ad.png";
+import videoAd from "../assets/images/advertisers/video_ad.png";
+import interstitialAd from "../assets/images/advertisers/interstitial_ad.png";
+
 /* ── Section 1: Hero section ── */
 function AdvertisersHero() {
   return (
@@ -217,107 +223,212 @@ function AdFraudDetection() {
 }
 
 /* ── Section 5: Ad Format ── */
+// function AdFormat() {
+//   const [activeFormat, setActiveFormat] = useState("Banner AD");
+//   const formats = ["Banner AD", "Native AD", "Video AD", "Interstitial AD"];
+
+//   return (
+//     <FadeSection>
+//       <section className="py-16 px-4">
+//         <div className="max-w-6xl mx-auto">
+//           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+//             {/* Left – phone mockup */}
+//             <div className="flex justify-center">
+//               <div
+//                 className="relative w-48 rounded-3xl overflow-hidden"
+//                 style={{
+//                   background: "#0A0F2A",
+//                   border: "2px solid rgba(0,100,255,0.3)",
+//                   boxShadow: "0 0 40px rgba(0,80,200,0.2)",
+//                   aspectRatio: "9/18",
+//                 }}
+//               >
+//                 {/* Phone status bar */}
+//                 <div className="flex justify-between items-center px-4 py-2 text-white text-xs">
+//                   <span>9:41</span>
+//                   <div className="flex gap-1">
+//                     <span>▐▐▐</span>
+//                     <span>WiFi</span>
+//                   </div>
+//                 </div>
+//                 {/* Feed items */}
+//                 <div className="px-3 flex flex-col gap-2 mt-1">
+//                   {[...Array(4)].map((_, i) => (
+//                     <div key={i} className="flex gap-2 items-start">
+//                       <div
+//                         className="w-8 h-8 rounded flex-shrink-0"
+//                         style={{ background: "rgba(30,50,120,0.6)" }}
+//                       />
+//                       <div className="flex-1 flex flex-col gap-1">
+//                         <div
+//                           className="h-2 rounded"
+//                           style={{
+//                             background: "rgba(255,255,255,0.15)",
+//                             width: "80%",
+//                           }}
+//                         />
+//                         <div
+//                           className="h-2 rounded"
+//                           style={{
+//                             background: "rgba(255,255,255,0.08)",
+//                             width: "60%",
+//                           }}
+//                         />
+//                       </div>
+//                     </div>
+//                   ))}
+//                 </div>
+//                 {/* Banner AD at bottom */}
+//                 <div
+//                   className="absolute bottom-0 left-0 right-0 py-3 flex items-center justify-center text-white text-xs font-semibold"
+//                   style={{
+//                     background: "linear-gradient(90deg,#0060FF,#0090FF)",
+//                   }}
+//                 >
+//                   {activeFormat}
+//                 </div>
+//               </div>
+//             </div>
+
+//             {/* Right – format list */}
+//             <div>
+//               <h2 className="font-display font-bold text-4xl text-white mb-8">
+//                 Ad Format
+//               </h2>
+//               <div className="flex flex-col gap-2">
+//                 {formats.map((fmt) => (
+//                   <button
+//                     key={fmt}
+//                     onClick={() => setActiveFormat(fmt)}
+//                     className="text-left px-4 py-3 rounded-lg transition-all text-sm font-medium"
+//                     style={{
+//                       color: activeFormat === fmt ? "#ffffff" : "#6B7280",
+//                       background:
+//                         activeFormat === fmt
+//                           ? "rgba(0,80,200,0.15)"
+//                           : "transparent",
+//                       border:
+//                         activeFormat === fmt
+//                           ? "1px solid rgba(0,120,255,0.3)"
+//                           : "1px solid transparent",
+//                     }}
+//                   >
+//                     {fmt}
+//                   </button>
+//                 ))}
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       </section>
+//     </FadeSection>
+//   );
+// }
+
+
 function AdFormat() {
   const [activeFormat, setActiveFormat] = useState("Banner AD");
-  const formats = ["Banner AD", "Native AD", "Video AD", "Interstitial AD"];
+
+  // 1. Define your images here
+  const adContent = {
+    "Banner AD": {
+      image: bannerAd, 
+      isFullPage: false, // Banner stays at bottom
+    },
+    "Native AD": {
+      image: nativeAd,
+      isFullPage: true, // Fills the whole phone screen
+    },
+    "Video AD": {
+      image: videoAd,
+      isFullPage: false, // Sits inside the feed
+    },
+    "Interstitial AD": {
+      image: interstitialAd,
+      isFullPage: false, // Sits inside the feed
+    }
+  };
+
+  const formats = Object.keys(adContent);
 
   return (
-    <FadeSection>
-      <section className="py-16 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            {/* Left – phone mockup */}
-            <div className="flex justify-center">
-              <div
-                className="relative w-48 rounded-3xl overflow-hidden"
-                style={{
-                  background: "#0A0F2A",
-                  border: "2px solid rgba(0,100,255,0.3)",
-                  boxShadow: "0 0 40px rgba(0,80,200,0.2)",
-                  aspectRatio: "9/18",
-                }}
-              >
-                {/* Phone status bar */}
-                <div className="flex justify-between items-center px-4 py-2 text-white text-xs">
-                  <span>9:41</span>
-                  <div className="flex gap-1">
-                    <span>▐▐▐</span>
-                    <span>WiFi</span>
-                  </div>
-                </div>
-                {/* Feed items */}
-                <div className="px-3 flex flex-col gap-2 mt-1">
-                  {[...Array(4)].map((_, i) => (
-                    <div key={i} className="flex gap-2 items-start">
-                      <div
-                        className="w-8 h-8 rounded flex-shrink-0"
-                        style={{ background: "rgba(30,50,120,0.6)" }}
-                      />
-                      <div className="flex-1 flex flex-col gap-1">
-                        <div
-                          className="h-2 rounded"
-                          style={{
-                            background: "rgba(255,255,255,0.15)",
-                            width: "80%",
-                          }}
-                        />
-                        <div
-                          className="h-2 rounded"
-                          style={{
-                            background: "rgba(255,255,255,0.08)",
-                            width: "60%",
-                          }}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                {/* Banner AD at bottom */}
-                <div
-                  className="absolute bottom-0 left-0 right-0 py-3 flex items-center justify-center text-white text-xs font-semibold"
-                  style={{
-                    background: "linear-gradient(90deg,#0060FF,#0090FF)",
-                  }}
-                >
-                  {activeFormat}
+    <section className="py-20 px-4 bg-[#020617] min-h-screen flex items-center">
+      <div className="max-w-5xl mx-auto w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+          
+          {/* Left – The Phone Mockup */}
+          <div className="flex justify-center">
+            <div className="relative w-64 aspect-[9/19] rounded-[3rem] border-[8px] border-slate-800 bg-[#05070A] overflow-hidden shadow-2xl ring-1 ring-white/5">
+              
+              {/* Status Bar */}
+              <div className="absolute top-0 w-full flex justify-between px-8 py-5 text-white text-[10px] z-20">
+                <span>9:41</span>
+                <div className="flex gap-1.5 items-center">
+                  <div className="w-3 h-[2px] bg-white/40 rounded" />
+                  <div className="w-2 h-2 rounded-full bg-white/40" />
                 </div>
               </div>
-            </div>
 
-            {/* Right – format list */}
-            <div>
-              <h2 className="font-display font-bold text-4xl text-white mb-8">
-                Ad Format
-              </h2>
-              <div className="flex flex-col gap-2">
-                {formats.map((fmt) => (
-                  <button
-                    key={fmt}
-                    onClick={() => setActiveFormat(fmt)}
-                    className="text-left px-4 py-3 rounded-lg transition-all text-sm font-medium"
-                    style={{
-                      color: activeFormat === fmt ? "#ffffff" : "#6B7280",
-                      background:
-                        activeFormat === fmt
-                          ? "rgba(0,80,200,0.15)"
-                          : "transparent",
-                      border:
-                        activeFormat === fmt
-                          ? "1px solid rgba(0,120,255,0.3)"
-                          : "1px solid transparent",
-                    }}
-                  >
-                    {fmt}
-                  </button>
-                ))}
+              {/* Dynamic Content Area */}
+              <div className="relative h-full w-full pt-12">
+                {activeFormat === "Native AD" ? (
+                  /* FULL PAGE OPTION (Matches SS 2) */
+                  <img 
+                    src={adContent[activeFormat].image} 
+                    className="absolute inset-0 w-full h-full object-cover"
+                    alt="Native Ad"
+                  />
+                ) : (
+                  /* FEED OPTION (Matches SS 1, 3, 4) */
+                  <div className="p-4 flex flex-col gap-4">
+                    {/* Placeholder content above the ad */}
+                    <div className="h-20 w-full bg-slate-900/50 rounded-xl" />
+                    
+                    {/* THE AD IMAGE */}
+                    <div className={`transition-all duration-300 ${activeFormat === "Banner AD" ? "absolute bottom-0 left-0 w-full" : "relative"}`}>
+                       <img 
+                        src={adContent[activeFormat].image} 
+                        className="w-full h-auto rounded-lg shadow-lg"
+                        alt={activeFormat}
+                      />
+                    </div>
+
+                    {/* Placeholder content below the ad */}
+                    <div className="h-20 w-full bg-slate-900/50 rounded-xl" />
+                    <div className="h-20 w-full bg-slate-900/50 rounded-xl" />
+                  </div>
+                )}
               </div>
             </div>
           </div>
+
+          {/* Right – Interactive Controls */}
+          <div>
+            <h2 className="text-5xl font-bold text-white mb-10 tracking-tight">Ad Format</h2>
+            <div className="flex flex-col gap-3">
+              {formats.map((fmt) => (
+                <button
+                  key={fmt}
+                  onClick={() => setActiveFormat(fmt)}
+                  className={`text-left px-6 py-4 rounded-2xl transition-all duration-300 border ${
+                    activeFormat === fmt 
+                    ? "bg-blue-600 border-blue-400 text-white translate-x-2" 
+                    : "bg-slate-900/50 border-slate-800 text-slate-500 hover:text-slate-300"
+                  }`}
+                >
+                  <span className="text-lg font-bold">{fmt}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
         </div>
-      </section>
-    </FadeSection>
+      </div>
+    </section>
   );
 }
+
+
 
 /* ── Section 6: Get In Touch ── */
 function GetInTouch() {
