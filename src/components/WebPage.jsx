@@ -1,3 +1,4 @@
+import React, { useState, useEffect, useRef } from "react";
 import FadeSection from "./FadeSection";
 
 // "What We Deliver" cards
@@ -8,7 +9,7 @@ import incrementalImg from "../assets/images/web/deliver-cards/incremental-user-
 import fullFunnelImg from "../assets/images/web/deliver-cards/full-funnel-acquisition.png";
 import verticalImg from "../assets/images/web/deliver-cards/vertical-expertise.png";
 
-// Brand ticker strip
+// Brand ticker logos
 import webLogo1 from "../assets/images/clients/Web page Logo/Agoda.png";
 import webLogo2 from "../assets/images/clients/Web page Logo/AliExpress.png";
 import webLogo3 from "../assets/images/clients/Web page Logo/HboMax.png";
@@ -19,6 +20,10 @@ import webLogo7 from "../assets/images/clients/Web page Logo/Malaysia.png";
 import webLogo8 from "../assets/images/clients/Web page Logo/Noton.png";
 import webLogo9 from "../assets/images/clients/Web page Logo/Shopify.png";
 import webLog10 from "../assets/images/clients/Web page Logo/Surfshank.png";
+
+// Traffic Channels icons (using emojis for simplicity)
+import Contextual from "../assets/images/web/Traffic-Channels/Contextual.svg";
+import Contextualllintent from "../assets/images/web/Traffic-Channels/Contextualllintent.svg";
 
 const WEB_LOGOS = [
   { name: "Agoda", src: webLogo1 },
@@ -121,79 +126,6 @@ function WhatWeDeliver() {
 }
 
 /* ── Section 3: Brand Ticker ── */
-// Full PNG strip — scrolls via CSS marquee animation
-// function BrandTicker() {
-//   return (
-//     <div className="py-10 border-y border-white/5 overflow-hidden">
-//       {/* Duplicate the image side-by-side so the marquee loops seamlessly */}
-//       <div className="flex animate-marquee gap-0 w-max">
-//         <img
-//           src={brandTickerImg}
-//           alt="Brand partners — AliExpress, Klook, Lycamobile, Shopify, Malaysia Airlines, Surfshark"
-//           className="h-10 object-contain flex-shrink-0"
-//           draggable={false}
-//         />
-//         {/* Second copy for seamless loop */}
-//         <img
-//           src={brandTickerImg}
-//           alt=""
-//           aria-hidden="true"
-//           className="h-10 object-contain flex-shrink-0"
-//           draggable={false}
-//         />
-//         <img
-//           src={brandTickerImg}
-//           alt=""
-//           aria-hidden="true"
-//           className="h-10 object-contain flex-shrink-0"
-//           draggable={false}
-//         />
-//         <img
-//           src={brandTickerImg}
-//           alt=""
-//           aria-hidden="true"
-//           className="h-10 object-contain flex-shrink-0"
-//           draggable={false}
-//         />
-//         <img
-//           src={brandTickerImg}
-//           alt=""
-//           aria-hidden="true"
-//           className="h-10 object-contain flex-shrink-0"
-//           draggable={false}
-//         />
-//         <img
-//           src={brandTickerImg}
-//           alt=""
-//           aria-hidden="true"
-//           className="h-10 object-contain flex-shrink-0"
-//           draggable={false}
-//         />
-//         <img
-//           src={brandTickerImg}
-//           alt=""
-//           aria-hidden="true"
-//           className="h-10 object-contain flex-shrink-0"
-//           draggable={false}
-//         />
-//         <img
-//           src={brandTickerImg}
-//           alt=""
-//           aria-hidden="true"
-//           className="h-10 object-contain flex-shrink-0"
-//           draggable={false}
-//         />
-//         <img
-//           src={brandTickerImg}
-//           alt=""
-//           aria-hidden="true"
-//           className="h-10 object-contain flex-shrink-0"
-//           draggable={false}
-//         />
-//       </div>
-//     </div>
-//   );
-// }
 function BrandTicker() {
   return (
     <div className="py-10 border-y border-white/5 overflow-hidden">
@@ -225,7 +157,6 @@ function BrandTicker() {
 }
 
 /* ── Section 4: Diverse Needs ── */
-// Full PNG grid — already pixel-perfect from Figma
 function DiverseNeeds() {
   return (
     <FadeSection>
@@ -247,146 +178,250 @@ function DiverseNeeds() {
   );
 }
 
-/* ── Section 5: Traffic Channels Diagram ── */
+/* ── Section 5: Traffic Channels — Orbit with active dot ── */
 function TrafficChannels() {
   const nodes = [
-    {
-      label: "Performance Publisher &\nComparison Networks",
-      angle: 90,
-      icon: "👥",
-    },
-    {
-      label: "Native, Display &\nProgrammatic Advertising",
-      angle: 20,
-      icon: "📺",
-    },
-    { label: "Email & Push High-Intent\nWeb Traffic", angle: -30, icon: "📧" },
-    {
-      label: "Direct Media Buying &\nExclusive Inventory Access",
-      angle: 210,
-      icon: "🛒",
-    },
-    {
-      label: "Contextual & Intent-Based\nAudience Targeting",
-      angle: 150,
-      icon: "🎯",
-    },
-    { label: "Google", angle: 120, icon: "🔍" },
+    { label: "Performance Publisher & Comparison Networks", icon: "👥" },
+    { label: "Native, Display & Programmatic Advertising", icon: "📺" },
+    { label: "Email & Push High-Intent Web Traffic", icon: "📧" },
+    { label: "Direct Media Buying & Exclusive Inventory Access", icon: "🛒" },
+    { label: "Contextual & Intent-Based Audience Targeting", icon: "🎯" },
+    { label: "Google", icon: "🔍" },
   ];
 
-  const toPos = (angleDeg, r = 38) => {
-    const rad = (angleDeg * Math.PI) / 180;
-    return {
-      left: `${50 + r * Math.cos(rad)}%`,
-      top: `${50 - r * Math.sin(rad)}%`,
+  const n = nodes.length;
+  const RADIUS = 200; // px — orbit radius
+  const DURATION = 12000; // ms per full rotation
+
+  const [activeIdx, setActiveIdx] = useState(0);
+  const [dotAngle, setDotAngle] = useState(90); // start at top (90deg = Performance Publisher)
+  const [paused, setPaused] = useState(false);
+  const rafRef = useRef(null);
+  const startRef = useRef(null);
+  const pauseAngleRef = useRef(90);
+
+  // Node angles: evenly spaced, starting at 90deg (top)
+  const nodeAngles = nodes.map((_, i) => 90 - (i / n) * 360);
+
+  useEffect(() => {
+    if (paused) return;
+    const animate = (ts) => {
+      if (!startRef.current)
+        startRef.current = ts - (pauseAngleRef.current / 360) * DURATION;
+      const elapsed = ts - startRef.current;
+      const angle = 90 - ((elapsed % DURATION) / DURATION) * 360;
+      setDotAngle(angle);
+      pauseAngleRef.current = angle;
+
+      rafRef.current = requestAnimationFrame(animate);
     };
+    rafRef.current = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [paused]);
+
+  const handleNodeClick = (i) => {
+    setPaused(true);
+    setActiveIdx(i);
+    pauseAngleRef.current = nodeAngles[i];
+    setDotAngle(nodeAngles[i]);
+    startRef.current = null;
+    // Resume after 2s
+    setTimeout(() => {
+      setPaused(false);
+      startRef.current = null;
+    }, 2000);
   };
+
+  // Dot position on orbit
+  const dotRad = (dotAngle * Math.PI) / 180;
+  const dotX = Math.cos(dotRad) * RADIUS;
+  const dotY = -Math.sin(dotRad) * RADIUS;
 
   return (
     <FadeSection>
-      <section className="py-20 px-4">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="font-display font-bold text-3xl md:text-4xl text-white text-center mb-4">
-            Traffic Channels
-          </h2>
+      <style>{`
+        @keyframes glow-orb {
+          0%, 100% { box-shadow: 0 0 60px 20px rgba(0,140,255,0.5), 0 0 120px 40px rgba(0,80,200,0.25); }
+          50%       { box-shadow: 0 0 80px 30px rgba(0,180,255,0.7), 0 0 160px 60px rgba(0,100,255,0.35); }
+        }
+        @keyframes pulse-ring {
+          0%,100% { transform: translate(-50%,-50%) scale(1);    opacity: 0.5; }
+          50%      { transform: translate(-50%,-50%) scale(1.12); opacity: 0.15; }
+        }
+        @keyframes pulse-ring2 {
+          0%,100% { transform: translate(-50%,-50%) scale(1);    opacity: 0.3; }
+          50%      { transform: translate(-50%,-50%) scale(1.2);  opacity: 0.08; }
+        }
+        .tc-node {
+          position: absolute;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 6px;
+          width: 110px;
+          text-align: center;
+          cursor: pointer;
+          transition: transform 0.25s;
+        }
+        .tc-node:hover { transform: translate(-50%,-50%) scale(1.1) !important; }
+        .tc-icon {
+          width: 46px; height: 46px;
+          border-radius: 12px;
+          display: flex; align-items: center; justify-content: center;
+          font-size: 21px;
+          transition: background 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
+        .tc-icon.active {
+          background: rgba(255,255,255,0.18);
+          border: 1.5px solid rgba(255,255,255,0.7);
+          box-shadow: 0 0 18px rgba(255,255,255,0.35);
+        }
+        .tc-icon.inactive {
+          background: rgba(0,60,180,0.25);
+          border: 1px solid rgba(0,140,255,0.3);
+          box-shadow: 0 2px 12px rgba(0,100,255,0.2);
+        }
+        .tc-label {
+          font-size: 11px;
+          font-weight: 500;
+          line-height: 1.3;
+          text-shadow: 0 1px 6px rgba(0,0,0,0.9);
+          transition: color 0.3s;
+        }
+        .tc-label.active  { color: #ffffff; }
+        .tc-label.inactive{ color: rgba(148,163,184,0.7); }
+      `}</style>
 
+      <h2 className="font-display font-bold text-3xl md:text-4xl text-white text-center mb-4">
+        Traffic Channels
+      </h2>
+      <section className="py-20 px-4">
+        <div className="max-w-5xl mx-auto">
+          {/* Active label display */}
+          {/* <p className="text-center text-brand-blue text-sm font-medium mb-12 tracking-wide min-h-[20px]">
+            {nodes[activeIdx].label}
+          </p> */}
+
+          {/* Stage */}
           <div
             className="relative mx-auto"
-            style={{ width: "100%", maxWidth: "640px", aspectRatio: "1/1" }}
+            style={{ width: 500, height: 500, maxWidth: "90vw" }}
           >
-            {/* Outer glow ring */}
+            {/* Pulse rings */}
             <div
-              className="absolute"
               style={{
+                position: "absolute",
                 top: "50%",
                 left: "50%",
-                transform: "translate(-50%,-50%)",
-                width: "55%",
-                height: "55%",
+                width: 420,
+                height: 420,
                 borderRadius: "50%",
-                border: "1.5px solid rgba(255,255,255,0.5)",
-                boxShadow: "0 0 40px rgba(0,100,255,0.15)",
+                border: "1px solid rgba(0,140,255,0.2)",
+                animation: "pulse-ring2 4s ease-in-out infinite",
               }}
             />
-            {/* Inner glow orb */}
             <div
-              className="absolute"
               style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                width: 340,
+                height: 340,
+                borderRadius: "50%",
+                border: "1.5px solid rgba(0,160,255,0.3)",
+                animation: "pulse-ring 3.5s ease-in-out infinite",
+              }}
+            />
+
+            {/* Orbit track */}
+            <div
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                width: RADIUS * 2,
+                height: RADIUS * 2,
+                borderRadius: "50%",
+                border: "1px solid rgba(0,160,255,0.18)",
+                transform: "translate(-50%,-50%)",
+              }}
+            />
+
+            {/* Central orb */}
+            <div
+              style={{
+                position: "absolute",
                 top: "50%",
                 left: "50%",
                 transform: "translate(-50%,-50%)",
-                width: "18%",
-                height: "18%",
+                width: 90,
+                height: 90,
                 borderRadius: "50%",
                 background:
-                  "radial-gradient(circle, rgba(0,120,255,0.7) 0%, rgba(0,60,180,0.3) 50%, transparent 80%)",
-                boxShadow: "0 0 40px rgba(0,120,255,0.4)",
+                  "radial-gradient(circle, rgba(80,180,255,0.95) 0%, rgba(0,100,255,0.7) 40%, rgba(0,40,160,0.4) 70%, transparent 100%)",
+                animation: "glow-orb 3s ease-in-out infinite",
+                zIndex: 5,
+              }}
+            />
+            <div
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%,-50%)",
+                width: 26,
+                height: 26,
+                borderRadius: "50%",
+                background:
+                  "radial-gradient(circle,#fff 0%,rgba(160,220,255,0.8) 60%,transparent 100%)",
+                zIndex: 6,
               }}
             />
 
-            {/* Connector dots on ring */}
-            {nodes.map((node, i) => {
-              const rad = (node.angle * Math.PI) / 180;
-              const r = 27.5;
-              const dotLeft = `${50 + r * Math.cos(rad)}%`;
-              const dotTop = `${50 - r * Math.sin(rad)}%`;
-              return (
-                <div
-                  key={`dot-${i}`}
-                  className="absolute"
-                  style={{
-                    left: dotLeft,
-                    top: dotTop,
-                    transform: "translate(-50%,-50%)",
-                    width: "8px",
-                    height: "8px",
-                    borderRadius: "50%",
-                    background: "white",
-                    boxShadow: "0 0 6px rgba(255,255,255,0.8)",
-                    zIndex: 2,
-                  }}
-                />
-              );
-            })}
+            {/* Moving white dot on orbit */}
+            <div
+              style={{
+                position: "absolute",
+                left: `calc(50% + ${dotX}px)`,
+                top: `calc(50% + ${dotY}px)`,
+                transform: "translate(-50%,-50%)",
+                width: 14,
+                height: 14,
+                borderRadius: "50%",
+                background: "#ffffff",
+                boxShadow: "0 0 10px 3px rgba(255,255,255,0.8)",
+                zIndex: 8,
+                transition: "left 0.05s linear, top 0.05s linear",
+              }}
+            />
 
-            {/* Node labels */}
+            {/* Node icons + labels at fixed positions */}
             {nodes.map((node, i) => {
-              const pos = toPos(node.angle, 44);
-              const rad = (node.angle * Math.PI) / 180;
-              const cx = Math.cos(rad);
-              const transform =
-                cx > 0.3
-                  ? "translate(0,-50%)"
-                  : cx < -0.3
-                    ? "translate(-100%,-50%)"
-                    : "translate(-50%,-50%)";
-              const textAlign =
-                cx > 0.3 ? "left" : cx < -0.3 ? "right" : "center";
-
+              const isActive = i === activeIdx;
+              const rad = (nodeAngles[i] * Math.PI) / 180;
+              // Push labels further out than orbit radius
+              const labelR = RADIUS + 72;
+              const lx = Math.cos(rad) * labelR;
+              const ly = -Math.sin(rad) * labelR;
               return (
                 <div
                   key={i}
-                  className="absolute flex flex-col items-center gap-1"
+                  className="tc-node"
                   style={{
-                    left: pos.left,
-                    top: pos.top,
-                    transform,
-                    textAlign,
-                    maxWidth: "130px",
-                    zIndex: 3,
+                    left: `calc(50% + ${lx}px)`,
+                    top: `calc(50% + ${ly}px)`,
+                    transform: "translate(-50%,-50%)",
+                    zIndex: 7,
                   }}
+                  onClick={() => handleNodeClick(i)}
                 >
-                  <span style={{ fontSize: "20px", lineHeight: 1 }}>
+                  <div
+                    className={`tc-icon ${isActive ? "active" : "inactive"}`}
+                  >
                     {node.icon}
-                  </span>
+                  </div>
                   <span
-                    className="whitespace-pre-line leading-tight"
-                    style={{
-                      color: "#fff",
-                      fontSize: "clamp(8px, 1.5vw, 11px)",
-                      fontWeight: 500,
-                      textShadow: "0 1px 4px rgba(0,0,0,0.8)",
-                    }}
+                    className={`tc-label ${isActive ? "active" : "inactive"}`}
                   >
                     {node.label}
                   </span>
