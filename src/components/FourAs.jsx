@@ -220,8 +220,7 @@ export default function FourAs() {
                       "opacity 0.65s ease 0.15s, transform 0.65s cubic-bezier(0.22,1,0.36,1) 0.15s",
                     opacity: isActive ? 1 : 0,
                     transform: isActive
-                      
-? "translateY(0px)"
+                      ? "translateY(0px)"
                       : "translateY(40px)",
                     willChange: "transform, opacity",
                   }}
