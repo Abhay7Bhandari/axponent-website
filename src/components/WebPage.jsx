@@ -9,7 +9,30 @@ import fullFunnelImg from "../assets/images/web/deliver-cards/full-funnel-acquis
 import verticalImg from "../assets/images/web/deliver-cards/vertical-expertise.png";
 
 // Brand ticker strip
-import brandTickerImg from "../assets/images/web/brand-ticker.png";
+import webLogo1 from "../assets/images/clients/Web page Logo/Agoda.png";
+import webLogo2 from "../assets/images/clients/Web page Logo/AliExpress.png";
+import webLogo3 from "../assets/images/clients/Web page Logo/HboMax.png";
+import webLogo4 from "../assets/images/clients/Web page Logo/Hostinger.png";
+import webLogo5 from "../assets/images/clients/Web page Logo/Klook.png";
+import webLogo6 from "../assets/images/clients/Web page Logo/LycaMobile.png";
+import webLogo7 from "../assets/images/clients/Web page Logo/Malaysia.png";
+import webLogo8 from "../assets/images/clients/Web page Logo/Noton.png";
+import webLogo9 from "../assets/images/clients/Web page Logo/Shopify.png";
+import webLog10 from "../assets/images/clients/Web page Logo/Surfshank.png";
+
+const WEB_LOGOS = [
+  { name: "Agoda", src: webLogo1 },
+  { name: "AliExpress", src: webLogo2 },
+  { name: "HBO Max", src: webLogo3 },
+  { name: "Hostinger", src: webLogo4 },
+  { name: "Klook", src: webLogo5 },
+  { name: "Lycamobile", src: webLogo6 },
+  { name: "Malaysia Airlines", src: webLogo7 },
+  { name: "Noton", src: webLogo8 },
+  { name: "Shopify", src: webLogo9 },
+  { name: "Surfshark", src: webLog10 },
+];
+const WEB_TICKER = [...WEB_LOGOS, ...WEB_LOGOS];
 
 // Categories grid
 import categoriesImg from "../assets/images/web/categories.png";
@@ -178,18 +201,21 @@ function BrandTicker() {
         className="flex items-center w-max"
         style={{ animation: "ticker 30s linear infinite" }}
       >
-        {[...Array(6)].map((_, i) => (
+        {WEB_TICKER.map((logo, i) => (
           <img
             key={i}
-            src={brandTickerImg}
-            alt={
-              i === 0
-                ? "Brand partners — AliExpress, Klook, Lycamobile, Shopify, Malaysia, Surfshark"
-                : ""
-            }
+            src={logo.src}
+            alt={i === 0 ? logo.name : ""}
             aria-hidden={i !== 0}
-            className="h-10 object-contain flex-shrink-0"
-            style={{ paddingLeft: "80px", paddingRight: "80px" }}
+            style={{
+              height: "32px",
+              width: "auto",
+              objectFit: "contain",
+              flexShrink: 0,
+              marginLeft: "60px",
+              marginRight: "60px",
+              opacity: 0.85,
+            }}
             draggable={false}
           />
         ))}
