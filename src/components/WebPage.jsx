@@ -185,22 +185,24 @@ function TrafficChannels() {
     { label: "Native, Display & Programmatic Advertising", icon: "📺" },
     { label: "Email & Push High-Intent Web Traffic", icon: "📧" },
     { label: "Direct Media Buying & Exclusive Inventory Access", icon: "🛒" },
-    { label: "Contextual & Intent-Based Audience Targeting", icon: "🎯" },
+    {
+      label: "Contextual & Intent-Based Audience Targeting",
+      isContextual: true, // 👈 special node
+    },
     { label: "Google", icon: "🔍" },
   ];
 
   const n = nodes.length;
-  const RADIUS = 200; // px — orbit radius
-  const DURATION = 12000; // ms per full rotation
+  const RADIUS = 200;
+  const DURATION = 12000;
 
   const [activeIdx, setActiveIdx] = useState(0);
-  const [dotAngle, setDotAngle] = useState(90); // start at top (90deg = Performance Publisher)
+  const [dotAngle, setDotAngle] = useState(90);
   const [paused, setPaused] = useState(false);
   const rafRef = useRef(null);
   const startRef = useRef(null);
   const pauseAngleRef = useRef(90);
 
-  // Node angles: evenly spaced, starting at 90deg (top)
   const nodeAngles = nodes.map((_, i) => 90 - (i / n) * 360);
 
   useEffect(() => {
@@ -208,13 +210,16 @@ function TrafficChannels() {
     const animate = (ts) => {
       if (!startRef.current)
         startRef.current = ts - (pauseAngleRef.current / 360) * DURATION;
+
       const elapsed = ts - startRef.current;
       const angle = 90 - ((elapsed % DURATION) / DURATION) * 360;
+
       setDotAngle(angle);
       pauseAngleRef.current = angle;
 
       rafRef.current = requestAnimationFrame(animate);
     };
+
     rafRef.current = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(rafRef.current);
   }, [paused]);
@@ -225,14 +230,13 @@ function TrafficChannels() {
     pauseAngleRef.current = nodeAngles[i];
     setDotAngle(nodeAngles[i]);
     startRef.current = null;
-    // Resume after 2s
+
     setTimeout(() => {
       setPaused(false);
       startRef.current = null;
     }, 2000);
   };
 
-  // Dot position on orbit
   const dotRad = (dotAngle * Math.PI) / 180;
   const dotX = Math.cos(dotRad) * RADIUS;
   const dotY = -Math.sin(dotRad) * RADIUS;
@@ -264,6 +268,7 @@ function TrafficChannels() {
           transition: transform 0.25s;
         }
         .tc-node:hover { transform: translate(-50%,-50%) scale(1.1) !important; }
+
         .tc-icon {
           width: 46px; height: 46px;
           border-radius: 12px;
@@ -271,16 +276,19 @@ function TrafficChannels() {
           font-size: 21px;
           transition: background 0.3s, box-shadow 0.3s, border-color 0.3s;
         }
+
         .tc-icon.active {
           background: rgba(255,255,255,0.18);
           border: 1.5px solid rgba(255,255,255,0.7);
           box-shadow: 0 0 18px rgba(255,255,255,0.35);
         }
+
         .tc-icon.inactive {
           background: rgba(0,60,180,0.25);
           border: 1px solid rgba(0,140,255,0.3);
           box-shadow: 0 2px 12px rgba(0,100,255,0.2);
         }
+
         .tc-label {
           font-size: 11px;
           font-weight: 500;
@@ -288,8 +296,9 @@ function TrafficChannels() {
           text-shadow: 0 1px 6px rgba(0,0,0,0.9);
           transition: color 0.3s;
         }
-        .tc-label.active  { color: #ffffff; }
-        .tc-label.inactive{ color: rgba(148,163,184,0.7); }
+
+        .tc-label.active { color: #fff; }
+        .tc-label.inactive { color: rgba(148,163,184,0.7); }
       `}</style>
 
       <h2 className="font-display font-bold text-3xl md:text-4xl text-white text-center mb-4">
@@ -418,8 +427,18 @@ function TrafficChannels() {
                   <div
                     className={`tc-icon ${isActive ? "active" : "inactive"}`}
                   >
-                    {node.icon}
+                    {/* 👇 MAIN LOGIC */}
+                    {node.isContextual ? (
+                      <img
+                        src={isActive ? Contextual : Contextualllintent}
+                        alt={node.label}
+                        className="w-6 h-6 object-contain"
+                      />
+                    ) : (
+                      node.icon
+                    )}
                   </div>
+
                   <span
                     className={`tc-label ${isActive ? "active" : "inactive"}`}
                   >
