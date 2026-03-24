@@ -18,7 +18,7 @@ import interstitialAd from "../assets/images/advertisers/interstitial_ad.png";
 function AdvertisersHero() {
   return (
     <section className="relative min-h-[50vh] flex flex-col items-center justify-center text-center px-4 pt-28 pb-16 overflow-hidden">
-      {/* Star background */}
+      {/* Star #000000 */}
       <div className="stars" />
       <FadeSection>
         <h1 className="font-display font-bold text-5xl sm:text-5xl md:text-5xl text-white mb-6 leading-tight">
@@ -223,211 +223,131 @@ function AdFraudDetection() {
 }
 
 /* ── Section 5: Ad Format ── */
-// function AdFormat() {
-//   const [activeFormat, setActiveFormat] = useState("Banner AD");
-//   const formats = ["Banner AD", "Native AD", "Video AD", "Interstitial AD"];
-
-//   return (
-//     <FadeSection>
-//       <section className="py-16 px-4">
-//         <div className="max-w-6xl mx-auto">
-//           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-//             {/* Left – phone mockup */}
-//             <div className="flex justify-center">
-//               <div
-//                 className="relative w-48 rounded-3xl overflow-hidden"
-//                 style={{
-//                   background: "#0A0F2A",
-//                   border: "2px solid rgba(0,100,255,0.3)",
-//                   boxShadow: "0 0 40px rgba(0,80,200,0.2)",
-//                   aspectRatio: "9/18",
-//                 }}
-//               >
-//                 {/* Phone status bar */}
-//                 <div className="flex justify-between items-center px-4 py-2 text-white text-xs">
-//                   <span>9:41</span>
-//                   <div className="flex gap-1">
-//                     <span>▐▐▐</span>
-//                     <span>WiFi</span>
-//                   </div>
-//                 </div>
-//                 {/* Feed items */}
-//                 <div className="px-3 flex flex-col gap-2 mt-1">
-//                   {[...Array(4)].map((_, i) => (
-//                     <div key={i} className="flex gap-2 items-start">
-//                       <div
-//                         className="w-8 h-8 rounded flex-shrink-0"
-//                         style={{ background: "rgba(30,50,120,0.6)" }}
-//                       />
-//                       <div className="flex-1 flex flex-col gap-1">
-//                         <div
-//                           className="h-2 rounded"
-//                           style={{
-//                             background: "rgba(255,255,255,0.15)",
-//                             width: "80%",
-//                           }}
-//                         />
-//                         <div
-//                           className="h-2 rounded"
-//                           style={{
-//                             background: "rgba(255,255,255,0.08)",
-//                             width: "60%",
-//                           }}
-//                         />
-//                       </div>
-//                     </div>
-//                   ))}
-//                 </div>
-//                 {/* Banner AD at bottom */}
-//                 <div
-//                   className="absolute bottom-0 left-0 right-0 py-3 flex items-center justify-center text-white text-xs font-semibold"
-//                   style={{
-//                     background: "linear-gradient(90deg,#0060FF,#0090FF)",
-//                   }}
-//                 >
-//                   {activeFormat}
-//                 </div>
-//               </div>
-//             </div>
-
-//             {/* Right – format list */}
-//             <div>
-//               <h2 className="font-display font-bold text-4xl text-white mb-8">
-//                 Ad Format
-//               </h2>
-//               <div className="flex flex-col gap-2">
-//                 {formats.map((fmt) => (
-//                   <button
-//                     key={fmt}
-//                     onClick={() => setActiveFormat(fmt)}
-//                     className="text-left px-4 py-3 rounded-lg transition-all text-sm font-medium"
-//                     style={{
-//                       color: activeFormat === fmt ? "#ffffff" : "#6B7280",
-//                       background:
-//                         activeFormat === fmt
-//                           ? "rgba(0,80,200,0.15)"
-//                           : "transparent",
-//                       border:
-//                         activeFormat === fmt
-//                           ? "1px solid rgba(0,120,255,0.3)"
-//                           : "1px solid transparent",
-//                     }}
-//                   >
-//                     {fmt}
-//                   </button>
-//                 ))}
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       </section>
-//     </FadeSection>
-//   );
-// }
 
 
 function AdFormat() {
-  const [activeFormat, setActiveFormat] = useState("Banner AD");
+  const [active, setActive] = useState("banner");
+  
+const feedRows = (count) =>
+  Array.from({ length: count }).map((_, i) => (
+    <div key={i} className="flex items-center gap-2 flex-shrink-0">
+      <div className="w-7 h-7 rounded bg-[#1e2a3a] flex-shrink-0" />
+      <div className="flex flex-col gap-1 flex-1">
+        <div className="h-[5px] rounded bg-[#1e2a3a] w-4/5" />
+        <div className="h-[5px] rounded bg-[#1e2a3a] w-3/5" />
+        <div className="h-[5px] rounded bg-[#1e2a3a] w-1/2" />
+      </div>
+    </div>
+  ));
 
-  // 1. Define your images here
-  const adContent = {
-    "Banner AD": {
-      image: bannerAd, 
-      isFullPage: false, // Banner stays at bottom
-    },
-    "Native AD": {
-      image: nativeAd,
-      isFullPage: true, // Fills the whole phone screen
-    },
-    "Video AD": {
-      image: videoAd,
-      isFullPage: false, // Sits inside the feed
-    },
-    "Interstitial AD": {
-      image: interstitialAd,
-      isFullPage: false, // Sits inside the feed
-    }
-  };
-
-  const formats = Object.keys(adContent);
+const formats = [
+  { key: "banner", label: "Banner AD" },
+  { key: "native", label: "Native AD" },
+  { key: "video", label: "Video AD" },
+  { key: "interstitial", label: "Interstitial AD" },
+];
 
   return (
-    <section className="py-20 px-4 bg-[#020617] min-h-screen flex items-center">
-      <div className="max-w-5xl mx-auto w-full">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          
-          {/* Left – The Phone Mockup */}
-          <div className="flex justify-center">
-            <div className="relative w-64 aspect-[9/19] rounded-[3rem] border-[8px] border-slate-800 bg-[#05070A] overflow-hidden shadow-2xl ring-1 ring-white/5">
-              
-              {/* Status Bar */}
-              <div className="absolute top-0 w-full flex justify-between px-8 py-5 text-white text-[10px] z-20">
-                <span>9:41</span>
-                <div className="flex gap-1.5 items-center">
-                  <div className="w-3 h-[2px] bg-white/40 rounded" />
-                  <div className="w-2 h-2 rounded-full bg-white/40" />
+    <section className="bg-black  flex items-center justify-center px-8 py-12">
+      <div className="flex items-center gap-14 w-full max-w-2xl">
+
+        {/* Phone */}
+        <div className="flex-shrink-0">
+          <div
+            className={`relative w-40 h-80 rounded-[2rem] border-[6px] border-[#1e2336] bg-[#0d1120] overflow-hidden transition-all duration-300 ${
+              active === "video"
+                ? "shadow-[0_0_0_3px_#3b82f6,0_0_24px_6px_rgba(59,130,246,0.35)]"
+                : ""
+            }`}
+          >
+            {/* Notch */}
+            <div className="absolute top-2 left-1/2 -translate-x-1/2 w-10 h-1.5 bg-[#1e2336] rounded-full z-10" />
+
+            {/* Status bar */}
+            <div className="absolute top-0 w-full flex justify-between items-center px-3 pt-3 pb-1 z-10">
+              <span className="text-[8px] text-[#aaa] font-medium">9:41</span>
+              <div className="flex gap-1 items-center">
+                <div className="w-2 h-1.5 rounded-sm bg-[#aaa]" />
+                <div className="w-2.5 h-[5px] border border-[#aaa] rounded-sm relative">
+                  <div className="absolute inset-[1px] right-[2px] bg-[#aaa] rounded-[1px]" />
                 </div>
               </div>
+            </div>
 
-              {/* Dynamic Content Area */}
-              <div className="relative h-full w-full pt-12">
-                {activeFormat === "Native AD" ? (
-                  /* FULL PAGE OPTION (Matches SS 2) */
-                  <img 
-                    src={adContent[activeFormat].image} 
-                    className="absolute inset-0 w-full h-full object-cover"
-                    alt="Native Ad"
-                  />
-                ) : (
-                  /* FEED OPTION (Matches SS 1, 3, 4) */
-                  <div className="p-4 flex flex-col gap-4">
-                    {/* Placeholder content above the ad */}
-                    <div className="h-20 w-full bg-slate-900/50 rounded-xl" />
-                    
-                    {/* THE AD IMAGE */}
-                    <div className={`transition-all duration-300 ${activeFormat === "Banner AD" ? "absolute bottom-0 left-0 w-full" : "relative"}`}>
-                       <img 
-                        src={adContent[activeFormat].image} 
-                        className="w-full h-auto rounded-lg shadow-lg"
-                        alt={activeFormat}
-                      />
+            {/* Native: full screen */}
+            {active === "native" && (
+              <div className="absolute inset-0 bg-[#3b6cf6]" />
+            )}
+
+            {/* Feed-based states */}
+            {active !== "native" && (
+              <div className="absolute inset-0 pt-8 flex flex-col gap-1.5 p-2 overflow-hidden">
+                {active === "banner" && (
+                  <>
+                    {feedRows(5)}
+                    <div className="absolute bottom-0 left-0 right-0 h-9 bg-[#3b6cf6] border-t border-[#4a7aff]" />
+                  </>
+                )}
+
+                {active === "video" && (
+                  <>
+                    {feedRows(2)}
+                    <div className="w-full h-16 bg-[#3b6cf6] rounded-md flex-shrink-0 flex items-center justify-center">
+                      <div className="w-6 h-6 rounded-full border-2 border-white/80 flex items-center justify-center">
+                        <div
+                          className="ml-0.5"
+                          style={{
+                            width: 0,
+                            height: 0,
+                            borderTop: "5px solid transparent",
+                            borderBottom: "5px solid transparent",
+                            borderLeft: "8px solid rgba(255,255,255,0.85)",
+                          }}
+                        />
+                      </div>
                     </div>
+                    {feedRows(2)}
+                  </>
+                )}
 
-                    {/* Placeholder content below the ad */}
-                    <div className="h-20 w-full bg-slate-900/50 rounded-xl" />
-                    <div className="h-20 w-full bg-slate-900/50 rounded-xl" />
-                  </div>
+                {active === "interstitial" && (
+                  <>
+                    {feedRows(1)}
+                    <div className="w-full h-24 bg-[#3b6cf6] rounded-md flex-shrink-0" />
+                    {feedRows(2)}
+                  </>
                 )}
               </div>
-            </div>
+            )}
           </div>
-
-          {/* Right – Interactive Controls */}
-          <div>
-            <h2 className="text-5xl font-bold text-white mb-10 tracking-tight">Ad Format</h2>
-            <div className="flex flex-col gap-3">
-              {formats.map((fmt) => (
-                <button
-                  key={fmt}
-                  onClick={() => setActiveFormat(fmt)}
-                  className={`text-left px-6 py-4 rounded-2xl transition-all duration-300 border ${
-                    activeFormat === fmt 
-                    ? "bg-blue-600 border-blue-400 text-white translate-x-2" 
-                    : "bg-slate-900/50 border-slate-800 text-slate-500 hover:text-slate-300"
-                  }`}
-                >
-                  <span className="text-lg font-bold">{fmt}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-
         </div>
+
+        {/* Right: title + list */}
+        <div>
+          <h2 className="text-white text-3xl font-bold tracking-tight mb-5">
+            Ad Format
+          </h2>
+          <div className="flex flex-col gap-1">
+            {formats.map(({ key, label }) => (
+              <button
+                key={key}
+                onClick={() => setActive(key)}
+                className={`text-left text-sm px-0.5 py-1.5 transition-colors duration-200 ${
+                  active === key
+                    ? "text-white font-bold"
+                    : "text-gray-500 font-normal hover:text-gray-300"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
+
       </div>
     </section>
   );
 }
-
 
 
 /* ── Section 6: Get In Touch ── */
@@ -443,7 +363,7 @@ function GetInTouch() {
 
   return (
     <section className="relative py-24 px-4 overflow-hidden">
-      {/* Glowing orb background */}
+      {/* Glowing orb #000000 */}
       <div
         className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none"
         style={{
