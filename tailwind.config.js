@@ -11,7 +11,7 @@ export default {
         brand: {
           blue: "#00A8FF",
           glow: "#0050C8",
-          dark: "#040815",
+          dark: "#000000",
           card: "#0A0F1E",
           border: "#1A2035",
         },
