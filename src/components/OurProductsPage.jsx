@@ -1,16 +1,16 @@
 import FadeSection from "./FadeSection";
 
 // Inventory / Global Media cards
-import ctvOemImg        from "../assets/images/products/inventory-cards/ctv-oem.png";
-import inAppImg         from "../assets/images/products/inventory-cards/in-app-inventory.png";
-import dspSspImg        from "../assets/images/products/inventory-cards/dsp-ssp.png";
-import dmpImg           from "../assets/images/products/inventory-cards/dmp-targeting.png";
+import ctvOemImg from "../assets/images/products/inventory-cards/ctv-oem.png";
+import inAppImg from "../assets/images/products/inventory-cards/in-app-inventory.png";
+import dspSspImg from "../assets/images/products/inventory-cards/dsp-ssp.png";
+import dmpImg from "../assets/images/products/inventory-cards/dmp-targeting.png";
 
 // Phone screen images
-import gamingImg        from "../assets/images/products/phone-screens/gaming-app.png";
-import entertainImg     from "../assets/images/products/phone-screens/entertainment.png";
-import newsImg          from "../assets/images/products/phone-screens/content-news.png";
-import analyticsImg     from "../assets/images/products/phone-screens/analytics.png";
+import gamingImg from "../assets/images/products/phone-screens/gaming-app.png";
+import entertainImg from "../assets/images/products/phone-screens/entertainment.png";
+import newsImg from "../assets/images/products/phone-screens/content-news.png";
+import analyticsImg from "../assets/images/products/phone-screens/analytics.png";
 
 /* ── Section 1: Hero ── */
 function OwnedAssetsHero() {
@@ -59,8 +59,8 @@ function GlobalMediaAccess() {
           <div
             className="rounded-2xl p-8 md:p-12"
             style={{
-              background: "rgba(8,15,45,0.7)",
-              border: "1px solid rgba(0,80,200,0.2)",
+              background: "#000000",
+              border: "2px solid #393647",
             }}
           >
             <h2 className="font-display font-bold text-2xl md:text-3xl text-white text-center mb-3">
@@ -139,10 +139,7 @@ function OwnedOperatedAssets() {
 
           <div className="flex flex-row justify-center gap-3 flex-wrap">
             {phones.map((phone, i) => (
-              <div
-                key={i}
-                className="product-card flex-shrink-0"
-              >
+              <div key={i} className="product-card flex-shrink-0">
                 <div
                   className="relative rounded-[20px] overflow-hidden"
                   style={{
@@ -174,8 +171,7 @@ function OwnedOperatedAssets() {
                         background: "rgba(255,255,255,0.96)",
                         transform: "translateY(20px)",
                         opacity: 0,
-                        transition:
-                          "transform 0.35s ease, opacity 0.35s ease",
+                        transition: "transform 0.35s ease, opacity 0.35s ease",
                       }}
                     >
                       <p
