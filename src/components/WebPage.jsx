@@ -108,8 +108,8 @@ function WhatWeDeliver() {
           <div
             className="rounded-2xl p-8 md:p-10"
             style={{
-              background: "rgba(8,15,50,0.7)",
-              border: "1px solid rgba(0,80,200,0.2)",
+              background: "#000000",
+              border: "2px solid #393647",
             }}
           >
             <h2 className="font-display font-bold text-2xl md:text-3xl text-white text-center mb-10">
