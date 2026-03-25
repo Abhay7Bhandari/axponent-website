@@ -24,6 +24,14 @@ import webLog10 from "../assets/images/clients/Web page Logo/Surfshank.png";
 // Traffic Channels icons (using emojis for simplicity)
 import Contextual from "../assets/images/web/Traffic-Channels/Contextual.svg";
 import Contextualllintent from "../assets/images/web/Traffic-Channels/Contextualllintent.svg";
+import DirectMedia from "../assets/images/web/Traffic-Channels/DirectMedia.svg";
+import DirecttMediallintent from "../assets/images/web/Traffic-Channels/DirecttMediallintent.svg";
+import EmailPush from "../assets/images/web/Traffic-Channels/EmailPush.svg";
+import EmailPushllintent from "../assets/images/web/Traffic-Channels/EmailPushllintent.svg";
+import Google from "../assets/images/web/Traffic-Channels/Google.svg";
+import Googlellintent from "../assets/images/web/Traffic-Channels/Googlellintent.svg";
+import Native from "../assets/images/web/Traffic-Channels/Native.svg";
+import PerformacePublisher from "../assets/images/web/Traffic-Channels/PerformacePublisher.svg";
 
 const WEB_LOGOS = [
   { name: "Agoda", src: webLogo1 },
@@ -181,15 +189,24 @@ function DiverseNeeds() {
 /* ── Section 5: Traffic Channels — Orbit with active dot ── */
 function TrafficChannels() {
   const nodes = [
-    { label: "Performance Publisher & Comparison Networks", icon: "👥" },
-    { label: "Native, Display & Programmatic Advertising", icon: "📺" },
-    { label: "Email & Push High-Intent Web Traffic", icon: "📧" },
-    { label: "Direct Media Buying & Exclusive Inventory Access", icon: "🛒" },
+    {
+      label: "Performance Publisher & Comparison Networks",
+      isPerformance: true,
+    }, // 👈 special node
+    {
+      label: "Native, Display & Programmatic Advertising",
+      isNative: true,
+    },
+    { label: "Email & Push High-Intent Web Traffic", isEmail: true },
+    {
+      label: "Direct Media Buying & Exclusive Inventory Access",
+      isDirect: true,
+    },
     {
       label: "Contextual & Intent-Based Audience Targeting",
       isContextual: true, // 👈 special node
     },
-    { label: "Google", icon: "🔍" },
+    { label: "Google", icon: "🔍", isGoogle: true },
   ];
 
   const n = nodes.length;
@@ -428,14 +445,49 @@ function TrafficChannels() {
                     className={`tc-icon ${isActive ? "active" : "inactive"}`}
                   >
                     {/* 👇 MAIN LOGIC */}
-                    {node.isContextual ? (
+                    {node.isPerformance && (
+                      <img
+                        src={
+                          isActive ? PerformacePublisher : PerformacePublisher
+                        }
+                        alt={node.label}
+                        className="w-6 h-6 object-contain"
+                      />
+                    )}
+                    {node.isNative && (
+                      <img
+                        src={isActive ? Native : Native}
+                        alt={node.label}
+                        className="w-6 h-6 object-contain"
+                      />
+                    )}
+                    {node.isEmail && (
+                      <img
+                        src={isActive ? EmailPush : EmailPushllintent}
+                        alt={node.label}
+                        className="w-6 h-6 object-contain"
+                      />
+                    )}
+                    {node.isDirect && (
+                      <img
+                        src={isActive ? DirectMedia : DirecttMediallintent}
+                        alt={node.label}
+                        className="w-6 h-6 object-contain"
+                      />
+                    )}
+                    {node.isContextual && (
                       <img
                         src={isActive ? Contextual : Contextualllintent}
                         alt={node.label}
                         className="w-6 h-6 object-contain"
                       />
-                    ) : (
-                      node.icon
+                    )}
+                    {node.isGoogle && (
+                      <img
+                        src={isActive ? Google : Googlellintent}
+                        alt={node.label}
+                        className="w-6 h-6 object-contain"
+                      />
                     )}
                   </div>
 
