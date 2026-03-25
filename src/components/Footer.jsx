@@ -1,6 +1,5 @@
 import { useState } from "react";
-
-// const NAV_LINKS = ['Home', 'Advertisers', 'Publishers', 'Owned Assets', 'Web', 'Carriers']
+import AxponentLogoWhite from "../assets/images/clients/AxponentLogoWhite.png";
 
 const NAV_LINKS = [
   { label: "Home", page: "Home" },
@@ -23,7 +22,7 @@ export default function Footer({ setActivePage }) {
   return (
     <footer
       className="border-t border-white/5 pt-16 pb-8 px-4"
-      style={{ background: "linear-gradient(to top, #02040e, #040815)" }}
+      style={{ background: "#000000" }}
     >
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
@@ -34,20 +33,11 @@ export default function Footer({ setActivePage }) {
               onClick={() => handleNavClick("Home")}
               className="flex items-center gap-0 mb-3 focus:outline-none"
             >
-              <span
-                className="font-display font-extrabold text-2xl tracking-tight px-1 mr-0.5"
-                style={{
-                  color: "#00A8FF",
-                  border: "2px solid #00A8FF",
-                  lineHeight: 1.1,
-                  borderRadius: "3px",
-                }}
-              >
-                AX
-              </span>
-              <span className="font-display font-bold text-2xl tracking-widest text-white">
-                PONENT
-              </span>
+              <img
+                src={AxponentLogoWhite}
+                alt="Axponent Logo"
+                style={{ width: 183, height: 36 }}
+              />
             </button>
 
             <p className="text-gray-400 text-sm mb-6">
@@ -58,8 +48,8 @@ export default function Footer({ setActivePage }) {
             <div
               className="flex items-center rounded-lg overflow-hidden mb-5"
               style={{
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.1)",
+                borderRadius: "400px",
+                border: "1px solid #F7F7FD1A",
               }}
             >
               <input
@@ -68,12 +58,16 @@ export default function Footer({ setActivePage }) {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="flex-1 bg-transparent px-4 py-3 text-sm text-white outline-none placeholder-gray-500"
+                style={{ paddingLeft: "12px", paddingRight: "12px" }}
               />
               <button
                 className="px-5 py-3 text-sm font-semibold text-white flex-shrink-0 transition-colors hover:text-brand-blue"
                 style={{
                   background: "linear-gradient(90deg,#0060FF,#0090FF)",
-                  borderRadius: "0 6px 6px 0",
+                  // borderRadius: "0 6px 6px 0",
+                  borderRadius: "100px",
+                  border: "1px",
+                  padding: "10px 28px 10px 28px",
                 }}
               >
                 Submit
@@ -86,11 +80,11 @@ export default function Footer({ setActivePage }) {
               <a
                 href="#"
                 className="w-8 h-8 rounded-full flex items-center justify-center transition-opacity hover:opacity-80"
-                style={{ background: "#1877F2" }}
-                aria-label="Facebook"
+                style={{ background: "#0A66C2" }}
+                aria-label="Instagram"
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="white">
-                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                  <path d="M7 2C4.8 2 3 3.8 3 6v12c0 2.2 1.8 4 4 4h10c2.2 0 4-1.8 4-4V6c0-2.2-1.8-4-4-4H7zm5 5a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm6.5-.75a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0zM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" />
                 </svg>
               </a>
               {/* LinkedIn */}

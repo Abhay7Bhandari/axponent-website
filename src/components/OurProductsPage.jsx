@@ -1,22 +1,5 @@
 import FadeSection from "./FadeSection";
 
-// ─────────────────────────────────────────────
-//  IMAGE IMPORTS
-//  File locations inside your project:
-//
-//  src/assets/images/products/
-//    ├── inventory-cards/
-//    │   ├── ctv-oem.png               ← card_3__3_.png
-//    │   ├── in-app-inventory.png      ← card_4__3_.png
-//    │   ├── dsp-ssp.png               ← card_5__2_.png
-//    │   └── dmp-targeting.png         ← card_6.png
-//    └── phone-screens/
-//        ├── gaming-app.png            ← Component_2.png
-//        ├── entertainment.png         ← Rectangle_5619.png
-//        ├── content-news.png          ← Rectangle_5618.png
-//        └── analytics.png            ← Group_1000001176.png
-// ─────────────────────────────────────────────
-
 // Inventory / Global Media cards
 import ctvOemImg from "../assets/images/products/inventory-cards/ctv-oem.png";
 import inAppImg from "../assets/images/products/inventory-cards/in-app-inventory.png";
@@ -36,7 +19,7 @@ function OwnedAssetsHero() {
       <div className="stars" />
       <FadeSection>
         <h1 className="font-display font-bold text-4xl sm:text-5xl md:text-5xl lg:text-5xl text-white mb-6 leading-tight">
-          INVENTORIES & <span style={{ color: "#00A8FF" }}>OWNED ASSETS</span>
+          INVENTORIES & <span style={{ color: "#007BFF" }}>OWNED ASSETS</span>
         </h1>
         <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
           Axponent combines premium global inventory access with a growing
@@ -76,8 +59,8 @@ function GlobalMediaAccess() {
           <div
             className="rounded-2xl p-8 md:p-12"
             style={{
-              background: "rgba(8,15,45,0.7)",
-              border: "1px solid rgba(0,80,200,0.2)",
+              background: "#000000",
+              border: "2px solid #393647",
             }}
           >
             <h2 className="font-display font-bold text-2xl md:text-3xl text-white text-center mb-3">
@@ -156,10 +139,7 @@ function OwnedOperatedAssets() {
 
           <div className="flex flex-row justify-center gap-3 flex-wrap">
             {phones.map((phone, i) => (
-              <div
-                key={i}
-                className="product-card flex-shrink-0"
-              >
+              <div key={i} className="product-card flex-shrink-0">
                 <div
                   className="relative rounded-[20px] overflow-hidden"
                   style={{
@@ -191,8 +171,7 @@ function OwnedOperatedAssets() {
                         background: "rgba(255,255,255,0.96)",
                         transform: "translateY(20px)",
                         opacity: 0,
-                        transition:
-                          "transform 0.35s ease, opacity 0.35s ease",
+                        transition: "transform 0.35s ease, opacity 0.35s ease",
                       }}
                     >
                       <p

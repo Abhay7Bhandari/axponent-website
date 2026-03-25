@@ -1,24 +1,6 @@
 import { useState } from "react";
 import FadeSection from "./FadeSection";
 
-// ─────────────────────────────────────────────
-//  IMAGE IMPORTS
-//  File locations inside your project:
-//
-//  src/assets/images/publishers/
-//    ├── monetization/
-//    │   ├── fill-rates.png            ← card_3__1_.png
-//    │   ├── mcm.png                   ← card_4__1_.png
-//    │   └── improve-relevance.png     ← card_5__1_.png  (or card_3__2_ / card_4__2_)
-//    ├── categories/
-//    │   └── publisher-categories.png  ← Group_1171276755.png
-//    └── expect/
-//        ├── global-campaign-demand.png     ← card_7.png
-//        ├── competitive-payouts.png        ← card_8.png
-//        ├── transparent-tracking.png       ← card_9.png
-//        ├── dedicated-support.png          ← (export from Figma — missing)
-//        └── long-term-scaling.png          ← (export from Figma — missing)
-// ─────────────────────────────────────────────
 
 // Monetization cards
 import fillRatesImg from "../assets/images/publishers/monetization/fill-rates.png";
@@ -42,7 +24,7 @@ function PublishersHero() {
       <div className="stars" />
       <FadeSection>
         <h1 className="font-display font-bold text-4xl sm:text-5xl md:text-5xl lg:text-5xl text-white mb-6 leading-tight">
-          PUBLISHERS & <span style={{ color: "#00A8FF" }}>MEDIA PARTNERS</span>
+          PUBLISHERS & <span style={{ color: "#007BFF" }}>MEDIA PARTNERS</span>
         </h1>
         <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
           Axponent connects premium publishers with quality global campaigns,

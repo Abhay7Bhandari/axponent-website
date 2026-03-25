@@ -8,15 +8,21 @@ import cardPublishers from "../assets/images/cards/card 5.png";
 import measurementImg from "../assets/images/partners/measurement-partners.png";
 import mediaImg from "../assets/images/partners/media-partners.png";
 
+//Ad imports
+import bannerAd from "../assets/images/advertisers/banner_ad.png";
+import nativeAd from "../assets/images/advertisers/native_ad.png";
+import videoAd from "../assets/images/advertisers/video_ad.png";
+import interstitialAd from "../assets/images/advertisers/interstitial_ad.png";
+
 /* ── Section 1: Hero section ── */
 function AdvertisersHero() {
   return (
     <section className="relative min-h-[50vh] flex flex-col items-center justify-center text-center px-4 pt-28 pb-16 overflow-hidden">
-      {/* Star background */}
+      {/* Star #000000 */}
       <div className="stars" />
       <FadeSection>
         <h1 className="font-display font-bold text-5xl sm:text-5xl md:text-5xl text-white mb-6 leading-tight">
-          PARTNERS/<span style={{ color: "#00A8FF" }}>ADVERTISERS</span>
+          PARTNERS/<span style={{ color: "#007BFF" }}>ADVERTISERS</span>
         </h1>
         <p className="text-gray-400 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
           Axponent partners with trusted global measurement, media, and
@@ -43,8 +49,8 @@ function PrecisionCards() {
           <div
             className="rounded-2xl p-8 md:p-12"
             style={{
-              background: "rgba(10,20,60,0.5)",
-              border: "1px solid rgba(0,100,255,0.15)",
+              background: "#000000",
+              border: "1px solid #393647",
             }}
           >
             <h2 className="font-display font-bold text-2xl md:text-3xl text-white text-center mb-10">
@@ -142,14 +148,6 @@ function PartnerTabs() {
                       "opacity 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease",
                   }}
                 />
-                {/* <p
-                  className="mt-3 text-sm font-medium text-center"
-                  style={{
-                    color: activeTab === tab.key ? "#ffffff" : "#6B7280",
-                  }}
-                >
-                  {/* {tab.label} */}
-                {/* </p */}
               </div>
             </FadeSection>
           ))}
@@ -217,107 +215,132 @@ function AdFraudDetection() {
 }
 
 /* ── Section 5: Ad Format ── */
+
+
 function AdFormat() {
-  const [activeFormat, setActiveFormat] = useState("Banner AD");
-  const formats = ["Banner AD", "Native AD", "Video AD", "Interstitial AD"];
+  const [active, setActive] = useState("banner");
+  
+const feedRows = (count) =>
+  Array.from({ length: count }).map((_, i) => (
+    <div key={i} className="flex items-center gap-2 flex-shrink-0">
+      <div className="w-7 h-7 rounded bg-[#1e2a3a] flex-shrink-0" />
+      <div className="flex flex-col gap-1 flex-1">
+        <div className="h-[5px] rounded bg-[#1e2a3a] w-4/5" />
+        <div className="h-[5px] rounded bg-[#1e2a3a] w-3/5" />
+        <div className="h-[5px] rounded bg-[#1e2a3a] w-1/2" />
+      </div>
+    </div>
+  ));
+
+const formats = [
+  { key: "banner", label: "Banner AD" },
+  { key: "native", label: "Native AD" },
+  { key: "video", label: "Video AD" },
+  { key: "interstitial", label: "Interstitial AD" },
+];
 
   return (
-    <FadeSection>
-      <section className="py-16 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            {/* Left – phone mockup */}
-            <div className="flex justify-center">
-              <div
-                className="relative w-48 rounded-3xl overflow-hidden"
-                style={{
-                  background: "#0A0F2A",
-                  border: "2px solid rgba(0,100,255,0.3)",
-                  boxShadow: "0 0 40px rgba(0,80,200,0.2)",
-                  aspectRatio: "9/18",
-                }}
-              >
-                {/* Phone status bar */}
-                <div className="flex justify-between items-center px-4 py-2 text-white text-xs">
-                  <span>9:41</span>
-                  <div className="flex gap-1">
-                    <span>▐▐▐</span>
-                    <span>WiFi</span>
-                  </div>
+    <section className="bg-black  flex items-center justify-center px-8 py-12">
+      <div className="flex items-center gap-14 w-full max-w-2xl">
+
+        {/* Phone */}
+        <div className="flex-shrink-0">
+          <div
+            className={`relative w-40 h-80 rounded-[2rem] border-[6px] border-[#1e2336] bg-[#0d1120] overflow-hidden transition-all duration-300 ${
+              active === "video"
+                ? "shadow-[0_0_0_3px_#3b82f6,0_0_24px_6px_rgba(59,130,246,0.35)]"
+                : ""
+            }`}
+          >
+            {/* Notch */}
+            <div className="absolute top-2 left-1/2 -translate-x-1/2 w-10 h-1.5 bg-[#1e2336] rounded-full z-10" />
+
+            {/* Status bar */}
+            <div className="absolute top-0 w-full flex justify-between items-center px-3 pt-3 pb-1 z-10">
+              <span className="text-[8px] text-[#aaa] font-medium">9:41</span>
+              <div className="flex gap-1 items-center">
+                <div className="w-2 h-1.5 rounded-sm bg-[#aaa]" />
+                <div className="w-2.5 h-[5px] border border-[#aaa] rounded-sm relative">
+                  <div className="absolute inset-[1px] right-[2px] bg-[#aaa] rounded-[1px]" />
                 </div>
-                {/* Feed items */}
-                <div className="px-3 flex flex-col gap-2 mt-1">
-                  {[...Array(4)].map((_, i) => (
-                    <div key={i} className="flex gap-2 items-start">
-                      <div
-                        className="w-8 h-8 rounded flex-shrink-0"
-                        style={{ background: "rgba(30,50,120,0.6)" }}
-                      />
-                      <div className="flex-1 flex flex-col gap-1">
+              </div>
+            </div>
+
+            {/* Native: full screen */}
+            {active === "native" && (
+              <div className="absolute inset-0 bg-[#3b6cf6]" />
+            )}
+
+            {/* Feed-based states */}
+            {active !== "native" && (
+              <div className="absolute inset-0 pt-8 flex flex-col gap-1.5 p-2 overflow-hidden">
+                {active === "banner" && (
+                  <>
+                    {feedRows(5)}
+                    <div className="absolute bottom-0 left-0 right-0 h-9 bg-[#3b6cf6] border-t border-[#4a7aff]" />
+                  </>
+                )}
+
+                {active === "video" && (
+                  <>
+                    {feedRows(2)}
+                    <div className="w-full h-16 bg-[#3b6cf6] rounded-md flex-shrink-0 flex items-center justify-center">
+                      <div className="w-6 h-6 rounded-full border-2 border-white/80 flex items-center justify-center">
                         <div
-                          className="h-2 rounded"
+                          className="ml-0.5"
                           style={{
-                            background: "rgba(255,255,255,0.15)",
-                            width: "80%",
-                          }}
-                        />
-                        <div
-                          className="h-2 rounded"
-                          style={{
-                            background: "rgba(255,255,255,0.08)",
-                            width: "60%",
+                            width: 0,
+                            height: 0,
+                            borderTop: "5px solid transparent",
+                            borderBottom: "5px solid transparent",
+                            borderLeft: "8px solid rgba(255,255,255,0.85)",
                           }}
                         />
                       </div>
                     </div>
-                  ))}
-                </div>
-                {/* Banner AD at bottom */}
-                <div
-                  className="absolute bottom-0 left-0 right-0 py-3 flex items-center justify-center text-white text-xs font-semibold"
-                  style={{
-                    background: "linear-gradient(90deg,#0060FF,#0090FF)",
-                  }}
-                >
-                  {activeFormat}
-                </div>
-              </div>
-            </div>
+                    {feedRows(2)}
+                  </>
+                )}
 
-            {/* Right – format list */}
-            <div>
-              <h2 className="font-display font-bold text-4xl text-white mb-8">
-                Ad Format
-              </h2>
-              <div className="flex flex-col gap-2">
-                {formats.map((fmt) => (
-                  <button
-                    key={fmt}
-                    onClick={() => setActiveFormat(fmt)}
-                    className="text-left px-4 py-3 rounded-lg transition-all text-sm font-medium"
-                    style={{
-                      color: activeFormat === fmt ? "#ffffff" : "#6B7280",
-                      background:
-                        activeFormat === fmt
-                          ? "rgba(0,80,200,0.15)"
-                          : "transparent",
-                      border:
-                        activeFormat === fmt
-                          ? "1px solid rgba(0,120,255,0.3)"
-                          : "1px solid transparent",
-                    }}
-                  >
-                    {fmt}
-                  </button>
-                ))}
+                {active === "interstitial" && (
+                  <>
+                    {feedRows(1)}
+                    <div className="w-full h-24 bg-[#3b6cf6] rounded-md flex-shrink-0" />
+                    {feedRows(2)}
+                  </>
+                )}
               </div>
-            </div>
+            )}
           </div>
         </div>
-      </section>
-    </FadeSection>
+
+        {/* Right: title + list */}
+        <div>
+          <h2 className="text-white text-3xl font-bold tracking-tight mb-5">
+            Ad Format
+          </h2>
+          <div className="flex flex-col gap-1">
+            {formats.map(({ key, label }) => (
+              <button
+                key={key}
+                onClick={() => setActive(key)}
+                className={`text-left text-sm px-0.5 py-1.5 transition-colors duration-200 ${
+                  active === key
+                    ? "text-white font-bold"
+                    : "text-gray-500 font-normal hover:text-gray-300"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </section>
   );
 }
+
 
 /* ── Section 6: Get In Touch ── */
 function GetInTouch() {
@@ -332,7 +355,7 @@ function GetInTouch() {
 
   return (
     <section className="relative py-24 px-4 overflow-hidden">
-      {/* Glowing orb background */}
+      {/* Glowing orb #000000 */}
       <div
         className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none"
         style={{
