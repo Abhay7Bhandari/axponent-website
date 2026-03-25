@@ -23,7 +23,8 @@ export default function Footer({ setActivePage }) {
   return (
     <footer
       className="border-t border-white/5 pt-16 pb-8 px-4"
-      style={{ background: "linear-gradient(to top, #02040e, #040815)" }}
+      // style={{ background: "linear-gradient(to top, #02040e, #040815)" }}
+      style={{ background: "#000000" }}
     >
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">

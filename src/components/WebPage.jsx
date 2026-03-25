@@ -60,7 +60,7 @@ function WebHero() {
         </h1>
         <h1
           className="font-display font-bold text-4xl sm:text-4xl md:text-4xl lg:text-4xl mb-6 leading-tight"
-          style={{ color: "#00A8FF" }}
+          style={{ color: "#007BFF" }}
         >
           ACQUISITION AT GLOBAL SCALE
         </h1>

@@ -13,14 +13,13 @@ const SLIDES = [
     subtitle: "Audience, funnel, and attribution insights",
     body: "We start with data. By analyzing audience behavior, conversion funnels, and attribution signals, we identify where real value comes from and where growth opportunities lie. This foundation ensures every campaign is aligned with performance and ROI from the start.",
     img: analysisImg,
-    // Change Here
     titlePos: {
-      top: `${(407 / CH) * 100}%`,
+      top: `${(300 / CH) * 100}%`,
       left: `${(170 / CW) * 100}%`,
       width: `${(554 / CW) * 100}%`,
     },
     bodyPos: {
-      top: `${(523 / CH) * 100}%`,
+      top: `${(400 / CH) * 100}%`,
       left: `${(170 / CW) * 100}%`,
       width: `${(531 / CW) * 100}%`,
     },
@@ -30,14 +29,13 @@ const SLIDES = [
     subtitle: "Early funnel optimization",
     body: "Before scaling, we test and refine. We validate audiences, creatives, and channels to build a strong performance baseline while optimizing early engagement and conversions to ensure campaigns scale efficiently.",
     img: activationImg,
-    // Change Here
     titlePos: {
-      top: `${(452 / CH) * 100}%`,
+      top: `${(300 / CH) * 100}%`,
       left: `${(677 / CW) * 100}%`,
       width: `${(554 / CW) * 100}%`,
     },
     bodyPos: {
-      top: `${(568 / CH) * 100}%`,
+      top: `${(350 / CH) * 100}%`,
       left: `${(677 / CW) * 100}%`,
       width: `${(631 / CW) * 100}%`,
     },
@@ -47,14 +45,13 @@ const SLIDES = [
     subtitle: "Intent-led, CPA-driven media execution",
     body: "Our focus is on acquiring users that matter. With intent-led targeting and CPA-driven buying, we deliver high-quality users through data-backed media execution designed for measurable outcomes and long-term value.",
     img: acquisitionImg,
-    // Change Here
     titlePos: {
-      top: `${(446 / CH) * 100}%`,
+      top: `${(300 / CH) * 100}%`,
       left: `${(189 / CW) * 100}%`,
       width: `${(554 / CW) * 100}%`,
     },
     bodyPos: {
-      top: `${(562 / CH) * 100}%`,
+      top: `${(400 / CH) * 100}%`,
       left: `${(189 / CW) * 100}%`,
       width: `${(631 / CW) * 100}%`,
     },
@@ -64,14 +61,13 @@ const SLIDES = [
     subtitle: "Scalable, profitable growth",
     body: "Once performance is validated, we scale with purpose. We expand into new markets, increase budgets strategically, and unlock new growth opportunities while maintaining quality and profitability.",
     img: amplificationImg,
-    // Change Here
     titlePos: {
-      top: `${(459 / CH) * 100}%`,
+      top: `${(300 / CH) * 100}%`,
       left: `${(756 / CW) * 100}%`,
       width: `${(554 / CW) * 100}%`,
     },
     bodyPos: {
-      top: `${(575 / CH) * 100}%`,
+      top: `${(350 / CH) * 100}%`,
       left: `${(756 / CW) * 100}%`,
       width: `${(631 / CW) * 100}%`,
     },
@@ -225,7 +221,7 @@ export default function FourAs() {
                     opacity: isActive ? 1 : 0,
                     transform: isActive
                       ? "translateY(0px)"
-                      : "translateY(80px)",
+                      : "translateY(40px)",
                     willChange: "transform, opacity",
                   }}
                 >
@@ -258,7 +254,7 @@ export default function FourAs() {
                     opacity: isActive ? 1 : 0,
                     transform: isActive
                       ? "translateY(0px)"
-                      : "translateY(80px)",
+                      : "translateY(40px)",
                     willChange: "transform, opacity",
                   }}
                 >
