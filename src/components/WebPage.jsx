@@ -218,60 +218,83 @@ function TrafficChannels() {
 
   const n = nodes.length;
   const RADIUS = 200;
-  const DURATION = 12000;
+
+  // Node angles: evenly spaced, top = 90°, clockwise
+  const nodeAngles = nodes.map((_, i) => 90 + (i / n) * 360);
 
   const [activeIdx, setActiveIdx] = useState(0);
   const [hoveredIdx, setHoveredIdx] = useState(null);
-  const [dotAngle, setDotAngle] = useState(90);
-  const [paused, setPaused] = useState(false);
+
+  // dotAngle drives the white dot position — always stays on the ring
+  const [dotAngle, setDotAngle] = useState(nodeAngles[0]);
+  const dotAngleRef = useRef(nodeAngles[0]);
+  const targetAngleRef = useRef(nodeAngles[0]);
   const rafRef = useRef(null);
-  const startRef = useRef(null);
-  const pauseAngleRef = useRef(90);
+  const animatingRef = useRef(false);
 
-  // Node angles: evenly spaced, top = 90°, going clockwise
-  const nodeAngles = nodes.map((_, i) => 90 + (i / n) * 360);
-
-  // Determine which index is "highlighted" (hovered takes priority over active)
   const highlightIdx = hoveredIdx !== null ? hoveredIdx : activeIdx;
 
-  useEffect(() => {
-    if (paused) return;
-    const animate = (ts) => {
-      if (!startRef.current)
-        startRef.current =
-          ts - (((pauseAngleRef.current - 90 + 3600) % 360) / 360) * DURATION;
-      const elapsed = ts - startRef.current;
-      const angle = 90 + ((elapsed % DURATION) / DURATION) * 360;
-      setDotAngle(angle);
-      pauseAngleRef.current = angle;
-      rafRef.current = requestAnimationFrame(animate);
-    };
-    rafRef.current = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(rafRef.current);
-  }, [paused]);
+  // Animate dot along arc to target angle
+  const animateTo = (targetRaw) => {
+    // Cancel any running animation
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
 
-  const snapToNode = (i) => {
-    setPaused(true);
-    setActiveIdx(i);
-    pauseAngleRef.current = nodeAngles[i];
-    setDotAngle(nodeAngles[i]);
-    startRef.current = null;
-    setTimeout(() => {
-      setPaused(false);
-      startRef.current = null;
-    }, 2000);
+    // Find shortest arc direction from current angle to target
+    let current = dotAngleRef.current;
+    let target = targetRaw;
+
+    // Normalise difference to [-180, 180] so dot takes shortest arc
+    let diff = ((((target - current) % 360) + 540) % 360) - 180;
+    const finalTarget = current + diff;
+    targetAngleRef.current = finalTarget;
+
+    const SPEED = 3; // degrees per frame (~50ms for 60° arc)
+
+    const step = () => {
+      const cur = dotAngleRef.current;
+      const tgt = targetAngleRef.current;
+      const remaining = tgt - cur;
+
+      if (Math.abs(remaining) < 0.5) {
+        // Snap to exact node angle and stop
+        dotAngleRef.current = tgt;
+        setDotAngle(tgt);
+        animatingRef.current = false;
+        return;
+      }
+
+      const delta = Math.sign(remaining) * Math.min(SPEED, Math.abs(remaining));
+      dotAngleRef.current = cur + delta;
+      setDotAngle(cur + delta);
+      rafRef.current = requestAnimationFrame(step);
+    };
+
+    animatingRef.current = true;
+    rafRef.current = requestAnimationFrame(step);
   };
 
-  const handleNodeClick = (i) => snapToNode(i);
+  const handleNodeClick = (i) => {
+    setActiveIdx(i);
+    animateTo(nodeAngles[i]);
+  };
 
   const handleNodeEnter = (i) => {
     setHoveredIdx(i);
-    snapToNode(i);
+    animateTo(nodeAngles[i]);
   };
 
   const handleNodeLeave = () => {
     setHoveredIdx(null);
+    // Snap back to active node when hover ends
+    animateTo(nodeAngles[activeIdx]);
   };
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
 
   const dotRad = (dotAngle * Math.PI) / 180;
   const dotX = Math.cos(dotRad) * RADIUS;
@@ -280,13 +303,9 @@ function TrafficChannels() {
   return (
     <FadeSection>
       <style>{`
-        @keyframes subtle-glow {
-          0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
-          50%       { opacity: 1;   transform: translate(-50%, -50%) scale(1.15); }
-        }
-        @keyframes orbit-pulse {
-          0%, 100% { opacity: 0.35; }
-          50%       { opacity: 0.6; }
+        @keyframes tc-orb-breathe {
+          0%, 100% { box-shadow: 0px -5px 250px 204px rgba(0,123,255,0.40); }
+          50%       { box-shadow: 0px -5px 280px 224px rgba(0,123,255,0.55); }
         }
 
         .tc-node {
@@ -309,8 +328,9 @@ function TrafficChannels() {
           display: flex;
           align-items: center;
           justify-content: center;
-          transition: background 0.3s, box-shadow 0.3s, border-color 0.3s;
+          transition: background 0.3s, box-shadow 0.3s, border 0.3s;
           padding: 6px;
+          box-sizing: border-box;
         }
         .tc-icon-wrap.active {
           background: rgba(255, 255, 255, 0.15);
@@ -346,28 +366,32 @@ function TrafficChannels() {
           transition: color 0.3s, font-weight 0.1s;
           white-space: pre-line;
         }
-        .tc-label.active {
-          color: #fff;
-          font-weight: 700;
-        }
-        .tc-label.inactive {
-          color: rgba(148, 163, 184, 0.6);
-        }
+        .tc-label.active  { color: #fff; font-weight: 700; }
+        .tc-label.inactive { color: rgba(148, 163, 184, 0.6); }
 
-        /* White dot on ring */
         .tc-orbit-dot {
           position: absolute;
           border-radius: 50%;
           background: #ffffff;
           box-shadow: 0 0 6px 2px rgba(255, 255, 255, 0.85);
           z-index: 8;
-          transition: left 0.05s, top 0.05s;
+          /* NO CSS transition — position driven by rAF arc animation */
         }
       `}</style>
 
       <section className="py-20 px-4">
         <div className="max-w-5xl mx-auto">
-          <h2 className="font-display font-bold text-3xl md:text-4xl text-white text-center mb-16">
+          <h2
+            style={{
+              fontFamily: "'Gilroy-Medium', sans-serif",
+              fontWeight: 400,
+              fontSize: "clamp(28px, 4vw, 60px)",
+              lineHeight: "96%",
+              textAlign: "center",
+              color: "#ffffff",
+              marginBottom: "clamp(32px, 5vw, 64px)",
+            }}
+          >
             Traffic Channels
           </h2>
 
@@ -385,13 +409,12 @@ function TrafficChannels() {
                 width: RADIUS * 2 + 80,
                 height: RADIUS * 2 + 80,
                 borderRadius: "50%",
-                border: "1px solid rgba(255,255,255,0.05)",
+                border: "1px solid rgba(255,255,255,0.06)",
                 transform: "translate(-50%,-50%)",
-                animation: "orbit-pulse 5s ease-in-out infinite",
               }}
             />
 
-            {/* Main orbit ring — bright white, Image 2 style */}
+            {/* Main orbit ring */}
             <div
               style={{
                 position: "absolute",
@@ -405,39 +428,24 @@ function TrafficChannels() {
               }}
             />
 
-            {/* ── CENTER: small dim blue glow (Image 2 style, NO big sphere) ── */}
-            {/* Outer diffuse glow */}
+            {/* CENTER ORB — Figma: 31×31, #007BFF, box-shadow 0px -5px 250px 204px #007BFF66 */}
             <div
               style={{
                 position: "absolute",
                 top: "50%",
                 left: "50%",
-                width: 110,
-                height: 110,
+                transform: "translate(-50%, -50%)",
+                width: 31,
+                height: 31,
                 borderRadius: "50%",
-                background:
-                  "radial-gradient(circle, rgba(30,100,220,0.45) 0%, rgba(0,60,180,0.2) 50%, transparent 80%)",
-                animation: "subtle-glow 4s ease-in-out infinite",
-                zIndex: 4,
-              }}
-            />
-            {/* Tiny bright centre dot */}
-            <div
-              style={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%,-50%)",
-                width: 10,
-                height: 10,
-                borderRadius: "50%",
-                background:
-                  "radial-gradient(circle, rgba(140,210,255,0.9) 0%, rgba(40,120,255,0.6) 60%, transparent 100%)",
-                zIndex: 6,
+                background: "#007BFF",
+                boxShadow: "0px -5px 250px 204px rgba(0,123,255,0.40)",
+                animation: "tc-orb-breathe 3.5s ease-in-out infinite",
+                zIndex: 5,
               }}
             />
 
-            {/* Moving white dot on orbit */}
+            {/* White dot — travels along arc, never cuts through centre */}
             <div
               className="tc-orbit-dot"
               style={{
