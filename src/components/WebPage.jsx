@@ -21,7 +21,7 @@ import webLogo8 from "../assets/images/clients/Web page Logo/Noton.png";
 import webLogo9 from "../assets/images/clients/Web page Logo/Shopify.png";
 import webLog10 from "../assets/images/clients/Web page Logo/Surfshank.png";
 
-// Traffic Channels icons (using emojis for simplicity)
+// Traffic Channels icons
 import Contextual from "../assets/images/web/Traffic-Channels/Contextual.svg";
 import Contextualllintent from "../assets/images/web/Traffic-Channels/Contextualllintent.svg";
 import DirectMedia from "../assets/images/web/Traffic-Channels/DirectMedia.svg";
@@ -47,7 +47,6 @@ const WEB_LOGOS = [
 ];
 const WEB_TICKER = [...WEB_LOGOS, ...WEB_LOGOS];
 
-// Categories grid
 import categoriesImg from "../assets/images/web/categories.png";
 
 /* ── Section 1: Hero ── */
@@ -177,7 +176,7 @@ function DiverseNeeds() {
           </h2>
           <img
             src={categoriesImg}
-            alt="Categories — Finance, E-commerce, Travel, Insurance, Education, Home Improvement"
+            alt="Categories"
             className="w-full rounded-2xl object-cover"
           />
         </div>
@@ -186,27 +185,35 @@ function DiverseNeeds() {
   );
 }
 
-/* ── Section 5: Traffic Channels — Orbit with active dot ── */
+/* ── Section 5: Traffic Channels ── */
 function TrafficChannels() {
   const nodes = [
     {
-      label: "Performance Publisher & Comparison Networks",
-      isPerformance: true,
-    }, // 👈 special node
-    {
-      label: "Native, Display & Programmatic Advertising",
-      isNative: true,
-    },
-    { label: "Email & Push High-Intent Web Traffic", isEmail: true },
-    {
-      label: "Direct Media Buying & Exclusive Inventory Access",
-      isDirect: true,
+      label: "Performance Publisher &\nComparison Networks",
+      iconActive: PerformacePublisher,
+      iconInactive: PerformacePublisher,
     },
     {
-      label: "Contextual & Intent-Based Audience Targeting",
-      isContextual: true, // 👈 special node
+      label: "Native, Display &\nProgrammatic Advertising",
+      iconActive: Native,
+      iconInactive: Native,
     },
-    { label: "Google", icon: "🔍", isGoogle: true },
+    {
+      label: "Email & Push High-Intent\nWeb Traffic",
+      iconActive: EmailPush,
+      iconInactive: EmailPushllintent,
+    },
+    {
+      label: "Direct Media Buying &\nExclusive Inventory Access",
+      iconActive: DirectMedia,
+      iconInactive: DirecttMediallintent,
+    },
+    {
+      label: "Contextual & Intent-Based\nAudience Targeting",
+      iconActive: Contextual,
+      iconInactive: Contextualllintent,
+    },
+    { label: "Google", iconActive: Google, iconInactive: Googlellintent },
   ];
 
   const n = nodes.length;
@@ -214,44 +221,56 @@ function TrafficChannels() {
   const DURATION = 12000;
 
   const [activeIdx, setActiveIdx] = useState(0);
+  const [hoveredIdx, setHoveredIdx] = useState(null);
   const [dotAngle, setDotAngle] = useState(90);
   const [paused, setPaused] = useState(false);
   const rafRef = useRef(null);
   const startRef = useRef(null);
   const pauseAngleRef = useRef(90);
 
-  const nodeAngles = nodes.map((_, i) => 90 - (i / n) * 360);
+  // Node angles: evenly spaced, top = 90°, going clockwise
+  const nodeAngles = nodes.map((_, i) => 90 + (i / n) * 360);
+
+  // Determine which index is "highlighted" (hovered takes priority over active)
+  const highlightIdx = hoveredIdx !== null ? hoveredIdx : activeIdx;
 
   useEffect(() => {
     if (paused) return;
     const animate = (ts) => {
       if (!startRef.current)
-        startRef.current = ts - (pauseAngleRef.current / 360) * DURATION;
-
+        startRef.current =
+          ts - (((pauseAngleRef.current - 90 + 3600) % 360) / 360) * DURATION;
       const elapsed = ts - startRef.current;
-      const angle = 90 - ((elapsed % DURATION) / DURATION) * 360;
-
+      const angle = 90 + ((elapsed % DURATION) / DURATION) * 360;
       setDotAngle(angle);
       pauseAngleRef.current = angle;
-
       rafRef.current = requestAnimationFrame(animate);
     };
-
     rafRef.current = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(rafRef.current);
   }, [paused]);
 
-  const handleNodeClick = (i) => {
+  const snapToNode = (i) => {
     setPaused(true);
     setActiveIdx(i);
     pauseAngleRef.current = nodeAngles[i];
     setDotAngle(nodeAngles[i]);
     startRef.current = null;
-
     setTimeout(() => {
       setPaused(false);
       startRef.current = null;
     }, 2000);
+  };
+
+  const handleNodeClick = (i) => snapToNode(i);
+
+  const handleNodeEnter = (i) => {
+    setHoveredIdx(i);
+    snapToNode(i);
+  };
+
+  const handleNodeLeave = () => {
+    setHoveredIdx(null);
   };
 
   const dotRad = (dotAngle * Math.PI) / 180;
@@ -261,105 +280,118 @@ function TrafficChannels() {
   return (
     <FadeSection>
       <style>{`
-        @keyframes glow-orb {
-          0%, 100% { box-shadow: 0 0 60px 20px rgba(0,140,255,0.5), 0 0 120px 40px rgba(0,80,200,0.25); }
-          50%       { box-shadow: 0 0 80px 30px rgba(0,180,255,0.7), 0 0 160px 60px rgba(0,100,255,0.35); }
+        @keyframes subtle-glow {
+          0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+          50%       { opacity: 1;   transform: translate(-50%, -50%) scale(1.15); }
         }
-        @keyframes pulse-ring {
-          0%,100% { transform: translate(-50%,-50%) scale(1);    opacity: 0.5; }
-          50%      { transform: translate(-50%,-50%) scale(1.12); opacity: 0.15; }
+        @keyframes orbit-pulse {
+          0%, 100% { opacity: 0.35; }
+          50%       { opacity: 0.6; }
         }
-        @keyframes pulse-ring2 {
-          0%,100% { transform: translate(-50%,-50%) scale(1);    opacity: 0.3; }
-          50%      { transform: translate(-50%,-50%) scale(1.2);  opacity: 0.08; }
-        }
+
         .tc-node {
           position: absolute;
           display: flex;
           flex-direction: column;
           align-items: center;
           gap: 6px;
-          width: 110px;
+          width: 120px;
           text-align: center;
           cursor: pointer;
           transition: transform 0.25s;
         }
-        .tc-node:hover { transform: translate(-50%,-50%) scale(1.1) !important; }
+        .tc-node:hover { transform: translate(-50%, -50%) scale(1.08) !important; }
 
-        .tc-icon {
-          width: 46px; height: 46px;
-          border-radius: 12px;
-          display: flex; align-items: center; justify-content: center;
-          font-size: 21px;
+        .tc-icon-wrap {
+          width: 52px;
+          height: 52px;
+          border-radius: 14px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           transition: background 0.3s, box-shadow 0.3s, border-color 0.3s;
+          padding: 6px;
+        }
+        .tc-icon-wrap.active {
+          background: rgba(255, 255, 255, 0.15);
+          border: 1.5px solid rgba(255, 255, 255, 0.75);
+          box-shadow: 0 0 16px rgba(255, 255, 255, 0.3), 0 0 32px rgba(100, 180, 255, 0.2);
+        }
+        .tc-icon-wrap.inactive {
+          background: transparent;
+          border: 1px solid transparent;
+          box-shadow: none;
         }
 
-        .tc-icon.active {
-          background: rgba(255,255,255,0.18);
-          border: 1.5px solid rgba(255,255,255,0.7);
-          box-shadow: 0 0 18px rgba(255,255,255,0.35);
+        .tc-icon-img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          transition: opacity 0.3s, filter 0.3s;
         }
-
-        .tc-icon.inactive {
-          background: rgba(0,60,180,0.25);
-          border: 1px solid rgba(0,140,255,0.3);
-          box-shadow: 0 2px 12px rgba(0,100,255,0.2);
+        .tc-icon-img.active {
+          opacity: 1;
+          filter: brightness(1.3) drop-shadow(0 0 6px rgba(255,255,255,0.5));
+        }
+        .tc-icon-img.inactive {
+          opacity: 0.4;
+          filter: grayscale(0.3) brightness(0.7);
         }
 
         .tc-label {
           font-size: 11px;
-          font-weight: 500;
-          line-height: 1.3;
-          text-shadow: 0 1px 6px rgba(0,0,0,0.9);
-          transition: color 0.3s;
+          font-weight: 400;
+          line-height: 1.35;
+          text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9);
+          transition: color 0.3s, font-weight 0.1s;
+          white-space: pre-line;
+        }
+        .tc-label.active {
+          color: #fff;
+          font-weight: 700;
+        }
+        .tc-label.inactive {
+          color: rgba(148, 163, 184, 0.6);
         }
 
-        .tc-label.active { color: #fff; }
-        .tc-label.inactive { color: rgba(148,163,184,0.7); }
+        /* White dot on ring */
+        .tc-orbit-dot {
+          position: absolute;
+          border-radius: 50%;
+          background: #ffffff;
+          box-shadow: 0 0 6px 2px rgba(255, 255, 255, 0.85);
+          z-index: 8;
+          transition: left 0.05s, top 0.05s;
+        }
       `}</style>
 
-      <h2 className="font-display font-bold text-3xl md:text-4xl text-white text-center mb-4">
-        Traffic Channels
-      </h2>
       <section className="py-20 px-4">
         <div className="max-w-5xl mx-auto">
-          {/* Active label display */}
-          {/* <p className="text-center text-brand-blue text-sm font-medium mb-12 tracking-wide min-h-[20px]">
-            {nodes[activeIdx].label}
-          </p> */}
+          <h2 className="font-display font-bold text-3xl md:text-4xl text-white text-center mb-16">
+            Traffic Channels
+          </h2>
 
           {/* Stage */}
           <div
             className="relative mx-auto"
-            style={{ width: 500, height: 500, maxWidth: "90vw" }}
+            style={{ width: 560, height: 560, maxWidth: "92vw" }}
           >
-            {/* Pulse rings */}
+            {/* Outer faint halo ring */}
             <div
               style={{
                 position: "absolute",
                 top: "50%",
                 left: "50%",
-                width: 420,
-                height: 420,
+                width: RADIUS * 2 + 80,
+                height: RADIUS * 2 + 80,
                 borderRadius: "50%",
-                border: "1px solid rgba(0,140,255,0.2)",
-                animation: "pulse-ring2 4s ease-in-out infinite",
-              }}
-            />
-            <div
-              style={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                width: 340,
-                height: 340,
-                borderRadius: "50%",
-                border: "1.5px solid rgba(0,160,255,0.3)",
-                animation: "pulse-ring 3.5s ease-in-out infinite",
+                border: "1px solid rgba(255,255,255,0.05)",
+                transform: "translate(-50%,-50%)",
+                animation: "orbit-pulse 5s ease-in-out infinite",
               }}
             />
 
-            {/* Orbit track */}
+            {/* Main orbit ring — bright white, Image 2 style */}
             <div
               style={{
                 position: "absolute",
@@ -368,67 +400,63 @@ function TrafficChannels() {
                 width: RADIUS * 2,
                 height: RADIUS * 2,
                 borderRadius: "50%",
-                border: "1px solid rgba(0,160,255,0.18)",
+                border: "1.5px solid rgba(255,255,255,0.55)",
                 transform: "translate(-50%,-50%)",
               }}
             />
 
-            {/* Central orb */}
+            {/* ── CENTER: small dim blue glow (Image 2 style, NO big sphere) ── */}
+            {/* Outer diffuse glow */}
             <div
               style={{
                 position: "absolute",
                 top: "50%",
                 left: "50%",
-                transform: "translate(-50%,-50%)",
-                width: 90,
-                height: 90,
+                width: 110,
+                height: 110,
                 borderRadius: "50%",
                 background:
-                  "radial-gradient(circle, rgba(80,180,255,0.95) 0%, rgba(0,100,255,0.7) 40%, rgba(0,40,160,0.4) 70%, transparent 100%)",
-                animation: "glow-orb 3s ease-in-out infinite",
-                zIndex: 5,
+                  "radial-gradient(circle, rgba(30,100,220,0.45) 0%, rgba(0,60,180,0.2) 50%, transparent 80%)",
+                animation: "subtle-glow 4s ease-in-out infinite",
+                zIndex: 4,
               }}
             />
+            {/* Tiny bright centre dot */}
             <div
               style={{
                 position: "absolute",
                 top: "50%",
                 left: "50%",
                 transform: "translate(-50%,-50%)",
-                width: 26,
-                height: 26,
+                width: 10,
+                height: 10,
                 borderRadius: "50%",
                 background:
-                  "radial-gradient(circle,#fff 0%,rgba(160,220,255,0.8) 60%,transparent 100%)",
+                  "radial-gradient(circle, rgba(140,210,255,0.9) 0%, rgba(40,120,255,0.6) 60%, transparent 100%)",
                 zIndex: 6,
               }}
             />
 
             {/* Moving white dot on orbit */}
             <div
+              className="tc-orbit-dot"
               style={{
-                position: "absolute",
                 left: `calc(50% + ${dotX}px)`,
                 top: `calc(50% + ${dotY}px)`,
+                width: 11,
+                height: 11,
                 transform: "translate(-50%,-50%)",
-                width: 14,
-                height: 14,
-                borderRadius: "50%",
-                background: "#ffffff",
-                boxShadow: "0 0 10px 3px rgba(255,255,255,0.8)",
-                zIndex: 8,
-                transition: "left 0.05s linear, top 0.05s linear",
               }}
             />
 
-            {/* Node icons + labels at fixed positions */}
+            {/* Nodes */}
             {nodes.map((node, i) => {
-              const isActive = i === activeIdx;
+              const isActive = i === highlightIdx;
               const rad = (nodeAngles[i] * Math.PI) / 180;
-              // Push labels further out than orbit radius
-              const labelR = RADIUS + 72;
+              const labelR = RADIUS + 74;
               const lx = Math.cos(rad) * labelR;
               const ly = -Math.sin(rad) * labelR;
+
               return (
                 <div
                   key={i}
@@ -440,57 +468,18 @@ function TrafficChannels() {
                     zIndex: 7,
                   }}
                   onClick={() => handleNodeClick(i)}
+                  onMouseEnter={() => handleNodeEnter(i)}
+                  onMouseLeave={handleNodeLeave}
                 >
                   <div
-                    className={`tc-icon ${isActive ? "active" : "inactive"}`}
+                    className={`tc-icon-wrap ${isActive ? "active" : "inactive"}`}
                   >
-                    {/* 👇 MAIN LOGIC */}
-                    {node.isPerformance && (
-                      <img
-                        src={
-                          isActive ? PerformacePublisher : PerformacePublisher
-                        }
-                        alt={node.label}
-                        className="w-6 h-6 object-contain"
-                      />
-                    )}
-                    {node.isNative && (
-                      <img
-                        src={isActive ? Native : Native}
-                        alt={node.label}
-                        className="w-6 h-6 object-contain"
-                      />
-                    )}
-                    {node.isEmail && (
-                      <img
-                        src={isActive ? EmailPush : EmailPushllintent}
-                        alt={node.label}
-                        className="w-6 h-6 object-contain"
-                      />
-                    )}
-                    {node.isDirect && (
-                      <img
-                        src={isActive ? DirectMedia : DirecttMediallintent}
-                        alt={node.label}
-                        className="w-6 h-6 object-contain"
-                      />
-                    )}
-                    {node.isContextual && (
-                      <img
-                        src={isActive ? Contextual : Contextualllintent}
-                        alt={node.label}
-                        className="w-6 h-6 object-contain"
-                      />
-                    )}
-                    {node.isGoogle && (
-                      <img
-                        src={isActive ? Google : Googlellintent}
-                        alt={node.label}
-                        className="w-6 h-6 object-contain"
-                      />
-                    )}
+                    <img
+                      src={isActive ? node.iconActive : node.iconInactive}
+                      alt={node.label}
+                      className={`tc-icon-img ${isActive ? "active" : "inactive"}`}
+                    />
                   </div>
-
                   <span
                     className={`tc-label ${isActive ? "active" : "inactive"}`}
                   >
