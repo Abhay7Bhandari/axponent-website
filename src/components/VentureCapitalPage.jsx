@@ -26,7 +26,7 @@ function VCHero() {
             </h1>
             <h1
               className="font-display font-bold text-4xl sm:text-4xl md:text-4xl lg:text-4xl mb-8 leading-tight"
-              style={{ color: "#00A8FF" }}
+              style={{ color: "#007BFF" }}
             >
               WITH AXPONENT
             </h1>

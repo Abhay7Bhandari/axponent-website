@@ -22,7 +22,7 @@ function AdvertisersHero() {
       <div className="stars" />
       <FadeSection>
         <h1 className="font-display font-bold text-5xl sm:text-5xl md:text-5xl text-white mb-6 leading-tight">
-          PARTNERS/<span style={{ color: "#00A8FF" }}>ADVERTISERS</span>
+          PARTNERS/<span style={{ color: "#007BFF" }}>ADVERTISERS</span>
         </h1>
         <p className="text-gray-400 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
           Axponent partners with trusted global measurement, media, and
@@ -49,8 +49,8 @@ function PrecisionCards() {
           <div
             className="rounded-2xl p-8 md:p-12"
             style={{
-              background: "rgba(10,20,60,0.5)",
-              border: "1px solid rgba(0,100,255,0.15)",
+              background: "#000000",
+              border: "1px solid #393647",
             }}
           >
             <h2 className="font-display font-bold text-2xl md:text-3xl text-white text-center mb-10">
@@ -148,14 +148,6 @@ function PartnerTabs() {
                       "opacity 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease",
                   }}
                 />
-                {/* <p
-                  className="mt-3 text-sm font-medium text-center"
-                  style={{
-                    color: activeTab === tab.key ? "#ffffff" : "#6B7280",
-                  }}
-                >
-                  {/* {tab.label} */}
-                {/* </p */}
               </div>
             </FadeSection>
           ))}
