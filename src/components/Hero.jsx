@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 export default function Hero() {
-  const [email, setEmail] = useState("");
+  // const [email, setEmail] = useState("");
 
   const scrollToBottom = () =>
     window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
@@ -54,7 +54,7 @@ export default function Hero() {
         </p>
 
         {/* Email Subscribe */}
-        <div
+        {/* <div
           className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-0"
           style={{ animation: "fadeup 0.7s ease 0.3s both" }}
         >
@@ -88,7 +88,7 @@ export default function Hero() {
           <button className="btn-submit px-6 py-3 rounded-lg sm:rounded-l-none sm:rounded-r-lg text-sm font-semibold text-white w-full sm:w-auto">
             Submit
           </button>
-        </div>
+        </div> */}
       </div>
 
       {/* Glowing Orb */}
