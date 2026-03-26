@@ -55,7 +55,7 @@ function VCHero() {
       </div>
 
       {/* Earth at the bottom of hero */}
-      <div
+      {/* <div
         className="absolute bottom-0 left-0 w-full pointer-events-none"
         style={{ zIndex: 2 }}
       >
@@ -70,7 +70,7 @@ function VCHero() {
             objectPosition: "top center",
           }}
         />
-      </div>
+      </div> */}
     </section>
   );
 }
@@ -161,8 +161,12 @@ function RaiseFunds() {
   };
 
   return (
-    <section className="relative py-24 px-4 overflow-hidden">
-      {/* Earth image at bottom */}
+    // Put a color in section Tag for classname
+    <section
+      className="relative py-24 px-4 overflow-hidden"
+      style={{ height: "900px" }}
+    >
+    {/* Earth image at bottom */}
       <div
         className="absolute bottom-0 left-0 w-full pointer-events-none"
         style={{ zIndex: 0 }}

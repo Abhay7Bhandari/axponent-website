@@ -1,6 +1,7 @@
 import { useRef, useEffect } from "react";
 import FadeSection from "./FadeSection";
-import earthImg from "../assets/images/Earth.png";
+// import earthImg from "../assets/images/Earth.png";
+import upsideDownEarthImg from "../assets/images/UltaEarth.png";
 
 const STATS = [
   { num: "65+", label: "performance\nmarketing specialists" },
@@ -222,7 +223,7 @@ export default function Stats() {
           style={{ zIndex: 0 }}
         >
           <img
-            src={earthImg}
+            src={upsideDownEarthImg}
             alt=""
             aria-hidden
             className="w-full"
@@ -235,7 +236,10 @@ export default function Stats() {
         </div>
 
         {/* Stats grid on top of Earth */}
-        <div className="max-w-6xl mx-auto relative" style={{ zIndex: 1 }}>
+        <div
+          className="max-w-6xl mx-auto relative"
+          style={{ zIndex: 1, marginTop: "600px" }}
+        >
           <div
             style={{
               display: "grid",

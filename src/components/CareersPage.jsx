@@ -9,30 +9,41 @@ import earthImg from "../assets/images/Earth.png";
 /* ── Section 1: Hero ── */
 function CareersHero() {
   return (
-    <section className="relative min-h-[60vh] flex flex-col items-center justify-center text-center px-4 pt-28 pb-0 overflow-hidden">
+    <section
+      className="relative flex flex-col items-center justify-center text-center px-4 pt-24 overflow-hidden"
+      style={{ minHeight: "100vh" }}
+    >
       <div className="stars" />
 
-      {/* Content */}
-      <FadeSection>
-        <h1 className="font-display font-bold text-4xl sm:text-4xl md:text-6xl lg:text-6xl text-white mb-5 leading-tight">
-          GROW WITH <span style={{ color: "#007BFF" }}>AXPONENT</span>
-        </h1>
-        <p className="text-gray-400 text-sm sm:text-base max-w-lg mx-auto mb-8 leading-relaxed">
-          We're building a team of performance-driven thinkers who thrive in
-          fast-paced, data-led environments.
-        </p>
-        <button
-          className="px-10 py-3 rounded-full text-white font-semibold text-sm transition-all hover:opacity-90 hover:scale-105"
-          style={{
-            background: "linear-gradient(90deg, #0050FF, #0090FF)",
-            boxShadow: "0 4px 24px rgba(0,100,255,0.45)",
-          }}
-        >
-          Apply Now
-        </button>
-      </FadeSection>
+      {/* Content — sits above Earth, pushed up so text lands near horizon */}
+      <div
+        className="relative z-10 flex flex-col items-center"
+        style={{ marginBottom: "18vw" }}
+      >
+        <FadeSection>
+          <h1
+            className="font-display font-bold text-white leading-tight mb-5"
+            style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}
+          >
+            GROW WITH <span style={{ color: "#007BFF" }}>AXPONENT</span>
+          </h1>
+          <p className="text-gray-400 text-sm sm:text-base max-w-lg mx-auto mb-8 leading-relaxed">
+            We're building a team of performance-driven thinkers who thrive in
+            fast-paced, data-led environments.
+          </p>
+          <button
+            className="px-10 py-3 rounded-full text-white font-semibold text-sm transition-all hover:opacity-90 hover:scale-105"
+            style={{
+              background: "linear-gradient(90deg, #0050FF, #0090FF)",
+              boxShadow: "0 4px 24px rgba(0,100,255,0.45)",
+            }}
+          >
+            Apply Now
+          </button>
+        </FadeSection>
+      </div>
 
-      {/* Earth image at bottom of hero */}
+      {/* Earth — large arc fills bottom of hero exactly like Figma Image 1 */}
       <div
         className="absolute bottom-0 left-0 w-full pointer-events-none"
         style={{ zIndex: 2 }}
@@ -41,13 +52,34 @@ function CareersHero() {
           src={earthImg}
           alt=""
           aria-hidden
-          className="w-full"
           style={{
             display: "block",
+            width: "100%",
             objectFit: "cover",
             objectPosition: "top center",
           }}
         />
+      </div>
+
+      {/* SCROLL DOWN */}
+      <div className="hidden lg:flex flex-col items-center gap-2 fixed right-6 top-1/2 -translate-y-1/2 z-20">
+        <span
+          className="text-gray-500 text-xs tracking-widest select-none"
+          style={{ writingMode: "vertical-rl" }}
+        >
+          SCROLL DOWN
+        </span>
+        <div className="w-px h-16 bg-gray-700" />
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#6B7280"
+          strokeWidth="2"
+        >
+          <path d="M12 5v14M5 12l7 7 7-7" />
+        </svg>
       </div>
     </section>
   );
@@ -81,44 +113,46 @@ function WhyWorkHere() {
 
   return (
     <section className="py-10 px-4">
-      <div className="max-w-5xl mx-auto flex flex-col gap-8">
+      <div className="max-w-5xl mx-auto flex flex-col gap-6">
         {slides.map((slide) => (
           <FadeSection key={slide.number}>
             <div
               className="relative rounded-2xl overflow-hidden"
-              style={{ border: "1px solid rgba(0,80,200,0.25)" }}
+              style={{
+                background: "linear-gradient(135deg, #0a1530 0%, #060e22 100%)",
+                border: "1px solid rgba(0,80,200,0.2)",
+              }}
             >
-              <div
-                className="absolute inset-0"
-                style={{
-                  background:
-                    "linear-gradient(135deg, #0a1a3a 0%, #051020 50%, #0d1830 100%)",
-                }}
-              />
-              <div className="relative z-10 p-8 md:p-10 flex flex-row justify-between items-start gap-6">
-                <div className="max-w-lg">
-                  <h3 className="font-display font-bold text-xl md:text-2xl text-white leading-snug">
-                    {slide.title}
-                    <span style={{ color: "#00A8FF" }}>{slide.highlight}</span>
-                  </h3>
-                </div>
-                <div
-                  className="flex-shrink-0 w-14 h-14 rounded-full flex items-center justify-center font-display font-bold text-white text-lg"
+              {/* Top row: title + number badge */}
+              <div className="flex flex-row justify-between items-start gap-4 p-6 md:p-8 pb-4">
+                <h3
+                  className="font-display font-bold text-white leading-snug"
                   style={{
-                    background: "linear-gradient(135deg, #0050C8, #0080FF)",
-                    boxShadow: "0 4px 20px rgba(0,80,200,0.5)",
+                    fontSize: "clamp(1rem, 2vw, 1.35rem)",
+                    maxWidth: "75%",
+                  }}
+                >
+                  {slide.title}
+                  <span style={{ color: "#007BFF" }}>{slide.highlight}</span>
+                </h3>
+                <div
+                  className="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center font-bold text-white"
+                  style={{
+                    background: "#007BFF",
+                    boxShadow: "0 4px 20px rgba(0,100,255,0.5)",
+                    fontSize: "14px",
+                    letterSpacing: "0.05em",
                   }}
                 >
                   {slide.number}
                 </div>
               </div>
-              <div className="relative z-10 px-8 pb-8">
+
+              {/* Image */}
+              <div className="px-6 md:px-8 pb-6 md:pb-8">
                 <div
                   className="w-full rounded-xl overflow-hidden"
-                  style={{
-                    height: "260px",
-                    border: "1px solid rgba(0,80,200,0.2)",
-                  }}
+                  style={{ height: "clamp(200px, 28vw, 320px)" }}
                 >
                   <img
                     src={slide.img}
@@ -141,28 +175,31 @@ function JobListings() {
     <FadeSection>
       <section className="py-16 px-4">
         <div className="max-w-4xl mx-auto">
-          <h2 className="font-display font-bold text-3xl md:text-4xl text-white text-center mb-10 tracking-widest uppercase">
+          <h2
+            className="font-display font-bold text-white text-center mb-10 tracking-widest uppercase"
+            style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)" }}
+          >
             Find Your Role
           </h2>
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-4">
             {careerMock.map((job, i) => (
               <div
                 key={i}
-                className="rounded-xl p-6 transition-all duration-300 hover:scale-[1.005]"
+                className="rounded-xl p-6"
                 style={{
                   background:
-                    "linear-gradient(135deg, rgba(5,15,55,0.9) 0%, rgba(3,8,30,0.95) 100%)",
-                  border: "1px solid rgba(0,60,180,0.3)",
+                    "linear-gradient(135deg, rgba(5,15,55,0.95) 0%, rgba(3,8,30,0.98) 100%)",
+                  border: "1px solid rgba(0,60,180,0.35)",
                 }}
               >
-                <h3 className="font-display font-bold text-white text-lg mb-2">
+                <h3 className="font-display font-bold text-white text-base mb-2">
                   {job.title}
                 </h3>
-                <div className="flex items-center gap-4 mb-3">
+                <div className="flex items-center gap-3 mb-3">
                   <span className="flex items-center gap-1 text-gray-400 text-xs">
                     <svg
-                      width="12"
-                      height="12"
+                      width="11"
+                      height="11"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -176,8 +213,8 @@ function JobListings() {
                   <span className="text-gray-600 text-xs">|</span>
                   <span className="flex items-center gap-1 text-gray-400 text-xs">
                     <svg
-                      width="12"
-                      height="12"
+                      width="11"
+                      height="11"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -195,7 +232,7 @@ function JobListings() {
                       key={j}
                       className="text-xs px-3 py-1 rounded-full"
                       style={{
-                        background: "rgba(0,60,180,0.15)",
+                        background: "rgba(0,50,160,0.15)",
                         border: "1px solid rgba(0,80,200,0.3)",
                         color: "#94A3B8",
                       }}
@@ -204,7 +241,7 @@ function JobListings() {
                     </span>
                   ))}
                 </div>
-                <p className="text-gray-400 text-sm leading-relaxed mb-5">
+                <p className="text-gray-400 text-sm leading-relaxed mb-4">
                   {job.desc}
                 </p>
                 <div className="flex justify-end">
@@ -244,8 +281,11 @@ function WorkWithUs() {
   };
 
   return (
-    <section className="relative py-24 px-4 overflow-hidden">
-      {/* Earth image at bottom */}
+    <section
+      className="relative overflow-hidden"
+      style={{ paddingTop: "80px", paddingBottom: "0" }}
+    >
+      {/* Earth — large centered arc behind form, like Figma Image 4 */}
       <div
         className="absolute bottom-0 left-0 w-full pointer-events-none"
         style={{ zIndex: 0 }}
@@ -254,17 +294,17 @@ function WorkWithUs() {
           src={earthImg}
           alt=""
           aria-hidden
-          className="w-full"
           style={{
             display: "block",
+            width: "100%",
             objectFit: "cover",
             objectPosition: "top center",
           }}
         />
       </div>
 
-      {/* SCROLL DOWN label */}
-      <div className="hidden lg:flex flex-col items-center gap-2 fixed right-6 top-1/2 -translate-y-1/2 z-10">
+      {/* SCROLL DOWN */}
+      <div className="hidden lg:flex flex-col items-center gap-2 fixed right-6 top-1/2 -translate-y-1/2 z-20">
         <span
           className="text-gray-500 text-xs tracking-widest select-none"
           style={{ writingMode: "vertical-rl" }}
@@ -284,90 +324,107 @@ function WorkWithUs() {
         </svg>
       </div>
 
-      <div className="max-w-3xl mx-auto relative" style={{ zIndex: 1 }}>
-        <h2 className="font-display font-bold text-4xl md:text-5xl text-white text-center mb-12">
-          Work With Us!
-        </h2>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {[
-              { name: "name", placeholder: "Enter Your Name", type: "text" },
-              { name: "email", placeholder: "Enter You Mail", type: "email" },
-            ].map((f) => (
-              <input
-                key={f.name}
-                name={f.name}
-                type={f.type}
-                placeholder={f.placeholder}
-                value={form[f.name]}
-                onChange={handleChange}
-                className="px-4 py-3 rounded-lg text-sm text-white outline-none placeholder-gray-500 transition-all"
-                style={{
-                  background: "rgba(255,255,255,0.04)",
-                  border: "1px solid rgba(0,120,255,0.3)",
-                }}
-                onFocus={(e) =>
-                  (e.target.style.borderColor = "rgba(0,180,255,0.7)")
-                }
-                onBlur={(e) =>
-                  (e.target.style.borderColor = "rgba(0,120,255,0.3)")
-                }
-              />
-            ))}
-          </div>
-          <textarea
-            name="message"
-            placeholder="Your Message..."
-            rows={5}
-            value={form.message}
-            onChange={handleChange}
-            className="px-4 py-3 rounded-lg text-sm text-white outline-none placeholder-gray-500 resize-none transition-all"
-            style={{
-              background: "rgba(255,255,255,0.04)",
-              border: "1px solid rgba(0,120,255,0.3)",
-            }}
-            onFocus={(e) =>
-              (e.target.style.borderColor = "rgba(0,180,255,0.7)")
-            }
-            onBlur={(e) => (e.target.style.borderColor = "rgba(0,120,255,0.3)")}
-          />
-          <div
-            className="flex items-center justify-between px-4 py-3 rounded-lg"
-            style={{
-              background: "rgba(255,255,255,0.04)",
-              border: "1px solid rgba(0,120,255,0.3)",
-            }}
+      {/* Form — above Earth */}
+      <div className="relative px-4 pb-36" style={{ zIndex: 1 }}>
+        <div className="max-w-3xl mx-auto">
+          <h2
+            className="font-display font-bold text-white text-center mb-10"
+            style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}
           >
-            <span className="text-gray-500 text-sm truncate flex-1 mr-3">
-              {fileName || "Upload Your CV"}
-            </span>
-            <button
-              type="button"
-              onClick={() => fileRef.current.click()}
-              className="px-5 py-1.5 rounded-lg text-white text-sm font-semibold flex-shrink-0 transition-all hover:opacity-90"
-              style={{ background: "linear-gradient(90deg,#0050FF,#0090FF)" }}
-            >
-              Upload
-            </button>
-            <input
-              ref={fileRef}
-              type="file"
-              accept=".pdf,.doc,.docx"
-              onChange={handleFile}
-              className="hidden"
+            Work With Us!
+          </h2>
+
+          <div className="flex flex-col gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {[
+                { name: "name", placeholder: "Enter Your Name", type: "text" },
+                { name: "email", placeholder: "Enter You Mail", type: "email" },
+              ].map((f) => (
+                <input
+                  key={f.name}
+                  name={f.name}
+                  type={f.type}
+                  placeholder={f.placeholder}
+                  value={form[f.name]}
+                  onChange={handleChange}
+                  className="px-4 py-3 rounded-lg text-sm text-white outline-none placeholder-gray-500 transition-all"
+                  style={{
+                    background: "rgba(255,255,255,0.05)",
+                    border: "1px solid rgba(0,120,255,0.35)",
+                    backdropFilter: "blur(8px)",
+                  }}
+                  onFocus={(e) =>
+                    (e.target.style.borderColor = "rgba(0,180,255,0.7)")
+                  }
+                  onBlur={(e) =>
+                    (e.target.style.borderColor = "rgba(0,120,255,0.35)")
+                  }
+                />
+              ))}
+            </div>
+
+            <textarea
+              name="message"
+              placeholder="Your Message..."
+              rows={5}
+              value={form.message}
+              onChange={handleChange}
+              className="px-4 py-3 rounded-lg text-sm text-white outline-none placeholder-gray-500 resize-none transition-all"
+              style={{
+                background: "rgba(255,255,255,0.05)",
+                border: "1px solid rgba(0,120,255,0.35)",
+                backdropFilter: "blur(8px)",
+              }}
+              onFocus={(e) =>
+                (e.target.style.borderColor = "rgba(0,180,255,0.7)")
+              }
+              onBlur={(e) =>
+                (e.target.style.borderColor = "rgba(0,120,255,0.35)")
+              }
             />
+
+            <div
+              className="flex items-center justify-between px-4 py-3 rounded-lg"
+              style={{
+                background: "rgba(255,255,255,0.05)",
+                border: "1px solid rgba(0,120,255,0.35)",
+                backdropFilter: "blur(8px)",
+              }}
+            >
+              <span className="text-gray-500 text-sm truncate flex-1 mr-3">
+                {fileName || "Upload Your CV"}
+              </span>
+              <button
+                type="button"
+                onClick={() => fileRef.current.click()}
+                className="px-5 py-1.5 rounded-lg text-white text-sm font-semibold flex-shrink-0 transition-all hover:opacity-90"
+                style={{
+                  background: "linear-gradient(90deg, #0050FF, #0090FF)",
+                }}
+              >
+                Upload
+              </button>
+              <input
+                ref={fileRef}
+                type="file"
+                accept=".pdf,.doc,.docx"
+                onChange={handleFile}
+                className="hidden"
+              />
+            </div>
+
+            <button
+              onClick={handleSubmit}
+              className="w-full py-3 rounded-lg text-white font-semibold text-sm transition-all hover:opacity-90"
+              style={{
+                background: "linear-gradient(90deg, #0070FF, #00C8FF)",
+                boxShadow: "0 4px 32px rgba(0,150,255,0.5)",
+              }}
+            >
+              Submit
+            </button>
           </div>
-          <button
-            type="submit"
-            className="w-full py-3 rounded-lg text-white font-semibold text-sm transition-all hover:opacity-90"
-            style={{
-              background: "linear-gradient(90deg, #0060FF, #00B0FF)",
-              boxShadow: "0 4px 24px rgba(0,120,255,0.4)",
-            }}
-          >
-            Submit
-          </button>
-        </form>
+        </div>
       </div>
     </section>
   );
