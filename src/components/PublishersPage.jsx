@@ -282,9 +282,7 @@ function BecomePublisher() {
             onFocus={(e) =>
               (e.target.style.borderColor = "rgba(0,180,255,0.7)")
             }
-            onBlur={(e) =>
-              (e.target.style.borderColor = "rgba(0,120,255,0.3)")
-            }
+            onBlur={(e) => (e.target.style.borderColor = "rgba(0,120,255,0.3)")}
           />
 
           <button

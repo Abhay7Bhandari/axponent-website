@@ -31,7 +31,9 @@ import EmailPushllintent from "../assets/images/web/Traffic-Channels/EmailPushll
 import Google from "../assets/images/web/Traffic-Channels/Google.svg";
 import Googlellintent from "../assets/images/web/Traffic-Channels/Googlellintent.svg";
 import Native from "../assets/images/web/Traffic-Channels/Native.svg";
+import Nativellintent from "../assets/images/web/Traffic-Channels/Nativellintent.svg";
 import PerformacePublisher from "../assets/images/web/Traffic-Channels/PerformacePublisher.svg";
+import PerformacePublisherllintent from "../assets/images/web/Traffic-Channels/PerformacePublisherllintent.svg";
 
 const WEB_LOGOS = [
   { name: "Agoda", src: webLogo1 },
@@ -191,12 +193,12 @@ function TrafficChannels() {
     {
       label: "Performance Publisher &\nComparison Networks",
       iconActive: PerformacePublisher,
-      iconInactive: PerformacePublisher,
+      iconInactive: PerformacePublisherllintent,
     },
     {
       label: "Native, Display &\nProgrammatic Advertising",
       iconActive: Native,
-      iconInactive: Native,
+      iconInactive: Nativellintent,
     },
     {
       label: "Email & Push High-Intent\nWeb Traffic",
