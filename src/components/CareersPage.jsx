@@ -4,6 +4,7 @@ import careerMock from "../utils/careerMock.json";
 import globalMarketsImg from "../assets/images/careers/global-markets.png";
 import cultureImg from "../assets/images/careers/culture-ownership.png";
 import platformsImg from "../assets/images/careers/leading-platforms.png";
+import earthImg from "../assets/images/Earth.png";
 
 /* ── Section 1: Hero ── */
 function CareersHero() {
@@ -31,38 +32,20 @@ function CareersHero() {
         </button>
       </FadeSection>
 
-      {/* Glowing orb bottom */}
+      {/* Earth image at bottom of hero */}
       <div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none w-full"
-        style={{ height: "220px" }}
+        className="absolute bottom-0 left-0 w-full pointer-events-none"
+        style={{ zIndex: 2 }}
       >
-        <div
+        <img
+          src={earthImg}
+          alt=""
+          aria-hidden
+          className="w-full"
           style={{
-            position: "absolute",
-            left: "50%",
-            top: "50%",
-            transform: "translate(-50%,-50%)",
-            width: "min(700px,95vw)",
-            height: "200px",
-            borderRadius: "50%",
-            background:
-              "radial-gradient(ellipse, rgba(0,100,255,0.55) 0%, rgba(0,40,120,0.25) 45%, transparent 75%)",
-            filter: "blur(16px)",
-            animation: "float 5s ease-in-out infinite",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            left: "50%",
-            top: "50%",
-            transform: "translate(-50%,-50%)",
-            width: "min(700px,95vw)",
-            height: "210px",
-            borderRadius: "50%",
-            border: "1.5px solid rgba(0,140,255,0.3)",
-            boxShadow: "0 0 40px rgba(0,120,255,0.15)",
-            animation: "float 5s ease-in-out infinite",
+            display: "block",
+            objectFit: "cover",
+            objectPosition: "top center",
           }}
         />
       </div>
@@ -70,7 +53,7 @@ function CareersHero() {
   );
 }
 
-/* ── Section 2: Why Work Here card ── */
+/* ── Section 2: Why Work Here ── */
 function WhyWorkHere() {
   const slides = [
     {
@@ -105,7 +88,6 @@ function WhyWorkHere() {
               className="relative rounded-2xl overflow-hidden"
               style={{ border: "1px solid rgba(0,80,200,0.25)" }}
             >
-              {/* Dark background */}
               <div
                 className="absolute inset-0"
                 style={{
@@ -113,8 +95,6 @@ function WhyWorkHere() {
                     "linear-gradient(135deg, #0a1a3a 0%, #051020 50%, #0d1830 100%)",
                 }}
               />
-
-              {/* Title + badge */}
               <div className="relative z-10 p-8 md:p-10 flex flex-row justify-between items-start gap-6">
                 <div className="max-w-lg">
                   <h3 className="font-display font-bold text-xl md:text-2xl text-white leading-snug">
@@ -132,8 +112,6 @@ function WhyWorkHere() {
                   {slide.number}
                 </div>
               </div>
-
-              {/* Image */}
               <div className="relative z-10 px-8 pb-8">
                 <div
                   className="w-full rounded-xl overflow-hidden"
@@ -177,12 +155,9 @@ function JobListings() {
                   border: "1px solid rgba(0,60,180,0.3)",
                 }}
               >
-                {/* Title row */}
                 <h3 className="font-display font-bold text-white text-lg mb-2">
                   {job.title}
                 </h3>
-
-                {/* Meta */}
                 <div className="flex items-center gap-4 mb-3">
                   <span className="flex items-center gap-1 text-gray-400 text-xs">
                     <svg
@@ -214,8 +189,6 @@ function JobListings() {
                     {job.location}
                   </span>
                 </div>
-
-                {/* Tags */}
                 <div className="flex flex-wrap gap-2 mb-4">
                   {job.tags.map((tag, j) => (
                     <span
@@ -231,13 +204,9 @@ function JobListings() {
                     </span>
                   ))}
                 </div>
-
-                {/* Description */}
                 <p className="text-gray-400 text-sm leading-relaxed mb-5">
                   {job.desc}
                 </p>
-
-                {/* Apply button */}
                 <div className="flex justify-end">
                   <button
                     className="px-6 py-2 rounded-lg text-white text-sm font-semibold transition-all hover:opacity-90 hover:scale-105"
@@ -276,49 +245,20 @@ function WorkWithUs() {
 
   return (
     <section className="relative py-24 px-4 overflow-hidden">
-      {/* Glowing planet orb */}
+      {/* Earth image at bottom */}
       <div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none"
-        style={{ width: "100%", height: "300px" }}
+        className="absolute bottom-0 left-0 w-full pointer-events-none"
+        style={{ zIndex: 0 }}
       >
-        <div
+        <img
+          src={earthImg}
+          alt=""
+          aria-hidden
+          className="w-full"
           style={{
-            position: "absolute",
-            left: "50%",
-            top: "50%",
-            transform: "translate(-50%,-50%)",
-            width: "100%",
-            height: "260px",
-            background:
-              "radial-gradient(ellipse at center bottom, rgba(0,120,255,0.5) 0%, rgba(0,60,180,0.2) 40%, transparent 70%)",
-            filter: "blur(10px)",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            left: "50%",
-            bottom: 0,
-            transform: "translateX(-50%)",
-            width: "min(900px,95vw)",
-            height: "220px",
-            borderRadius: "50%",
-            border: "1.5px solid rgba(0,160,255,0.35)",
-            boxShadow: "0 0 80px rgba(0,120,255,0.2)",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            left: "50%",
-            bottom: 0,
-            transform: "translateX(-50%)",
-            width: "min(500px,80vw)",
-            height: "100px",
-            borderRadius: "50%",
-            background:
-              "radial-gradient(ellipse, rgba(0,160,255,0.55) 0%, transparent 70%)",
-            filter: "blur(18px)",
+            display: "block",
+            objectFit: "cover",
+            objectPosition: "top center",
           }}
         />
       </div>
@@ -344,13 +284,11 @@ function WorkWithUs() {
         </svg>
       </div>
 
-      <div className="max-w-3xl mx-auto relative z-10">
+      <div className="max-w-3xl mx-auto relative" style={{ zIndex: 1 }}>
         <h2 className="font-display font-bold text-4xl md:text-5xl text-white text-center mb-12">
           Work With Us!
         </h2>
-
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          {/* Name + Email */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {[
               { name: "name", placeholder: "Enter Your Name", type: "text" },
@@ -377,8 +315,6 @@ function WorkWithUs() {
               />
             ))}
           </div>
-
-          {/* Message */}
           <textarea
             name="message"
             placeholder="Your Message..."
@@ -395,8 +331,6 @@ function WorkWithUs() {
             }
             onBlur={(e) => (e.target.style.borderColor = "rgba(0,120,255,0.3)")}
           />
-
-          {/* CV Upload row */}
           <div
             className="flex items-center justify-between px-4 py-3 rounded-lg"
             style={{
@@ -423,8 +357,6 @@ function WorkWithUs() {
               className="hidden"
             />
           </div>
-
-          {/* Submit */}
           <button
             type="submit"
             className="w-full py-3 rounded-lg text-white font-semibold text-sm transition-all hover:opacity-90"

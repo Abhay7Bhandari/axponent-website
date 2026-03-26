@@ -1,11 +1,11 @@
 import { useState } from "react";
 import FadeSection from "./FadeSection";
-// ── Image imports ──
 import heroImg from "../assets/images/venture/hero-coin-jar.png";
 import standardImg from "../assets/images/venture/offer-cards/standard-support.png";
 import partnershipImg from "../assets/images/venture/offer-cards/partnership-support.png";
 import compassImg from "../assets/images/venture/offer-cards/founder-compass.png";
 import communityImg from "../assets/images/venture/offer-cards/community.png";
+import earthImg from "../assets/images/Earth.png";
 
 /* ── Section 1: Hero ── */
 function VCHero() {
@@ -42,7 +42,7 @@ function VCHero() {
           </div>
         </FadeSection>
 
-        {/* Hero image — real photo from Figma */}
+        {/* Hero coin-jar image */}
         <img
           src={heroImg}
           alt="Person placing a coin into a glass jar full of coins — representing investment and funding"
@@ -50,6 +50,24 @@ function VCHero() {
           style={{
             height: "clamp(280px, 45vw, 460px)",
             objectPosition: "center",
+          }}
+        />
+      </div>
+
+      {/* Earth at the bottom of hero */}
+      <div
+        className="absolute bottom-0 left-0 w-full pointer-events-none"
+        style={{ zIndex: 2 }}
+      >
+        <img
+          src={earthImg}
+          alt=""
+          aria-hidden
+          className="w-full"
+          style={{
+            display: "block",
+            objectFit: "cover",
+            objectPosition: "top center",
           }}
         />
       </div>
@@ -144,49 +162,20 @@ function RaiseFunds() {
 
   return (
     <section className="relative py-24 px-4 overflow-hidden">
-      {/* Glowing planet orb */}
+      {/* Earth image at bottom */}
       <div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none"
-        style={{ width: "100%", height: "300px" }}
+        className="absolute bottom-0 left-0 w-full pointer-events-none"
+        style={{ zIndex: 0 }}
       >
-        <div
+        <img
+          src={earthImg}
+          alt=""
+          aria-hidden
+          className="w-full"
           style={{
-            position: "absolute",
-            left: "50%",
-            top: "50%",
-            transform: "translate(-50%,-50%)",
-            width: "100%",
-            height: "260px",
-            background:
-              "radial-gradient(ellipse at center bottom, rgba(0,120,255,0.5) 0%, rgba(0,60,180,0.2) 40%, transparent 70%)",
-            filter: "blur(10px)",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            left: "50%",
-            bottom: 0,
-            transform: "translateX(-50%)",
-            width: "min(900px,95vw)",
-            height: "220px",
-            borderRadius: "50%",
-            border: "1.5px solid rgba(0,160,255,0.35)",
-            boxShadow: "0 0 80px rgba(0,120,255,0.2)",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            left: "50%",
-            bottom: 0,
-            transform: "translateX(-50%)",
-            width: "min(500px,80vw)",
-            height: "100px",
-            borderRadius: "50%",
-            background:
-              "radial-gradient(ellipse, rgba(0,160,255,0.55) 0%, transparent 70%)",
-            filter: "blur(18px)",
+            display: "block",
+            objectFit: "cover",
+            objectPosition: "top center",
           }}
         />
       </div>
@@ -212,11 +201,10 @@ function RaiseFunds() {
         </svg>
       </div>
 
-      <div className="max-w-3xl mx-auto relative z-10">
+      <div className="max-w-3xl mx-auto relative" style={{ zIndex: 1 }}>
         <h2 className="font-display font-bold text-4xl md:text-5xl text-white text-center mb-12">
           Raise Funds!
         </h2>
-
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {[
@@ -244,7 +232,6 @@ function RaiseFunds() {
               />
             ))}
           </div>
-
           <textarea
             name="message"
             placeholder="Your Message..."
@@ -261,7 +248,6 @@ function RaiseFunds() {
             }
             onBlur={(e) => (e.target.style.borderColor = "rgba(0,120,255,0.3)")}
           />
-
           <button
             type="submit"
             className="w-full py-3 rounded-lg text-white font-semibold text-sm transition-all hover:opacity-90"

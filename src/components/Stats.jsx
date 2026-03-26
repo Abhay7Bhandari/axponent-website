@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import FadeSection from "./FadeSection";
+import earthImg from "../assets/images/Earth.png";
 
 const STATS = [
   { num: "65+", label: "performance\nmarketing specialists" },
@@ -72,7 +73,6 @@ function useGlowCanvas(cardRef, canvasRef) {
 
         const p = glow.pos;
         const half = 0.3;
-
         let x1, y1, x2, y2;
         if (side === "top") {
           x1 = Math.max(0, (p - half) * w);
@@ -100,8 +100,6 @@ function useGlowCanvas(cardRef, canvasRef) {
         }
 
         const o = glow.opacity;
-
-        // Outer glow
         const g1 = ctx.createLinearGradient(x1, y1, x2, y2);
         g1.addColorStop(0, `rgba(0,168,255,0)`);
         g1.addColorStop(0.3, `rgba(0,168,255,${0.55 * o})`);
@@ -118,7 +116,6 @@ function useGlowCanvas(cardRef, canvasRef) {
         ctx.lineTo(x2, y2);
         ctx.stroke();
 
-        // Bright white core
         const g2 = ctx.createLinearGradient(x1, y1, x2, y2);
         g2.addColorStop(0, `rgba(255,255,255,0)`);
         g2.addColorStop(0.45, `rgba(255,255,255,${0.55 * o})`);
@@ -135,7 +132,6 @@ function useGlowCanvas(cardRef, canvasRef) {
         ctx.stroke();
         ctx.restore();
       }
-
       raf = requestAnimationFrame(draw);
     };
     raf = requestAnimationFrame(draw);
@@ -177,8 +173,6 @@ function StatCard({
         className="absolute inset-0 pointer-events-none"
         style={{ zIndex: 2 }}
       />
-
-      {/* Hover radial bg */}
       <div
         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
         style={{
@@ -187,7 +181,6 @@ function StatCard({
           zIndex: 1,
         }}
       />
-
       <div
         className="relative flex flex-col justify-center py-9 px-8"
         style={{
@@ -221,13 +214,32 @@ function StatCard({
 export default function Stats() {
   return (
     <FadeSection>
-      <section className="py-14 px-4">
-        <div className="max-w-6xl mx-auto">
+      {/* Wrap in relative so Earth sits behind the grid */}
+      <section className="relative py-14 px-4 overflow-hidden">
+        {/* Earth image — top of section, behind content */}
+        <div
+          className="absolute top-0 left-0 w-full pointer-events-none"
+          style={{ zIndex: 0 }}
+        >
+          <img
+            src={earthImg}
+            alt=""
+            aria-hidden
+            className="w-full"
+            style={{
+              display: "block",
+              objectFit: "cover",
+              objectPosition: "top center",
+            }}
+          />
+        </div>
+
+        {/* Stats grid on top of Earth */}
+        <div className="max-w-6xl mx-auto relative" style={{ zIndex: 1 }}>
           <div
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(6, 1fr)",
-              // border: "1px solid rgba(255,255,255,0.10)",
               overflow: "hidden",
               background: "rgba(2,6,18,0.16)",
             }}
@@ -249,7 +261,7 @@ export default function Stats() {
               style={{ gridColumn: "5 / span 2", borderRight: "none" }}
             />
 
-            {/* Row 2 (shifted inward) */}
+            {/* Row 2 */}
             <StatCard
               num={STATS[3].num}
               label={STATS[3].label}
@@ -261,14 +273,14 @@ export default function Stats() {
               style={{ gridColumn: "4 / span 3" }}
             />
 
-            {/* Row 3 (centered) */}
+            {/* Row 3 */}
             <StatCard
               num={STATS[5].num}
               label={STATS[5].label}
               style={{
                 gridColumn: "2 / span 3",
-                borderLeft: "1px solid rgba(255, 255, 255, 0.13)",
-                borderRight: "1px solid rgba(255, 255, 255, 0.13)",
+                borderLeft: "1px solid rgba(255,255,255,0.13)",
+                borderRight: "1px solid rgba(255,255,255,0.13)",
                 borderBottom: "none",
                 marginLeft: "200px",
               }}
