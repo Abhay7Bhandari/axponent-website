@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import AxponentLogoWhite from "../assets/images/clients/AxponentLogoWhite.png";
 
 const NAV_LINKS = [
   "Home",
@@ -34,28 +35,38 @@ export default function Navbar({ activePage, setActivePage }) {
         <div
           className="flex items-center justify-between w-full transition-all duration-300"
           style={{
-            maxWidth: "1200px",
+            maxWidth: "1255px",
             height: "64px",
             borderRadius: "64px",
             background: "#000000",
             backdropFilter: "blur(16px)",
             WebkitBackdropFilter: "blur(16px)",
             border: "1px solid #2F4D6C",
-            padding: "0 8px 0 20px",
+            padding: "0 14px 0 18px",
           }}
         >
-          {/* Desktop Nav Links — centered */}
-          <div className="hidden md:flex items-center gap-5  flex-1 justify-center">
+          {/* Left: Logo */}
+          <div className="hidden md:flex items-center flex-shrink-0">
+            <img
+              src={AxponentLogoWhite}
+              alt="Axponent Logo"
+              style={{ width: 150, height: 30, marginLeft: "20px" }}
+            />
+          </div>
+
+          {/* Center: Nav Links */}
+          <div className="hidden md:flex items-center gap-7 flex-1 justify-center px-6">
             {NAV_LINKS.map((link) => (
               <button
                 key={link}
                 onClick={() => handleNavClick(link)}
-                className="nav-link text-md font-medium focus:outline-none relative flex items-center justify-center px-2 py-3"
+                className="nav-link text-sm font-medium focus:outline-none relative flex items-center justify-center py-2"
                 style={{
                   color: activePage === link ? "#ffffff" : "#9CA3AF",
                   background: "none",
                   cursor: "pointer",
                   fontWeight: activePage === link ? "600" : "400",
+                  whiteSpace: "nowrap",
                 }}
               >
                 {link}
@@ -78,14 +89,14 @@ export default function Navbar({ activePage, setActivePage }) {
             ))}
           </div>
 
-          {/* CTA Button */}
+          {/* Right: CTA + Mobile menu */}
           <div className="flex items-center gap-3 flex-shrink-0">
             <button
               className="hidden md:block text-sm font-semibold text-white focus:outline-none"
               style={{
                 background: "rgba(248, 246, 253, 0.1)",
                 borderRadius: "999px",
-                padding: "10px 22px",
+                padding: "10px 20px",
                 transition: "all 0.3s",
               }}
               onMouseEnter={(e) => {
