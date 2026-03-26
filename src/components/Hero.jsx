@@ -1,8 +1,7 @@
 import React, { useState } from "react";
+import earthImg from "../assets/images/Earth.png";
 
 export default function Hero() {
-  // const [email, setEmail] = useState("");
-
   const scrollToBottom = () =>
     window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
 
@@ -17,7 +16,9 @@ export default function Hero() {
           onClick={scrollToBottom}
           className="text-gray-500 text-xs tracking-widest select-none"
           style={{ writingMode: "vertical-rl" }}
-        ></button>
+        >
+          SCROLL DOWN
+        </button>
         <div className="w-px h-16 bg-gray-700" />
         <svg
           className="text-gray-500"
@@ -33,10 +34,7 @@ export default function Hero() {
       </div>
 
       {/* Content */}
-      <div
-        className="relative z-10 text-center px-4 max-w-3xl mx-auto"
-        style={{ paddingBottom: "180px" }}
-      >
+      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto pb-48">
         <h1
           className="font-display text-5xl sm:text-6xl md:text-7xl font-bold text-white mb-6 leading-tight"
           style={{ animation: "fadeup 0.7s ease both" }}
@@ -52,59 +50,22 @@ export default function Hero() {
           Founded in 2020, we specialize in acquiring relevant content,
           high-value users through data-driven media execution.
         </p>
-
-        {/* Email Subscribe */}
-        {/* <div
-          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-0"
-          style={{ animation: "fadeup 0.7s ease 0.3s both" }}
-        >
-          <div
-            className="flex items-center rounded-lg sm:rounded-r-none sm:rounded-l-lg overflow-hidden w-full sm:w-72 md:w-80"
-            style={{
-              background: "rgba(255,255,255,0.05)",
-              border: "1px solid rgba(255,255,255,0.1)",
-            }}
-          >
-            <svg
-              className="ml-3 flex-shrink-0 text-gray-500"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-              <polyline points="22,6 12,12 2,6" />
-            </svg>
-            <input
-              type="email"
-              placeholder="Your Email Address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="bg-transparent flex-1 px-3 py-3 text-sm text-white outline-none placeholder-gray-500"
-            />
-          </div>
-          <button className="btn-submit px-6 py-3 rounded-lg sm:rounded-l-none sm:rounded-r-lg text-sm font-semibold text-white w-full sm:w-auto">
-            Submit
-          </button>
-        </div> */}
       </div>
 
-      {/* Glowing Orb */}
+      {/* Earth Image — positioned at the very bottom, full width */}
       <div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full"
-        style={{ height: "320px" }}
+        className="absolute bottom-0 left-0 w-full pointer-events-none"
+        style={{ zIndex: 2 }}
       >
-        <div className="hero-glow" />
-        <div className="hero-glow-ring" />
-        <div
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-12 rounded-full"
+        <img
+          src={earthImg}
+          alt=""
+          aria-hidden
+          className="w-full"
           style={{
-            background:
-              "radial-gradient(ellipse, rgba(0,160,255,0.7) 0%, transparent 70%)",
-            filter: "blur(10px)",
-            animation: "heroFloat 5s ease-in-out infinite",
+            display: "block",
+            objectFit: "cover",
+            objectPosition: "top center",
           }}
         />
       </div>
