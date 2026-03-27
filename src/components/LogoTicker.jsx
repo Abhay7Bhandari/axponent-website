@@ -1,3 +1,4 @@
+// ── LogoTicker.jsx (Responsive) ──
 import logo1 from "../assets/images/clients/Home Page Logo/AliExpress.png";
 import logo2 from "../assets/images/clients/Home Page Logo/Bbvalogoo.png";
 import logo3 from "../assets/images/clients/Home Page Logo/BetMGMlogooo.png";
@@ -27,20 +28,22 @@ const LOGOS = [
   { name: "Trip.com", src: logo12 },
   { name: "Underdog", src: logo13 },
 ];
-
 const TICKER = [...LOGOS, ...LOGOS];
 
 export default function LogoTicker() {
   return (
-    <div className="py-10 border-y border-white/5 overflow-hidden">
-      <div className="flex animate-marquee gap-16 w-max items-center">
+    <div className="py-8 sm:py-10 border-y border-white/5 overflow-hidden">
+      <div
+        className="flex animate-marquee gap-10 sm:gap-16 w-max items-center"
+        style={{ animation: "marquee 30s linear infinite" }}
+      >
         {TICKER.map((logo, i) => (
           <div key={i} className="flex items-center whitespace-nowrap">
             <img
               src={logo.src}
               alt={logo.name}
               style={{
-                height: "32px",
+                height: "clamp(22px, 3vw, 32px)",
                 width: "auto",
                 objectFit: "contain",
                 opacity: 0.75,
@@ -49,6 +52,9 @@ export default function LogoTicker() {
           </div>
         ))}
       </div>
+      <style>{`
+        @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+      `}</style>
     </div>
   );
 }

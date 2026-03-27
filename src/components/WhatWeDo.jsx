@@ -4,33 +4,24 @@ import targetImg from "../assets/images/home/what-we-do/retargeting.png";
 import brandImg from "../assets/images/home/what-we-do/branding.png";
 
 const SERVICES = [
-  {
-    title: "Performance Marketing",
-    desc: "Attract, engage, and convert your target audience with our customised performance marketing campaigns. Partner with us to take your brand to new heights.",
-    img: perfImg,
-  },
-  {
-    title: "Retargeting",
-    desc: "Retargeting is a game-changer. We'll help you stay connected with interested prospects and boost your ROI with expert retargeting strategies.",
-    img: targetImg,
-  },
-  {
-    title: "Branding",
-    desc: "A strong brand creates lasting connections with customers. Our branding experts help you build a brand that inspires loyalty and drives long-term growth.",
-    img: brandImg,
-  },
+  { title: "Performance Marketing", img: perfImg },
+  { title: "Retargeting", img: targetImg },
+  { title: "Branding", img: brandImg },
 ];
 
 export default function WhatWeDo() {
   return (
     <FadeSection>
-      <section className="py-20 px-4">
+      <section className="py-12 sm:py-16 md:py-20 px-4">
         <div className="max-w-6xl mx-auto">
-          <h2 className="font-display text-4xl md:text-5xl font-bold text-center text-white mb-14">
+          <h2
+            className="font-display font-bold text-center text-white mb-8 sm:mb-12 md:mb-14"
+            style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}
+          >
             What We Do
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
             {SERVICES.map((s, i) => (
               <div
                 key={i}
@@ -42,7 +33,10 @@ export default function WhatWeDo() {
                   boxShadow: "0 4px 30px rgba(0,0,0,0.4)",
                 }}
               >
-                <div className="flex-1 min-h-[220px]">
+                <div
+                  className="w-full"
+                  style={{ minHeight: "clamp(180px, 22vw, 280px)" }}
+                >
                   <img
                     src={s.img}
                     alt={s.title}

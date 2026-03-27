@@ -9,11 +9,11 @@ import img4 from "../assets/images/home/events/caraousel-four.png";
 
 const IMAGES = [img0, img1, img2, img3, img4];
 
-// Figma specs — centre lifted more (top: 60 instead of 109)
+// Desktop proportional slots
 const SLOTS = [
   { width: 172, height: 270, top: 180, left: 0 },
   { width: 236, height: 371, top: 120, left: 201 },
-  { width: 296, height: 465, top: 40, left: 466 }, // lifted up more
+  { width: 296, height: 465, top: 40, left: 466 },
   { width: 236, height: 371, top: 120, left: 791 },
   { width: 172, height: 270, top: 180, left: 1056 },
 ];
@@ -23,8 +23,16 @@ const CANVAS_WIDTH = 1228;
 
 export default function Events() {
   const [current, setCurrent] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const timerRef = useRef(null);
   const n = IMAGES.length;
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const startTimer = () => {
     clearInterval(timerRef.current);
@@ -43,19 +51,122 @@ export default function Events() {
     startTimer();
   };
 
-  // Arrow vertical position: aligned to the mid-height of the side cards
-  // Side cards: top=180, height=270 → midpoint = 180 + 135 = 315px out of 505
   const arrowTopPct = ((180 + 135) / CANVAS_HEIGHT) * 100;
 
+  // Mobile: simple single-card carousel
+  if (isMobile) {
+    return (
+      <FadeSection>
+        <section className="py-12 pb-8 overflow-hidden">
+          <div className="max-w-md mx-auto px-4">
+            <h2
+              className="font-display font-bold text-center text-white mb-8"
+              style={{ fontSize: "clamp(1.6rem, 5vw, 2.2rem)" }}
+            >
+              Axponent <span className="text-brand-blue">At Events</span>
+            </h2>
+
+            {/* Single card */}
+            <div
+              className="relative rounded-2xl overflow-hidden"
+              style={{ aspectRatio: "3/4" }}
+            >
+              {IMAGES.map((src, idx) => (
+                <div
+                  key={idx}
+                  className="absolute inset-0 transition-opacity duration-500"
+                  style={{ opacity: idx === current ? 1 : 0 }}
+                >
+                  <img
+                    src={src}
+                    alt={`Event ${idx + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ))}
+
+              {/* Arrow overlays */}
+              <button
+                onClick={() => go(-1)}
+                className="absolute left-3 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center rounded-full"
+                style={{
+                  width: 36,
+                  height: 36,
+                  background: "rgba(0,0,0,0.5)",
+                  border: "1px solid rgba(255,255,255,0.3)",
+                }}
+              >
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="2.5"
+                >
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+              <button
+                onClick={() => go(1)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center rounded-full"
+                style={{
+                  width: 36,
+                  height: 36,
+                  background: "rgba(0,0,0,0.5)",
+                  border: "1px solid rgba(255,255,255,0.3)",
+                }}
+              >
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="2.5"
+                >
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Dots */}
+            <div className="flex justify-center gap-2 mt-4">
+              {IMAGES.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => {
+                    setCurrent(idx);
+                    startTimer();
+                  }}
+                  className="rounded-full transition-all duration-300"
+                  style={{
+                    width: idx === current ? 20 : 8,
+                    height: 8,
+                    background:
+                      idx === current ? "#00A8FF" : "rgba(255,255,255,0.3)",
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      </FadeSection>
+    );
+  }
+
+  // Desktop/Tablet: original fan carousel
   return (
     <FadeSection>
-      <section className="py-20 pb-8 overflow-hidden">
-        <div className="max-w-[1400px] mx-auto px-2">
-          <h2 className="font-display text-4xl md:text-5xl font-bold text-center text-white mb-16">
+      <section className="py-12 sm:py-16 md:py-20 pb-8 overflow-hidden">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6">
+          <h2
+            className="font-display font-bold text-center text-white mb-10 sm:mb-14 md:mb-16"
+            style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}
+          >
             Axponent <span className="text-brand-blue">At Events</span>
           </h2>
 
-          {/* Carousel canvas with arrows overlaid */}
           <div
             className="relative mx-auto"
             style={{
@@ -63,7 +174,6 @@ export default function Events() {
             }}
           >
             <div className="absolute inset-0">
-              {/* Cards */}
               {IMAGES.map((src, idx) => {
                 let offset = idx - current;
                 if (offset > Math.floor(n / 2)) offset -= n;
@@ -74,7 +184,6 @@ export default function Events() {
 
                 const s = SLOTS[slotIdx];
                 const isCenter = slotIdx === 2;
-
                 const leftPct = (s.left / CANVAS_WIDTH) * 100;
                 const topPct = (s.top / CANVAS_HEIGHT) * 100;
                 const widthPct = (s.width / CANVAS_WIDTH) * 100;
@@ -125,7 +234,7 @@ export default function Events() {
                 );
               })}
 
-              {/* Left arrow — aligned to side-card vertical centre */}
+              {/* Left arrow */}
               <button
                 onClick={() => go(-1)}
                 style={{
@@ -143,15 +252,12 @@ export default function Events() {
                   alignItems: "center",
                   justifyContent: "center",
                   cursor: "pointer",
-                  transition: "background 0.2s, border-color 0.2s",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.background = "rgba(0,168,255,0.25)";
-                  e.currentTarget.style.borderColor = "rgba(0,168,255,0.5)";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.background = "rgba(255,255,255,0.08)";
-                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.18)";
                 }}
               >
                 <svg
@@ -184,15 +290,12 @@ export default function Events() {
                   alignItems: "center",
                   justifyContent: "center",
                   cursor: "pointer",
-                  transition: "background 0.2s, border-color 0.2s",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.background = "rgba(0,168,255,0.25)";
-                  e.currentTarget.style.borderColor = "rgba(0,168,255,0.5)";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.background = "rgba(255,255,255,0.08)";
-                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.18)";
                 }}
               >
                 <svg

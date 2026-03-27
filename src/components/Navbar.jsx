@@ -21,6 +21,14 @@ export default function Navbar({ activePage, setActivePage }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   const handleNavClick = (link) => {
     setActivePage(link);
     setOpen(false);
@@ -29,53 +37,59 @@ export default function Navbar({ activePage, setActivePage }) {
 
   return (
     <>
-      {/* Full-width fixed nav wrapper — transparent, just for positioning */}
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-start justify-center pt-4 px-4">
+      {/* Full-width fixed nav wrapper */}
+      <nav className="fixed top-0 left-0 right-0 z-50 flex items-start justify-center pt-3 px-3 sm:pt-4 sm:px-4">
         {/* Floating pill container */}
         <div
           className="flex items-center justify-between w-full transition-all duration-300"
           style={{
             maxWidth: "1255px",
-            height: "64px",
+            height: "56px",
             borderRadius: "64px",
-            background: "#000000",
+            background: scrolled ? "rgba(0,0,0,0.95)" : "#000000",
             backdropFilter: "blur(16px)",
             WebkitBackdropFilter: "blur(16px)",
             border: "1px solid #2F4D6C",
-            padding: "0 14px 0 18px",
+            padding: "0 10px 0 14px",
           }}
         >
           {/* Left: Logo */}
-          <div className="hidden md:flex items-center flex-shrink-0">
+          <button
+            onClick={() => handleNavClick("Home")}
+            className="flex items-center flex-shrink-0 focus:outline-none"
+          >
             <img
               src={AxponentLogoWhite}
               alt="Axponent Logo"
-              style={{ width: 150, height: 30, marginLeft: "20px" }}
+              style={{
+                width: 120,
+                height: 24,
+                marginLeft: "8px",
+                objectFit: "contain",
+              }}
             />
-          </div>
+          </button>
 
-          {/* Center: Nav Links */}
-          <div className="hidden md:flex items-center gap-7 flex-1 justify-center px-6">
+          {/* Center: Nav Links — hidden on mobile & tablet */}
+          <div className="hidden lg:flex items-center gap-5 xl:gap-7 flex-1 justify-center px-4">
             {NAV_LINKS.map((link) => (
               <button
                 key={link}
                 onClick={() => handleNavClick(link)}
-                className="nav-link text-sm font-medium focus:outline-none relative flex items-center justify-center py-2"
+                className="nav-link text-xs xl:text-sm font-medium focus:outline-none relative flex items-center justify-center py-2 whitespace-nowrap"
                 style={{
                   color: activePage === link ? "#ffffff" : "#9CA3AF",
                   background: "none",
                   cursor: "pointer",
                   fontWeight: activePage === link ? "600" : "400",
-                  whiteSpace: "nowrap",
                 }}
               >
                 {link}
-
                 {activePage === link && (
                   <span
                     style={{
                       position: "absolute",
-                      bottom: "0px", // sticks to bottom of button
+                      bottom: "0px",
                       left: 0,
                       width: "100%",
                       height: "2px",
@@ -90,18 +104,19 @@ export default function Navbar({ activePage, setActivePage }) {
           </div>
 
           {/* Right: CTA + Mobile menu */}
-          <div className="flex items-center gap-3 flex-shrink-0">
+          <div className="flex items-center gap-2 flex-shrink-0">
             <button
-              className="hidden md:block text-sm font-semibold text-white focus:outline-none"
+              className="hidden lg:block text-xs xl:text-sm font-semibold text-white focus:outline-none"
               style={{
-                background: "rgba(248, 246, 253, 0.1)",
+                background: "rgba(248,246,253,0.1)",
                 borderRadius: "999px",
-                padding: "10px 20px",
+                padding: "8px 16px",
                 transition: "all 0.3s",
+                whiteSpace: "nowrap",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.boxShadow =
-                  "0 4px 20px rgba(0, 120, 255, 0.5)";
+                  "0 4px 20px rgba(0,120,255,0.5)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.boxShadow = "none";
@@ -110,9 +125,9 @@ export default function Navbar({ activePage, setActivePage }) {
               Enquire Now
             </button>
 
-            {/* Hamburger — mobile only */}
+            {/* Hamburger — mobile + tablet */}
             <button
-              className="md:hidden text-white p-2"
+              className="lg:hidden text-white p-2 focus:outline-none"
               onClick={() => setOpen(true)}
               aria-label="Open menu"
             >
@@ -131,41 +146,65 @@ export default function Navbar({ activePage, setActivePage }) {
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
-      {open && (
-        <div className="mobile-menu-overlay">
-          <button
-            className="absolute top-5 right-5 text-white"
-            onClick={() => setOpen(false)}
+      {/* Mobile/Tablet Menu Overlay */}
+      <div
+        className="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-6 transition-all duration-300"
+        style={{
+          background: "rgba(0,0,0,0.97)",
+          opacity: open ? 1 : 0,
+          pointerEvents: open ? "auto" : "none",
+          backdropFilter: "blur(20px)",
+        }}
+      >
+        {/* Close button */}
+        <button
+          className="absolute top-5 right-5 text-white p-2 focus:outline-none"
+          onClick={() => setOpen(false)}
+          aria-label="Close menu"
+        >
+          <svg
+            width="28"
+            height="28"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
           >
-            <svg
-              width="24"
-              height="24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-            >
-              <path d="M18 6L6 18M6 6l12 12" />
-            </svg>
-          </button>
-          {NAV_LINKS.map((link) => (
-            <button
-              key={link}
-              onClick={() => handleNavClick(link)}
-              className="text-white text-2xl font-display font-semibold hover:text-blue-400 transition-colors focus:outline-none"
-            >
-              {link}
-            </button>
-          ))}
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg>
+        </button>
+
+        {/* Logo in mobile menu */}
+        <img
+          src={AxponentLogoWhite}
+          alt="Axponent Logo"
+          style={{ width: 160, height: 32, marginBottom: 16 }}
+        />
+
+        {NAV_LINKS.map((link) => (
           <button
-            className="mt-4 px-8 py-3 rounded-full text-base font-semibold text-white"
-            style={{ background: "linear-gradient(90deg, #0060ff, #0090ff)" }}
+            key={link}
+            onClick={() => handleNavClick(link)}
+            className="text-white text-xl sm:text-2xl font-semibold hover:text-blue-400 transition-colors focus:outline-none relative"
+            style={{ color: activePage === link ? "#00A8FF" : "#ffffff" }}
           >
-            Enquire Now
+            {link}
+            {activePage === link && (
+              <span
+                className="absolute -bottom-1 left-0 w-full h-0.5 rounded-full"
+                style={{ background: "#00A8FF" }}
+              />
+            )}
           </button>
-        </div>
-      )}
+        ))}
+
+        <button
+          className="mt-4 px-8 py-3 rounded-full text-base font-semibold text-white"
+          style={{ background: "linear-gradient(90deg, #0060ff, #0090ff)" }}
+        >
+          Enquire Now
+        </button>
+      </div>
     </>
   );
 }

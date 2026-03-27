@@ -1,6 +1,5 @@
 import { useRef, useEffect } from "react";
 import FadeSection from "./FadeSection";
-// import earthImg from "../assets/images/Earth.png";
 import upsideDownEarthImg from "../assets/images/UltaEarth.png";
 
 const STATS = [
@@ -47,7 +46,6 @@ function useGlowCanvas(cardRef, canvasRef) {
       const w = canvas.width,
         h = canvas.height;
       ctx.clearRect(0, 0, w, h);
-
       glow.opacity = mouse.inside
         ? Math.min(1, glow.opacity + 0.07)
         : Math.max(0, glow.opacity - 0.04);
@@ -68,12 +66,11 @@ function useGlowCanvas(cardRef, canvasRef) {
                 ? "left"
                 : "right";
         let pos = side === "top" || side === "bottom" ? x / w : y / h;
-
         glow.side = side;
         glow.pos += (pos - glow.pos) * 0.2;
 
-        const p = glow.pos;
-        const half = 0.3;
+        const p = glow.pos,
+          half = 0.3;
         let x1, y1, x2, y2;
         if (side === "top") {
           x1 = Math.max(0, (p - half) * w);
@@ -116,21 +113,6 @@ function useGlowCanvas(cardRef, canvasRef) {
         ctx.moveTo(x1, y1);
         ctx.lineTo(x2, y2);
         ctx.stroke();
-
-        const g2 = ctx.createLinearGradient(x1, y1, x2, y2);
-        g2.addColorStop(0, `rgba(255,255,255,0)`);
-        g2.addColorStop(0.45, `rgba(255,255,255,${0.55 * o})`);
-        g2.addColorStop(0.5, `rgba(255,255,255,${o})`);
-        g2.addColorStop(0.55, `rgba(255,255,255,${0.55 * o})`);
-        g2.addColorStop(1, `rgba(255,255,255,0)`);
-        ctx.strokeStyle = g2;
-        ctx.lineWidth = 1.5;
-        ctx.shadowColor = `rgba(255,255,255,${o})`;
-        ctx.shadowBlur = 6;
-        ctx.beginPath();
-        ctx.moveTo(x1, y1);
-        ctx.lineTo(x2, y2);
-        ctx.stroke();
         ctx.restore();
       }
       raf = requestAnimationFrame(draw);
@@ -146,14 +128,7 @@ function useGlowCanvas(cardRef, canvasRef) {
   }, []);
 }
 
-function StatCard({
-  num,
-  label,
-  className = "",
-  style = {},
-  children,
-  align = "left",
-}) {
+function StatCard({ num, label, className = "", style = {}, align = "left" }) {
   const cardRef = useRef(null);
   const canvasRef = useRef(null);
   useGlowCanvas(cardRef, canvasRef);
@@ -183,30 +158,26 @@ function StatCard({
         }}
       />
       <div
-        className="relative flex flex-col justify-center py-9 px-8"
+        className="relative flex flex-col justify-center py-6 sm:py-8 md:py-9 px-5 sm:px-7 md:px-8"
         style={{
           zIndex: 3,
           alignItems: align === "center" ? "center" : "flex-start",
           textAlign: align,
         }}
       >
-        {children || (
-          <>
-            <div
-              className="font-display font-bold leading-none mb-2"
-              style={{
-                fontSize: "clamp(2rem,3.8vw,3.25rem)",
-                color: "#ffffff",
-                letterSpacing: "-0.02em",
-              }}
-            >
-              {num}
-            </div>
-            <div className="text-gray-400 text-xs sm:text-sm leading-snug whitespace-pre-line group-hover:text-gray-300 transition-colors duration-300">
-              {label}
-            </div>
-          </>
-        )}
+        <div
+          className="font-display font-bold leading-none mb-2"
+          style={{
+            fontSize: "clamp(1.6rem, 3.5vw, 3.25rem)",
+            color: "#ffffff",
+            letterSpacing: "-0.02em",
+          }}
+        >
+          {num}
+        </div>
+        <div className="text-gray-400 text-xs sm:text-sm leading-snug whitespace-pre-line group-hover:text-gray-300 transition-colors duration-300">
+          {label}
+        </div>
       </div>
     </div>
   );
@@ -215,9 +186,8 @@ function StatCard({
 export default function Stats() {
   return (
     <FadeSection>
-      {/* Wrap in relative so Earth sits behind the grid */}
-      <section className="relative py-14 px-4 overflow-hidden">
-        {/* Earth image — top of section, behind content */}
+      <section className="relative py-10 sm:py-12 md:py-14 px-4 overflow-hidden">
+        {/* Earth image */}
         <div
           className="absolute top-0 left-0 w-full pointer-events-none"
           style={{ zIndex: 0 }}
@@ -235,16 +205,39 @@ export default function Stats() {
           />
         </div>
 
-        {/* Stats grid on top of Earth */}
+        {/* Stats grid */}
         <div
           className="max-w-6xl mx-auto relative"
-          style={{ zIndex: 1, marginTop: "600px" }}
+          style={{
+            zIndex: 1,
+            marginTop: "clamp(120px, 30vw, 600px)",
+          }}
         >
+          {/* Mobile: simple 2-col grid */}
           <div
+            className="grid grid-cols-2 sm:hidden gap-0 overflow-hidden"
+            style={{ background: "rgba(2,6,18,0.16)" }}
+          >
+            {STATS.map((s, i) => (
+              <StatCard key={i} num={s.num} label={s.label} />
+            ))}
+          </div>
+
+          {/* Tablet (sm–lg): 3-col grid */}
+          <div
+            className="hidden sm:grid lg:hidden grid-cols-3 gap-0 overflow-hidden"
+            style={{ background: "rgba(2,6,18,0.16)" }}
+          >
+            {STATS.map((s, i) => (
+              <StatCard key={i} num={s.num} label={s.label} />
+            ))}
+          </div>
+
+          {/* Desktop: original artistic grid */}
+          <div
+            className="hidden lg:grid overflow-hidden"
             style={{
-              display: "grid",
               gridTemplateColumns: "repeat(6, 1fr)",
-              overflow: "hidden",
               background: "rgba(2,6,18,0.16)",
             }}
           >
@@ -264,7 +257,6 @@ export default function Stats() {
               label={STATS[2].label}
               style={{ gridColumn: "5 / span 2", borderRight: "none" }}
             />
-
             {/* Row 2 */}
             <StatCard
               num={STATS[3].num}
@@ -276,7 +268,6 @@ export default function Stats() {
               label={STATS[4].label}
               style={{ gridColumn: "4 / span 3" }}
             />
-
             {/* Row 3 */}
             <StatCard
               num={STATS[5].num}
