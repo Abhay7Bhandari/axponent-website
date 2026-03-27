@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import FadeSection from "./FadeSection";
 import earthImg from "../assets/images/Earth.png";
 
@@ -75,6 +75,9 @@ function PrecisionCards() {
 
 function PartnerTabs() {
   const [activeTab, setActiveTab] = useState("measurement");
+  const sectionRefs = useRef({});
+  const isScrollingProgrammatically = useRef(false);
+
   const tabs = [
     {
       key: "measurement",
@@ -83,14 +86,63 @@ function PartnerTabs() {
     },
     { key: "media", label: "Media & Platform Partners", img: mediaImg },
   ];
+
+  const handleTabClick = (key) => {
+    setActiveTab(key);
+    const el = sectionRefs.current[key];
+    if (!el) return;
+    isScrollingProgrammatically.current = true;
+    el.scrollIntoView({ behavior: "smooth", block: "center" });
+    setTimeout(() => {
+      isScrollingProgrammatically.current = false;
+    }, 900);
+  };
+
+  useEffect(() => {
+    const tabKeys = tabs.map((t) => t.key);
+
+    const handleScroll = () => {
+      if (isScrollingProgrammatically.current) return;
+
+      // Har section ka center calculate karo viewport ke relative
+      let closestKey = null;
+      let closestDistance = Infinity;
+
+      tabKeys.forEach((key) => {
+        const el = sectionRefs.current[key];
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const elementCenter = rect.top + rect.height / 2;
+        const viewportCenter = window.innerHeight / 2;
+        const distance = Math.abs(elementCenter - viewportCenter);
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestKey = key;
+        }
+      });
+
+      if (closestKey) setActiveTab(closestKey);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <section className="py-10 sm:py-14 md:py-16 px-4">
       <div className="max-w-6xl mx-auto">
-        <div className="flex border-b border-white/10 mb-6 sm:mb-10 overflow-x-auto">
+        {/* Sticky Tab Bar */}
+        <div
+          className="sticky top-0 z-20 flex border-b border-white/10 mb-6 sm:mb-10 overflow-x-auto"
+          style={{
+            background: "rgba(0,0,0,0.85)",
+            backdropFilter: "blur(12px)",
+          }}
+        >
           {tabs.map((tab) => (
             <button
               key={tab.key}
-              onClick={() => setActiveTab(tab.key)}
+              onClick={() => handleTabClick(tab.key)}
               className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0"
               style={{
                 color: activeTab === tab.key ? "#ffffff" : "#6B7280",
@@ -105,12 +157,15 @@ function PartnerTabs() {
             </button>
           ))}
         </div>
+
+        {/* Scrollable Sections */}
         <div className="flex flex-col gap-8 sm:gap-10">
           {tabs.map((tab) => (
             <FadeSection key={tab.key}>
               <div
+                ref={(el) => (sectionRefs.current[tab.key] = el)}
                 className="relative cursor-pointer"
-                onClick={() => setActiveTab(tab.key)}
+                onClick={() => handleTabClick(tab.key)}
               >
                 <img
                   src={tab.img}
