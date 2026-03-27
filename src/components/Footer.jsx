@@ -21,62 +21,55 @@ export default function Footer({ setActivePage }) {
 
   return (
     <footer
-      className="border-t border-white/5 pt-16 pb-8 px-4"
+      className="border-t border-white/5 pt-10 sm:pt-14 md:pt-16 pb-8 px-4"
       style={{ background: "#000000" }}
     >
       <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+        {/* Grid: stacks on mobile, 3-col on md+ */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 sm:gap-10 md:gap-12 mb-10 md:mb-12">
           {/* Col 1 – Logo + Newsletter */}
-          <div>
-            {/* Logo matching Image 1 style: ΩX boxed + PONENT */}
+          <div className="sm:col-span-2 md:col-span-1">
             <button
               onClick={() => handleNavClick("Home")}
-              className="flex items-center gap-0 mb-3 focus:outline-none"
+              className="flex items-center mb-3 focus:outline-none"
             >
               <img
                 src={AxponentLogoWhite}
                 alt="Axponent Logo"
-                style={{ width: 183, height: 36 }}
+                style={{ width: 160, height: 32, objectFit: "contain" }}
               />
             </button>
 
-            <p className="text-gray-400 text-sm mb-6">
+            <p className="text-gray-400 text-sm mb-5">
               Built with clarity. Designed for flow.
             </p>
 
-            {/* Email input — plain dark box with inline Submit */}
+            {/* Email input */}
             <div
-              className="flex items-center rounded-lg overflow-hidden mb-5"
-              style={{
-                borderRadius: "400px",
-                border: "1px solid #F7F7FD1A",
-              }}
+              className="flex items-center overflow-hidden mb-5"
+              style={{ borderRadius: "400px", border: "1px solid #F7F7FD1A" }}
             >
               <input
                 type="email"
                 placeholder="Enter your email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 bg-transparent px-4 py-3 text-sm text-white outline-none placeholder-gray-500"
-                style={{ paddingLeft: "12px", paddingRight: "12px" }}
+                className="flex-1 bg-transparent px-3 sm:px-4 py-2.5 text-xs sm:text-sm text-white outline-none placeholder-gray-500 min-w-0"
               />
               <button
-                className="px-5 py-3 text-sm font-semibold text-white flex-shrink-0 transition-colors hover:text-brand-blue"
+                className="px-4 sm:px-5 py-2.5 text-xs sm:text-sm font-semibold text-white flex-shrink-0 transition-colors hover:text-brand-blue whitespace-nowrap"
                 style={{
                   background: "linear-gradient(90deg,#0060FF,#0090FF)",
-                  // borderRadius: "0 6px 6px 0",
                   borderRadius: "100px",
-                  border: "1px",
-                  padding: "10px 28px 10px 28px",
+                  padding: "8px 20px",
                 }}
               >
                 Submit
               </button>
             </div>
 
-            {/* Social icons — blue filled circles like Image 1 */}
+            {/* Social icons */}
             <div className="flex gap-2">
-              {/* Facebook */}
               <a
                 href="#"
                 className="w-8 h-8 rounded-full flex items-center justify-center transition-opacity hover:opacity-80"
@@ -87,7 +80,6 @@ export default function Footer({ setActivePage }) {
                   <path d="M7 2C4.8 2 3 3.8 3 6v12c0 2.2 1.8 4 4 4h10c2.2 0 4-1.8 4-4V6c0-2.2-1.8-4-4-4H7zm5 5a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm6.5-.75a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0zM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" />
                 </svg>
               </a>
-              {/* LinkedIn */}
               <a
                 href="#"
                 className="w-8 h-8 rounded-full flex items-center justify-center transition-opacity hover:opacity-80"
@@ -105,10 +97,10 @@ export default function Footer({ setActivePage }) {
 
           {/* Col 2 – Product Links */}
           <div>
-            <h4 className="font-sans font-semibold text-white text-sm mb-5 tracking-wide">
+            <h4 className="font-sans font-semibold text-white text-sm mb-4 tracking-wide">
               Product
             </h4>
-            <ul className="space-y-3">
+            <ul className="space-y-2.5">
               {NAV_LINKS.map(({ label, page }) => (
                 <li key={label}>
                   <button
@@ -124,7 +116,7 @@ export default function Footer({ setActivePage }) {
 
           {/* Col 3 – Get In Touch */}
           <div>
-            <h4 className="font-sans font-semibold text-white text-sm mb-5 tracking-wide">
+            <h4 className="font-sans font-semibold text-white text-sm mb-4 tracking-wide">
               Get In Touch
             </h4>
             <div className="space-y-4">
@@ -144,12 +136,11 @@ export default function Footer({ setActivePage }) {
                 </svg>
                 <a
                   href="mailto:info@axpoennt.com"
-                  className="text-gray-400 text-sm hover:text-brand-blue transition-colors"
+                  className="text-gray-400 text-sm hover:text-brand-blue transition-colors break-all"
                 >
                   info@axpoennt.com
                 </a>
               </div>
-
               {/* India office */}
               <div className="flex items-start gap-3">
                 <svg
@@ -169,7 +160,6 @@ export default function Footer({ setActivePage }) {
                   48, Sohna Road, Gurugram, India, Pin – 122018
                 </span>
               </div>
-
               {/* Dubai office */}
               <div className="flex items-start gap-3">
                 <svg
@@ -194,8 +184,8 @@ export default function Footer({ setActivePage }) {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-white/5 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3">
-          <p className="text-gray-600 text-xs">
+        <div className="border-t border-white/5 pt-5 sm:pt-6 flex flex-col sm:flex-row justify-between items-center gap-3">
+          <p className="text-gray-600 text-xs text-center sm:text-left">
             © 2025 Axponent. All Rights Reserved.
           </p>
           <button

@@ -4,77 +4,110 @@ import activationImg from "../assets/images/home/four-as/activation.png";
 import acquisitionImg from "../assets/images/home/four-as/acquisition.png";
 import amplificationImg from "../assets/images/home/four-as/amplification.png";
 
-const CW = 1536;
-const CH = 628;
-
 const SLIDES = [
   {
     key: "Analysis",
     subtitle: "Audience, funnel, and attribution insights",
     body: "We start with data. By analyzing audience behavior, conversion funnels, and attribution signals, we identify where real value comes from and where growth opportunities lie. This foundation ensures every campaign is aligned with performance and ROI from the start.",
     img: analysisImg,
-    titlePos: {
-      top: `${(300 / CH) * 100}%`,
-      left: `${(170 / CW) * 100}%`,
-      width: `${(554 / CW) * 100}%`,
-    },
-    bodyPos: {
-      top: `${(400 / CH) * 100}%`,
-      left: `${(170 / CW) * 100}%`,
-      width: `${(531 / CW) * 100}%`,
-    },
   },
   {
     key: "Activation",
     subtitle: "Early funnel optimization",
     body: "Before scaling, we test and refine. We validate audiences, creatives, and channels to build a strong performance baseline while optimizing early engagement and conversions to ensure campaigns scale efficiently.",
     img: activationImg,
-    titlePos: {
-      top: `${(300 / CH) * 100}%`,
-      left: `${(677 / CW) * 100}%`,
-      width: `${(554 / CW) * 100}%`,
-    },
-    bodyPos: {
-      top: `${(350 / CH) * 100}%`,
-      left: `${(677 / CW) * 100}%`,
-      width: `${(631 / CW) * 100}%`,
-    },
   },
   {
     key: "Acquisition",
     subtitle: "Intent-led, CPA-driven media execution",
     body: "Our focus is on acquiring users that matter. With intent-led targeting and CPA-driven buying, we deliver high-quality users through data-backed media execution designed for measurable outcomes and long-term value.",
     img: acquisitionImg,
-    titlePos: {
-      top: `${(300 / CH) * 100}%`,
-      left: `${(189 / CW) * 100}%`,
-      width: `${(554 / CW) * 100}%`,
-    },
-    bodyPos: {
-      top: `${(400 / CH) * 100}%`,
-      left: `${(189 / CW) * 100}%`,
-      width: `${(631 / CW) * 100}%`,
-    },
   },
   {
     key: "Amplification",
     subtitle: "Scalable, profitable growth",
     body: "Once performance is validated, we scale with purpose. We expand into new markets, increase budgets strategically, and unlock new growth opportunities while maintaining quality and profitability.",
     img: amplificationImg,
-    titlePos: {
-      top: `${(300 / CH) * 100}%`,
-      left: `${(756 / CW) * 100}%`,
-      width: `${(554 / CW) * 100}%`,
-    },
-    bodyPos: {
-      top: `${(350 / CH) * 100}%`,
-      left: `${(756 / CW) * 100}%`,
-      width: `${(631 / CW) * 100}%`,
-    },
   },
 ];
 
-export default function FourAs() {
+// Mobile accordion/stack version
+function MobileFourAs() {
+  const [active, setActive] = useState(0);
+
+  return (
+    <div className="py-12 px-4">
+      <div className="max-w-lg mx-auto">
+        {/* Tab row */}
+        <div className="flex border-b border-white/10 mb-6 overflow-x-auto scrollbar-hide">
+          {SLIDES.map((s, j) => (
+            <button
+              key={s.key}
+              onClick={() => setActive(j)}
+              className="flex-shrink-0 flex-1 py-3 text-xs sm:text-sm font-medium transition-all duration-300 focus:outline-none relative whitespace-nowrap px-2"
+              style={{
+                color: active === j ? "#ffffff" : "rgba(156,163,175,0.7)",
+                background:
+                  active === j ? "rgba(0,80,200,0.22)" : "transparent",
+                minWidth: "70px",
+              }}
+            >
+              {active === j && (
+                <span
+                  className="absolute top-0 left-0 right-0 h-[2px]"
+                  style={{
+                    background:
+                      "linear-gradient(90deg,transparent,#00A8FF,transparent)",
+                  }}
+                />
+              )}
+              {s.key}
+            </button>
+          ))}
+        </div>
+
+        {/* Active slide */}
+        <div
+          className="relative rounded-2xl overflow-hidden"
+          style={{ aspectRatio: "4/3" }}
+        >
+          <img
+            src={SLIDES[active].img}
+            alt={SLIDES[active].key}
+            className="w-full h-full object-cover"
+            style={{ filter: "brightness(0.4)" }}
+          />
+          <div
+            className="absolute inset-0 flex flex-col justify-end p-5 sm:p-6"
+            style={{
+              background:
+                "linear-gradient(to top, rgba(2,6,20,0.95) 0%, transparent 60%)",
+            }}
+          >
+            <h3
+              className="text-white font-bold mb-2"
+              style={{
+                fontSize: "clamp(1.1rem, 3.5vw, 1.5rem)",
+                lineHeight: 1.2,
+              }}
+            >
+              {SLIDES[active].subtitle}
+            </h3>
+            <p
+              className="text-gray-300 leading-relaxed"
+              style={{ fontSize: "clamp(0.8rem, 2vw, 0.95rem)" }}
+            >
+              {SLIDES[active].body}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Desktop sticky-scroll version
+function DesktopFourAs() {
   const [active, setActive] = useState(0);
   const [prev, setPrev] = useState(null);
   const [animating, setAnimating] = useState(false);
@@ -94,14 +127,12 @@ export default function FourAs() {
     }, 800);
   };
 
-  // Scroll-driven slide changes
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
-
     const onScroll = () => {
       const rect = container.getBoundingClientRect();
-      const scrolled = -rect.top; // how far into the sticky container we've scrolled
+      const scrolled = -rect.top;
       const totalScroll = container.offsetHeight - window.innerHeight;
       const progress = Math.max(0, Math.min(1, scrolled / totalScroll));
       const newIdx = Math.min(
@@ -110,22 +141,17 @@ export default function FourAs() {
       );
       if (newIdx !== active) goTo(newIdx);
     };
-
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, [active, animating]);
 
-  useEffect(() => {
-    return () => clearTimeout(timerRef.current);
-  }, []);
+  useEffect(() => () => clearTimeout(timerRef.current), []);
 
   return (
-    // Tall container — 500vh gives enough scroll room for 4 slides
     <div
       ref={containerRef}
       style={{ height: `${100 + SLIDES.length * 100}vh`, position: "relative" }}
     >
-      {/* Sticky viewport that pins while scrolling */}
       <div
         ref={stickyRef}
         style={{
@@ -149,7 +175,7 @@ export default function FourAs() {
                 pointerEvents: isActive ? "auto" : "none",
               }}
             >
-              {/* Background image — cross-fade + zoom */}
+              {/* Background image */}
               <div
                 className="absolute inset-0"
                 style={{
@@ -175,7 +201,7 @@ export default function FourAs() {
                 }}
               />
 
-              {/* SCROLL DOWN side label */}
+              {/* SCROLL DOWN label */}
               <div className="hidden lg:flex flex-col items-center gap-2 absolute right-6 top-1/2 -translate-y-1/2 z-20">
                 <span
                   className="text-gray-600 text-[10px] tracking-widest select-none"
@@ -196,66 +222,38 @@ export default function FourAs() {
                 </svg>
               </div>
 
-              {/* Title */}
+              {/* Text content — responsive positioning */}
               <div
-                style={{
-                  position: "absolute",
-                  top: slide.titlePos.top,
-                  left: slide.titlePos.left,
-                  width: slide.titlePos.width,
-                  zIndex: 10,
-                  overflow: "hidden",
-                }}
+                className="absolute inset-0 flex flex-col justify-center px-8 md:px-16 lg:px-24 pb-20 max-w-2xl"
+                style={{ zIndex: 10 }}
               >
                 <h3
-                  className="text-white"
+                  className="text-white mb-4 sm:mb-6"
                   style={{
                     fontFamily: "Gilroy-Bold, sans-serif",
-                    fontWeight: 400,
-                    fontSize: "50px",
-                    lineHeight: "96%",
-                    letterSpacing: "0",
-                    margin: 0,
+                    fontSize: "clamp(1.5rem, 3.5vw, 3rem)",
+                    lineHeight: "110%",
                     transition:
                       "opacity 0.65s ease 0.15s, transform 0.65s cubic-bezier(0.22,1,0.36,1) 0.15s",
                     opacity: isActive ? 1 : 0,
                     transform: isActive
                       ? "translateY(0px)"
                       : "translateY(40px)",
-                    willChange: "transform, opacity",
                   }}
                 >
                   {slide.subtitle}
                 </h3>
-              </div>
-
-              {/* Body */}
-              <div
-                style={{
-                  position: "absolute",
-                  top: slide.bodyPos.top,
-                  left: slide.bodyPos.left,
-                  width: slide.bodyPos.width,
-                  zIndex: 10,
-                  overflow: "hidden",
-                }}
-              >
                 <p
                   className="text-gray-300"
                   style={{
-                    fontFamily: "Gilroy-Medium, sans-serif",
-                    fontWeight: 400,
-                    fontSize: "22px",
+                    fontSize: "clamp(0.9rem, 1.5vw, 1.25rem)",
                     lineHeight: "150%",
-                    letterSpacing: "0",
-                    margin: 0,
                     transition:
                       "opacity 0.65s ease 0.28s, transform 0.65s cubic-bezier(0.22,1,0.36,1) 0.28s",
                     opacity: isActive ? 1 : 0,
                     transform: isActive
                       ? "translateY(0px)"
                       : "translateY(40px)",
-                    willChange: "transform, opacity",
                   }}
                 >
                   {slide.body}
@@ -277,7 +275,7 @@ export default function FourAs() {
                   <button
                     key={s.key}
                     onClick={() => goTo(j)}
-                    className="relative flex-1 py-4 text-sm font-medium transition-all duration-300 focus:outline-none"
+                    className="relative flex-1 py-3 sm:py-4 text-xs sm:text-sm font-medium transition-all duration-300 focus:outline-none"
                     style={{
                       color: active === j ? "#ffffff" : "rgba(156,163,175,0.7)",
                       background:
@@ -303,4 +301,17 @@ export default function FourAs() {
       </div>
     </div>
   );
+}
+
+export default function FourAs() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  return isMobile ? <MobileFourAs /> : <DesktopFourAs />;
 }

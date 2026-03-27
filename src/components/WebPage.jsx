@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import FadeSection from "./FadeSection";
 
-// "What We Deliver" cards
 import cpaCplImg from "../assets/images/web/deliver-cards/cpa-cpl-cps.png";
 import conversionImg from "../assets/images/web/deliver-cards/conversion-optimized.png";
 import scalableImg from "../assets/images/web/deliver-cards/scalable-mobile-web.png";
@@ -9,7 +8,6 @@ import incrementalImg from "../assets/images/web/deliver-cards/incremental-user-
 import fullFunnelImg from "../assets/images/web/deliver-cards/full-funnel-acquisition.png";
 import verticalImg from "../assets/images/web/deliver-cards/vertical-expertise.png";
 
-// Brand ticker logos
 import webLogo1 from "../assets/images/clients/Web page Logo/Agoda.png";
 import webLogo2 from "../assets/images/clients/Web page Logo/AliExpress.png";
 import webLogo3 from "../assets/images/clients/Web page Logo/HboMax.png";
@@ -21,7 +19,6 @@ import webLogo8 from "../assets/images/clients/Web page Logo/Noton.png";
 import webLogo9 from "../assets/images/clients/Web page Logo/Shopify.png";
 import webLog10 from "../assets/images/clients/Web page Logo/Surfshank.png";
 
-// Traffic Channels icons
 import Contextual from "../assets/images/web/Traffic-Channels/Contextual.svg";
 import Contextualllintent from "../assets/images/web/Traffic-Channels/Contextualllintent.svg";
 import DirectMedia from "../assets/images/web/Traffic-Channels/DirectMedia.svg";
@@ -34,6 +31,7 @@ import Native from "../assets/images/web/Traffic-Channels/Native.svg";
 import Nativellintent from "../assets/images/web/Traffic-Channels/Nativellintent.svg";
 import PerformacePublisher from "../assets/images/web/Traffic-Channels/PerformacePublisher.svg";
 import PerformacePublisherllintent from "../assets/images/web/Traffic-Channels/PerformacePublisherllintent.svg";
+import categoriesImg from "../assets/images/web/categories.png";
 
 const WEB_LOGOS = [
   { name: "Agoda", src: webLogo1 },
@@ -49,24 +47,27 @@ const WEB_LOGOS = [
 ];
 const WEB_TICKER = [...WEB_LOGOS, ...WEB_LOGOS];
 
-import categoriesImg from "../assets/images/web/categories.png";
-
-/* ── Section 1: Hero ── */
 function WebHero() {
   return (
-    <section className="relative min-h-[52vh] flex flex-col items-center justify-center text-center px-4 pt-28 pb-10 overflow-hidden">
+    <section className="relative min-h-[48vh] sm:min-h-[52vh] flex flex-col items-center justify-center text-center px-4 pt-24 sm:pt-28 pb-8 sm:pb-10 overflow-hidden">
       <div className="stars" />
       <FadeSection>
-        <h1 className="font-display font-bold text-4xl sm:text-4xl md:text-4xl lg:text-4xl text-white mb-2 leading-tight">
+        <h1
+          className="font-display font-bold text-white mb-1 sm:mb-2 leading-tight"
+          style={{ fontSize: "clamp(1.6rem, 4vw, 2.5rem)" }}
+        >
           PERFORMANCE WEB
         </h1>
         <h1
-          className="font-display font-bold text-4xl sm:text-4xl md:text-4xl lg:text-4xl mb-6 leading-tight"
-          style={{ color: "#007BFF" }}
+          className="font-display font-bold mb-4 sm:mb-6 leading-tight"
+          style={{ fontSize: "clamp(1.6rem, 4vw, 2.5rem)", color: "#007BFF" }}
         >
           ACQUISITION AT GLOBAL SCALE
         </h1>
-        <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+        <p
+          className="text-gray-400 max-w-2xl mx-auto leading-relaxed"
+          style={{ fontSize: "clamp(0.85rem, 1.5vw, 1rem)" }}
+        >
           Axponent drives scalable customer acquisition through high-intent
           traffic across a curated global network of premium publishers and
           direct partnerships — powered by advanced media buying, exclusive
@@ -77,44 +78,27 @@ function WebHero() {
   );
 }
 
-/* ── Section 2: What We Deliver ── */
 function WhatWeDeliver() {
   const deliverCards = [
     { img: cpaCplImg, alt: "CPA, CPL & CPS-Based Customer Acquisition" },
-    {
-      img: conversionImg,
-      alt: "Conversion-Optimized Web Traffic Built for Performance",
-    },
-    {
-      img: scalableImg,
-      alt: "Scalable Mobile Web & Desktop Campaign Execution",
-    },
-    {
-      img: incrementalImg,
-      alt: "Incremental User Growth Through Premium Global Publishers",
-    },
-    {
-      img: fullFunnelImg,
-      alt: "Full-Funnel Acquisition & Retargeting Strategies",
-    },
-    {
-      img: verticalImg,
-      alt: "Vertical Expertise Across Fintech, Gaming, Ecommerce & Lead Generation",
-    },
+    { img: conversionImg, alt: "Conversion-Optimized Web Traffic" },
+    { img: scalableImg, alt: "Scalable Mobile Web & Desktop Campaign" },
+    { img: incrementalImg, alt: "Incremental User Growth" },
+    { img: fullFunnelImg, alt: "Full-Funnel Acquisition & Retargeting" },
+    { img: verticalImg, alt: "Vertical Expertise" },
   ];
-
   return (
     <FadeSection>
-      <section className="py-10 px-4">
+      <section className="py-8 sm:py-10 px-4">
         <div className="max-w-5xl mx-auto">
           <div
-            className="rounded-2xl p-8 md:p-10"
-            style={{
-              background: "#000000",
-              border: "2px solid #393647",
-            }}
+            className="rounded-2xl p-6 sm:p-8 md:p-10"
+            style={{ background: "#000000", border: "2px solid #393647" }}
           >
-            <h2 className="font-display font-bold text-2xl md:text-3xl text-white text-center mb-10">
+            <h2
+              className="font-display font-bold text-white text-center mb-6 sm:mb-10"
+              style={{ fontSize: "clamp(1.2rem, 2.5vw, 1.875rem)" }}
+            >
               What We Deliver
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -134,10 +118,9 @@ function WhatWeDeliver() {
   );
 }
 
-/* ── Section 3: Brand Ticker ── */
 function BrandTicker() {
   return (
-    <div className="py-10 border-y border-white/5 overflow-hidden">
+    <div className="py-8 sm:py-10 border-y border-white/5 overflow-hidden">
       <div
         className="flex items-center w-max"
         style={{ animation: "ticker 30s linear infinite" }}
@@ -149,12 +132,12 @@ function BrandTicker() {
             alt={i === 0 ? logo.name : ""}
             aria-hidden={i !== 0}
             style={{
-              height: "32px",
+              height: "28px",
               width: "auto",
               objectFit: "contain",
               flexShrink: 0,
-              marginLeft: "60px",
-              marginRight: "60px",
+              marginLeft: "40px",
+              marginRight: "40px",
               opacity: 0.85,
             }}
             draggable={false}
@@ -165,13 +148,15 @@ function BrandTicker() {
   );
 }
 
-/* ── Section 4: Diverse Needs ── */
 function DiverseNeeds() {
   return (
     <FadeSection>
-      <section className="py-16 px-4">
+      <section className="py-10 sm:py-14 md:py-16 px-4">
         <div className="max-w-3xl mx-auto">
-          <h2 className="font-display font-bold text-3xl md:text-4xl text-white text-center mb-12 leading-snug">
+          <h2
+            className="font-display font-bold text-white text-center mb-8 sm:mb-12 leading-snug"
+            style={{ fontSize: "clamp(1.4rem, 3vw, 2.25rem)" }}
+          >
             Meeting Diverse Publisher
             <br />
             Needs with Precision
@@ -187,7 +172,6 @@ function DiverseNeeds() {
   );
 }
 
-/* ── Section 5: Traffic Channels ── */
 function TrafficChannels() {
   const nodes = [
     {
@@ -219,59 +203,44 @@ function TrafficChannels() {
   ];
 
   const n = nodes.length;
-  const RADIUS = 200;
-
-  // Node angles: evenly spaced, top = 90°, clockwise
-  const nodeAngles = nodes.map((_, i) => 90 + (i / n) * 360);
-
   const [activeIdx, setActiveIdx] = useState(0);
   const [hoveredIdx, setHoveredIdx] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // dotAngle drives the white dot position — always stays on the ring
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 640);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  const RADIUS = isMobile ? 120 : 200;
+  const nodeAngles = nodes.map((_, i) => 90 + (i / n) * 360);
   const [dotAngle, setDotAngle] = useState(nodeAngles[0]);
   const dotAngleRef = useRef(nodeAngles[0]);
   const targetAngleRef = useRef(nodeAngles[0]);
   const rafRef = useRef(null);
-  const animatingRef = useRef(false);
-
   const highlightIdx = hoveredIdx !== null ? hoveredIdx : activeIdx;
 
-  // Animate dot along arc to target angle
   const animateTo = (targetRaw) => {
-    // Cancel any running animation
     if (rafRef.current) cancelAnimationFrame(rafRef.current);
-
-    // Find shortest arc direction from current angle to target
     let current = dotAngleRef.current;
-    let target = targetRaw;
-
-    // Normalise difference to [-180, 180] so dot takes shortest arc
-    let diff = ((((target - current) % 360) + 540) % 360) - 180;
+    let diff = ((((targetRaw - current) % 360) + 540) % 360) - 180;
     const finalTarget = current + diff;
     targetAngleRef.current = finalTarget;
-
-    const SPEED = 3; // degrees per frame (~50ms for 60° arc)
-
     const step = () => {
-      const cur = dotAngleRef.current;
-      const tgt = targetAngleRef.current;
-      const remaining = tgt - cur;
-
-      if (Math.abs(remaining) < 0.5) {
-        // Snap to exact node angle and stop
+      const cur = dotAngleRef.current,
+        tgt = targetAngleRef.current;
+      if (Math.abs(tgt - cur) < 0.5) {
         dotAngleRef.current = tgt;
         setDotAngle(tgt);
-        animatingRef.current = false;
         return;
       }
-
-      const delta = Math.sign(remaining) * Math.min(SPEED, Math.abs(remaining));
+      const delta = Math.sign(tgt - cur) * Math.min(3, Math.abs(tgt - cur));
       dotAngleRef.current = cur + delta;
       setDotAngle(cur + delta);
       rafRef.current = requestAnimationFrame(step);
     };
-
-    animatingRef.current = true;
     rafRef.current = requestAnimationFrame(step);
   };
 
@@ -279,28 +248,26 @@ function TrafficChannels() {
     setActiveIdx(i);
     animateTo(nodeAngles[i]);
   };
-
   const handleNodeEnter = (i) => {
     setHoveredIdx(i);
     animateTo(nodeAngles[i]);
   };
-
   const handleNodeLeave = () => {
     setHoveredIdx(null);
-    // Snap back to active node when hover ends
     animateTo(nodeAngles[activeIdx]);
   };
-
-  // Cleanup on unmount
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
-  }, []);
+    },
+    [],
+  );
 
   const dotRad = (dotAngle * Math.PI) / 180;
   const dotX = Math.cos(dotRad) * RADIUS;
   const dotY = -Math.sin(dotRad) * RADIUS;
+
+  const stageSize = isMobile ? 320 : 560;
 
   return (
     <FadeSection>
@@ -309,114 +276,32 @@ function TrafficChannels() {
           0%, 100% { box-shadow: 0px -5px 250px 204px rgba(0,123,255,0.40); }
           50%       { box-shadow: 0px -5px 280px 224px rgba(0,123,255,0.55); }
         }
-
-        .tc-node {
-          position: absolute;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 6px;
-          width: 120px;
-          text-align: center;
-          cursor: pointer;
-          transition: transform 0.25s;
-        }
+        .tc-node { position: absolute; display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; cursor: pointer; transition: transform 0.25s; }
         .tc-node:hover { transform: translate(-50%, -50%) scale(1.08) !important; }
-
-        .tc-icon-wrap {
-          width: 52px;
-          height: 52px;
-          border-radius: 14px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transition: background 0.3s, box-shadow 0.3s, border 0.3s;
-          padding: 6px;
-          box-sizing: border-box;
-        }
-        .tc-icon-wrap.active {
-          background: rgba(255, 255, 255, 0.15);
-          border: 1.5px solid rgba(255, 255, 255, 0.75);
-          box-shadow: 0 0 16px rgba(255, 255, 255, 0.3), 0 0 32px rgba(100, 180, 255, 0.2);
-        }
-        .tc-icon-wrap.inactive {
-          background: transparent;
-          border: 1px solid transparent;
-          box-shadow: none;
-        }
-
-        .tc-icon-img {
-          width: 100%;
-          height: 100%;
-          object-fit: contain;
-          transition: opacity 0.3s, filter 0.3s;
-        }
-        .tc-icon-img.active {
-          opacity: 1;
-          filter: brightness(1.3) drop-shadow(0 0 6px rgba(255,255,255,0.5));
-        }
-        .tc-icon-img.inactive {
-          opacity: 0.4;
-          filter: grayscale(0.3) brightness(0.7);
-        }
-
-        .tc-label {
-          font-size: 11px;
-          font-weight: 400;
-          line-height: 1.35;
-          text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9);
-          transition: color 0.3s, font-weight 0.1s;
-          white-space: pre-line;
-        }
-        .tc-label.active  { color: #fff; font-weight: 700; }
-        .tc-label.inactive { color: rgba(148, 163, 184, 0.6); }
-
-        .tc-orbit-dot {
-          position: absolute;
-          border-radius: 50%;
-          background: #ffffff;
-          box-shadow: 0 0 6px 2px rgba(255, 255, 255, 0.85);
-          z-index: 8;
-          /* NO CSS transition — position driven by rAF arc animation */
-        }
+        .tc-icon-wrap { border-radius: 12px; display: flex; align-items: center; justify-content: center; transition: background 0.3s, box-shadow 0.3s; padding: 5px; box-sizing: border-box; }
+        .tc-icon-wrap.active { background: rgba(255,255,255,0.15); border: 1.5px solid rgba(255,255,255,0.75); box-shadow: 0 0 16px rgba(255,255,255,0.3); }
+        .tc-icon-wrap.inactive { background: transparent; border: 1px solid transparent; }
+        .tc-orbit-dot { position: absolute; border-radius: 50%; background: #ffffff; box-shadow: 0 0 6px 2px rgba(255,255,255,0.85); z-index: 8; }
+        @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
       `}</style>
-
-      <section className="py-20 px-4">
+      <section className="py-12 sm:py-16 md:py-20 px-4">
         <div className="max-w-5xl mx-auto">
           <h2
+            className="text-white font-display text-center mb-8 sm:mb-12 md:mb-16"
             style={{
-              fontFamily: "'Gilroy-Medium', sans-serif",
               fontWeight: 400,
-              fontSize: "clamp(28px, 4vw, 60px)",
+              fontSize: "clamp(1.5rem, 4vw, 3.75rem)",
               lineHeight: "96%",
-              textAlign: "center",
-              color: "#ffffff",
-              marginBottom: "clamp(32px, 5vw, 64px)",
             }}
           >
             Traffic Channels
           </h2>
-
           {/* Stage */}
           <div
             className="relative mx-auto"
-            style={{ width: 560, height: 560, maxWidth: "92vw" }}
+            style={{ width: stageSize, height: stageSize, maxWidth: "92vw" }}
           >
-            {/* Outer faint halo ring */}
-            <div
-              style={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                width: RADIUS * 2 + 80,
-                height: RADIUS * 2 + 80,
-                borderRadius: "50%",
-                border: "1px solid rgba(255,255,255,0.06)",
-                transform: "translate(-50%,-50%)",
-              }}
-            />
-
-            {/* Main orbit ring */}
+            {/* Orbit ring */}
             <div
               style={{
                 position: "absolute",
@@ -429,16 +314,15 @@ function TrafficChannels() {
                 transform: "translate(-50%,-50%)",
               }}
             />
-
-            {/* CENTER ORB — Figma: 31×31, #007BFF, box-shadow 0px -5px 250px 204px #007BFF66 */}
+            {/* Center orb */}
             <div
               style={{
                 position: "absolute",
                 top: "50%",
                 left: "50%",
-                transform: "translate(-50%, -50%)",
-                width: 31,
-                height: 31,
+                transform: "translate(-50%,-50%)",
+                width: isMobile ? 20 : 31,
+                height: isMobile ? 20 : 31,
                 borderRadius: "50%",
                 background: "#007BFF",
                 boxShadow: "0px -5px 250px 204px rgba(0,123,255,0.40)",
@@ -446,27 +330,25 @@ function TrafficChannels() {
                 zIndex: 5,
               }}
             />
-
-            {/* White dot — travels along arc, never cuts through centre */}
+            {/* Dot */}
             <div
               className="tc-orbit-dot"
               style={{
                 left: `calc(50% + ${dotX}px)`,
                 top: `calc(50% + ${dotY}px)`,
-                width: 11,
-                height: 11,
+                width: isMobile ? 8 : 11,
+                height: isMobile ? 8 : 11,
                 transform: "translate(-50%,-50%)",
               }}
             />
-
             {/* Nodes */}
             {nodes.map((node, i) => {
               const isActive = i === highlightIdx;
               const rad = (nodeAngles[i] * Math.PI) / 180;
-              const labelR = RADIUS + 74;
+              const labelR = RADIUS + (isMobile ? 50 : 74);
               const lx = Math.cos(rad) * labelR;
               const ly = -Math.sin(rad) * labelR;
-
+              const iconSize = isMobile ? 36 : 52;
               return (
                 <div
                   key={i}
@@ -476,6 +358,7 @@ function TrafficChannels() {
                     top: `calc(50% + ${ly}px)`,
                     transform: "translate(-50%,-50%)",
                     zIndex: 7,
+                    width: isMobile ? 80 : 120,
                   }}
                   onClick={() => handleNodeClick(i)}
                   onMouseEnter={() => handleNodeEnter(i)}
@@ -483,15 +366,28 @@ function TrafficChannels() {
                 >
                   <div
                     className={`tc-icon-wrap ${isActive ? "active" : "inactive"}`}
+                    style={{ width: iconSize, height: iconSize }}
                   >
                     <img
                       src={isActive ? node.iconActive : node.iconInactive}
                       alt={node.label}
-                      className={`tc-icon-img ${isActive ? "active" : "inactive"}`}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain",
+                        opacity: isActive ? 1 : 0.4,
+                      }}
                     />
                   </div>
                   <span
-                    className={`tc-label ${isActive ? "active" : "inactive"}`}
+                    style={{
+                      fontSize: isMobile ? "9px" : "11px",
+                      fontWeight: isActive ? 700 : 400,
+                      color: isActive ? "#fff" : "rgba(148,163,184,0.6)",
+                      lineHeight: 1.35,
+                      whiteSpace: "pre-line",
+                      textShadow: "0 1px 6px rgba(0,0,0,0.9)",
+                    }}
                   >
                     {node.label}
                   </span>
@@ -505,7 +401,6 @@ function TrafficChannels() {
   );
 }
 
-/* ── Main Web Page ── */
 export default function WebPage() {
   return (
     <div className="min-h-screen bg-brand-dark">
