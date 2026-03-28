@@ -16,7 +16,7 @@ const CARDS = [
 function HowCard({ img, alt }) {
   return (
     <div
-    className="how-card group w-full overflow-hidden"
+      className="how-card group w-full overflow-hidden"
       style={{
         aspectRatio: "389 / 315",
         borderRadius: "12px",
@@ -63,24 +63,19 @@ export default function HowWeDo() {
           {/* Tablet: 2-col */}
           {/* Desktop: Row of 3, then Row of 2 centered */}
 
-          {/* Row 1 — top 3 cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mb-4 sm:mb-5">
+          {/* Row 1 — 3 cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mb-4 sm:mb-6">
             <HowCard img={CARDS[0].img} alt={CARDS[0].alt} />
             <HowCard img={CARDS[1].img} alt={CARDS[1].alt} />
-            {/* 3rd card: hidden on sm (2-col), visible on lg */}
-            <div className="hidden lg:block">
-              <HowCard img={CARDS[2].img} alt={CARDS[2].alt} />
-            </div>
+            <HowCard img={CARDS[2].img} alt={CARDS[2].alt} />
           </div>
 
-          {/* Row 2 — remaining cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-            {/* On sm, show card 3 here since it was hidden above */}
-            <div className="block lg:hidden">
-              <HowCard img={CARDS[2].img} alt={CARDS[2].alt} />
+          {/* Row 2 — centered 2 cards */}
+          <div className="flex justify-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 w-full sm:w-auto lg:w-[66%]">
+              <HowCard img={CARDS[3].img} alt={CARDS[3].alt} />
+              <HowCard img={CARDS[4].img} alt={CARDS[4].alt} />
             </div>
-            <HowCard img={CARDS[3].img} alt={CARDS[3].alt} />
-            <HowCard img={CARDS[4].img} alt={CARDS[4].alt} />
           </div>
         </div>
       </section>

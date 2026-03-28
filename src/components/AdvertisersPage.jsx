@@ -248,103 +248,61 @@ function AdFraudDetection() {
 
 function AdFormat() {
   const [active, setActive] = useState("banner");
+
   const formats = [
-    { key: "banner", label: "Banner AD" },
-    { key: "native", label: "Native AD" },
-    { key: "video", label: "Video AD" },
-    { key: "interstitial", label: "Interstitial AD" },
+    { key: "banner", label: "Banner AD", img: bannerAd },
+    { key: "native", label: "Native AD", img: nativeAd },
+    { key: "video", label: "Video AD", img: interstitialAd  },
+    { key: "interstitial", label: "Interstitial AD", img: videoAd },
   ];
 
-  const feedRows = (count) =>
-    Array.from({ length: count }).map((_, i) => (
-      <div key={i} className="flex items-center gap-2 flex-shrink-0">
-        <div className="w-7 h-7 rounded bg-[#1e2a3a] flex-shrink-0" />
-        <div className="flex flex-col gap-1 flex-1">
-          <div className="h-[5px] rounded bg-[#1e2a3a] w-4/5" />
-          <div className="h-[5px] rounded bg-[#1e2a3a] w-3/5" />
-          <div className="h-[5px] rounded bg-[#1e2a3a] w-1/2" />
-        </div>
-      </div>
-    ));
+  const current = formats.find((f) => f.key === active);
 
   return (
-    <section className="bg-black flex items-center justify-center px-4 sm:px-8 py-10 sm:py-12">
-      <div className="flex flex-col sm:flex-row items-center gap-8 sm:gap-14 w-full max-w-2xl">
-        {/* Phone mockup */}
+<section className="bg-black flex items-center justify-center px-4 sm:px-8 pt-24 pb-12">      
+  <div className="flex flex-col sm:flex-row items-center gap-10 sm:gap-16 w-full max-w-4xl">
+
+        {/* PHONE */}
         <div className="flex-shrink-0">
           <div
-            className={`relative w-36 sm:w-40 h-72 sm:h-80 rounded-[2rem] border-[6px] border-[#1e2336] bg-[#0d1120] overflow-hidden transition-all duration-300 ${active === "video" ? "shadow-[0_0_0_3px_#3b82f6,0_0_24px_6px_rgba(59,130,246,0.35)]" : ""}`}
+            className="relative w-44 sm:w-52 h-[380px] sm:h-[460px] rounded-[2.5rem] border-[6px] border-[#1e2336] bg-black overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.6)] transition-all duration-300"
           >
-            <div className="absolute top-2 left-1/2 -translate-x-1/2 w-10 h-1.5 bg-[#1e2336] rounded-full z-10" />
-            <div className="absolute top-0 w-full flex justify-between items-center px-3 pt-3 pb-1 z-10">
-              <span className="text-[8px] text-[#aaa] font-medium">9:41</span>
-              <div className="flex gap-1 items-center">
-                <div className="w-2 h-1.5 rounded-sm bg-[#aaa]" />
-                <div className="w-2.5 h-[5px] border border-[#aaa] rounded-sm relative">
-                  <div className="absolute inset-[1px] right-[2px] bg-[#aaa] rounded-[1px]" />
-                </div>
-              </div>
-            </div>
-            {active === "native" && (
-              <div className="absolute inset-0 bg-[#3b6cf6]" />
-            )}
-            {active !== "native" && (
-              <div className="absolute inset-0 pt-8 flex flex-col gap-1.5 p-2 overflow-hidden">
-                {active === "banner" && (
-                  <>
-                    {feedRows(5)}
-                    <div className="absolute bottom-0 left-0 right-0 h-9 bg-[#3b6cf6] border-t border-[#4a7aff]" />
-                  </>
-                )}
-                {active === "video" && (
-                  <>
-                    {feedRows(2)}
-                    <div className="w-full h-16 bg-[#3b6cf6] rounded-md flex-shrink-0 flex items-center justify-center">
-                      <div className="w-6 h-6 rounded-full border-2 border-white/80 flex items-center justify-center">
-                        <div
-                          className="ml-0.5"
-                          style={{
-                            width: 0,
-                            height: 0,
-                            borderTop: "5px solid transparent",
-                            borderBottom: "5px solid transparent",
-                            borderLeft: "8px solid rgba(255,255,255,0.85)",
-                          }}
-                        />
-                      </div>
-                    </div>
-                    {feedRows(2)}
-                  </>
-                )}
-                {active === "interstitial" && (
-                  <>
-                    {feedRows(1)}
-                    <div className="w-full h-24 bg-[#3b6cf6] rounded-md flex-shrink-0" />
-                    {feedRows(2)}
-                  </>
-                )}
-              </div>
-            )}
+            {/* notch */}
+            <div className="absolute top-3 left-1/2 -translate-x-1/2 w-14 h-2 bg-[#1e2336] rounded-full z-10" />
+
+            {/* screen content (REAL IMAGE) */}
+            <img
+              key={current.img}
+              src={current.img}
+              alt={current.label}
+              className="w-full h-full object-cover transition-all duration-500"
+            />
           </div>
         </div>
 
-        {/* Labels */}
+        {/* TEXT */}
         <div>
-          <h2 className="text-white text-2xl sm:text-3xl font-bold tracking-tight mb-4 sm:mb-5">
+          <h2 className="text-white text-2xl sm:text-3xl font-bold mb-6">
             Ad Format
           </h2>
-          <div className="flex flex-row sm:flex-col gap-3 sm:gap-1 flex-wrap">
+
+          <div className="flex flex-row sm:flex-col gap-3">
             {formats.map(({ key, label }) => (
               <button
                 key={key}
                 onClick={() => setActive(key)}
-                className={`text-left text-sm px-0.5 py-1.5 transition-colors duration-200 ${active === key ? "text-white font-bold" : "text-gray-500 font-normal hover:text-gray-300"}`}
+                className={`text-left text-sm transition-all duration-200 ${
+                  active === key
+                    ? "text-white font-semibold"
+                    : "text-gray-500 hover:text-gray-300"
+                }`}
               >
                 {label}
               </button>
             ))}
           </div>
         </div>
+
       </div>
     </section>
   );
@@ -366,7 +324,7 @@ function GetInTouch() {
     >
       <div
         className="absolute bottom-0 left-0 w-full pointer-events-none"
-        style={{ zIndex: 0 }}
+        style={{ zIndex: 0, }}
       >
         <img
           src={earthImg}
@@ -400,7 +358,7 @@ function GetInTouch() {
         </svg>
       </div>
       <div className="relative px-4 pb-28 sm:pb-36" style={{ zIndex: 1 }}>
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-3xl mx-auto" style={{marginBottom:"50px"}}>
           <h2
             className="font-display font-bold text-white text-center mb-8 sm:mb-10"
             style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}

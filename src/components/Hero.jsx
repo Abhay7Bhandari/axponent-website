@@ -1,4 +1,3 @@
-import React from "react";
 import earthImg from "../assets/images/Earth.png";
 
 export default function Hero() {
