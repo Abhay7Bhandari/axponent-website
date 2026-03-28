@@ -169,7 +169,7 @@ function BecomePublisher() {
     >
       <div
         className="absolute bottom-0 left-0 w-full pointer-events-none"
-        style={{ zIndex: 0 }}
+        style={{ zIndex: 0}}
       >
         <img
           src={earthImg}
@@ -203,7 +203,7 @@ function BecomePublisher() {
         </svg>
       </div>
       <div className="relative px-4 pb-28 sm:pb-36" style={{ zIndex: 1 }}>
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-3xl mx-auto" style={{marginBottom:"40px"}}>
           <h2
             className="font-display font-bold text-white text-center mb-8 sm:mb-10"
             style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}

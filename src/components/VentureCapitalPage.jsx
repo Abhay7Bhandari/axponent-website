@@ -186,7 +186,7 @@ function RaiseFunds() {
       </div>
       <div
         className="max-w-3xl mx-auto relative px-4 pb-28 sm:pb-36"
-        style={{ zIndex: 1 }}
+        style={{ zIndex: 1, marginBottom: "40px" }}
       >
         <h2
           className="font-display font-bold text-white text-center mb-8 sm:mb-12"
