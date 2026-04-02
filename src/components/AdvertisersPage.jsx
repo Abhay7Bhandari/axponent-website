@@ -131,25 +131,11 @@ function PartnerTabs() {
     <section className="py-10 sm:py-14 md:py-16 px-4">
       <div className="max-w-6xl mx-auto">
         {/* ── Sticky Tab Bar ── */}
-        <div
-          className="sticky z-30 mb-8 sm:mb-12"
-          style={{
-            top: "72px",
-          }} /* clears the fixed Navbar (56px pill + 16px gap) */
-        >
-          {/* Centered pill container — mirrors Navbar aesthetic */}
+        <div className="sticky z-30 mb-8 sm:mb-12" style={{ top: "72px" }}>
           <div
-            className="flex items-center justify-center mx-auto overflow-x-auto"
+            className="flex items-center justify-center mx-auto"
             style={{
-              background: "rgba(0, 0, 0, 0.85)",
-              backdropFilter: "blur(16px)",
-              WebkitBackdropFilter: "blur(16px)",
-              // border: "1px solid #2F4D6C",
-              // borderRadius: "64px",
-              /* Shrink-wrap on desktop, full-width on mobile */
-              // width: "fit-content",
-              // maxWidth: "100%",
-              padding: "4px 6px",
+              borderBottom: "1px solid rgba(255,255,255,0.1)",
             }}
           >
             {tabs.map((tab) => (
@@ -162,29 +148,28 @@ function PartnerTabs() {
                   fontWeight: activeTab === tab.key ? 600 : 400,
                   fontSize: "clamp(11px, 1.3vw, 14px)",
                   whiteSpace: "nowrap",
-                  padding: "8px clamp(12px, 2.5vw, 28px)",
-                  borderRadius: "999px",
-                  background:
-                    activeTab === tab.key ? "2px solid #ffffff" : "transparent",
+                  padding: "12px clamp(16px, 3vw, 36px)",
+                  background: "transparent",
                   border: "none",
                   cursor: "pointer",
+                  letterSpacing: "0.01em",
                 }}
               >
-                {/* Active indicator — glowing bottom line inside pill */}
+                {tab.label}
+
+                {/* Active underline */}
                 {activeTab === tab.key && (
                   <span
-                    className="absolute bottom-0 left-1/2 -translate-x-1/2"
+                    className="absolute bottom-0 left-0"
                     style={{
                       width: "100%",
                       height: "2px",
-                      borderRadius: "2px",
+                      borderRadius: "2px 2px 0 0",
                       background: "#00A8FF",
-                      boxShadow: "0 0 8px 2px rgba(0, 168, 255, 0.7)",
                       display: "block",
                     }}
                   />
                 )}
-                {tab.label}
               </button>
             ))}
           </div>
