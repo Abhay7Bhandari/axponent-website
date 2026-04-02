@@ -63,7 +63,7 @@ export default function Events() {
               className="font-display font-bold text-center text-white mb-8"
               style={{ fontSize: "clamp(1.6rem, 5vw, 2.2rem)" }}
             >
-              Axponent <span className="text-brand-blue">At Events</span>
+              Axponent <span className="text-[#007BFF]">At Events</span>
             </h2>
 
             {/* Single card */}
@@ -164,7 +164,7 @@ export default function Events() {
             className="font-display font-bold text-center text-white mb-10 sm:mb-14 md:mb-16"
             style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}
           >
-            Axponent <span className="text-brand-blue">At Events</span>
+            Axponent <span className="text-[#007BFF]">At Events</span>
           </h2>
 
           <div

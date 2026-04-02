@@ -104,7 +104,6 @@ function PartnerTabs() {
     const handleScroll = () => {
       if (isScrollingProgrammatically.current) return;
 
-      // Har section ka center calculate karo viewport ke relative
       let closestKey = null;
       let closestDistance = Infinity;
 
@@ -131,58 +130,113 @@ function PartnerTabs() {
   return (
     <section className="py-10 sm:py-14 md:py-16 px-4">
       <div className="max-w-6xl mx-auto">
-        {/* Sticky Tab Bar */}
+        {/* ── Sticky Tab Bar ── */}
         <div
-          className="sticky top-0 z-20 flex border-b border-white/10 mb-6 sm:mb-10 overflow-x-auto"
+          className="sticky z-30 mb-8 sm:mb-12"
           style={{
-            background: "rgba(0,0,0,0.85)",
-            backdropFilter: "blur(12px)",
-          }}
+            top: "72px",
+          }} /* clears the fixed Navbar (56px pill + 16px gap) */
         >
-          {tabs.map((tab) => (
-            <button
-              key={tab.key}
-              onClick={() => handleTabClick(tab.key)}
-              className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0"
-              style={{
-                color: activeTab === tab.key ? "#ffffff" : "#6B7280",
-                borderBottom:
-                  activeTab === tab.key
-                    ? "2px solid #ffffff"
-                    : "2px solid transparent",
-                marginBottom: "-1px",
-              }}
-            >
-              {tab.label}
-            </button>
-          ))}
+          {/* Centered pill container — mirrors Navbar aesthetic */}
+          <div
+            className="flex items-center justify-center mx-auto overflow-x-auto"
+            style={{
+              background: "rgba(0, 0, 0, 0.85)",
+              backdropFilter: "blur(16px)",
+              WebkitBackdropFilter: "blur(16px)",
+              // border: "1px solid #2F4D6C",
+              // borderRadius: "64px",
+              /* Shrink-wrap on desktop, full-width on mobile */
+              // width: "fit-content",
+              // maxWidth: "100%",
+              padding: "4px 6px",
+            }}
+          >
+            {tabs.map((tab) => (
+              <button
+                key={tab.key}
+                onClick={() => handleTabClick(tab.key)}
+                className="relative flex-shrink-0 transition-all duration-300 focus:outline-none"
+                style={{
+                  color: activeTab === tab.key ? "#ffffff" : "#6B7280",
+                  fontWeight: activeTab === tab.key ? 600 : 400,
+                  fontSize: "clamp(11px, 1.3vw, 14px)",
+                  whiteSpace: "nowrap",
+                  padding: "8px clamp(12px, 2.5vw, 28px)",
+                  borderRadius: "999px",
+                  background:
+                    activeTab === tab.key ? "2px solid #ffffff" : "transparent",
+                  border: "none",
+                  cursor: "pointer",
+                }}
+              >
+                {/* Active indicator — glowing bottom line inside pill */}
+                {activeTab === tab.key && (
+                  <span
+                    className="absolute bottom-0 left-1/2 -translate-x-1/2"
+                    style={{
+                      width: "100%",
+                      height: "2px",
+                      borderRadius: "2px",
+                      background: "#00A8FF",
+                      boxShadow: "0 0 8px 2px rgba(0, 168, 255, 0.7)",
+                      display: "block",
+                    }}
+                  />
+                )}
+                {tab.label}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* Scrollable Sections */}
-        <div className="flex flex-col gap-8 sm:gap-10">
+        {/* ── Scrollable Image Sections ── */}
+        <div className="flex flex-col gap-6 sm:gap-8 md:gap-10">
           {tabs.map((tab) => (
             <FadeSection key={tab.key}>
               <div
                 ref={(el) => (sectionRefs.current[tab.key] = el)}
-                className="relative cursor-pointer"
+                className="relative cursor-pointer rounded-2xl overflow-hidden"
                 onClick={() => handleTabClick(tab.key)}
+                style={{
+                  boxShadow:
+                    activeTab === tab.key
+                      ? "0 0 0 2px rgba(0,168,255,0.55), 0 20px 60px rgba(0,80,200,0.3)"
+                      : "none",
+                  transition: "box-shadow 0.35s ease",
+                }}
               >
                 <img
                   src={tab.img}
                   alt={tab.label}
-                  className="w-full rounded-2xl object-cover"
+                  className="w-full object-cover block"
                   style={{
                     opacity: activeTab === tab.key ? 1 : 0.45,
                     transform:
                       activeTab === tab.key ? "scale(1)" : "scale(0.985)",
-                    boxShadow:
-                      activeTab === tab.key
-                        ? "0 0 0 2px rgba(0,168,255,0.55), 0 20px 60px rgba(0,80,200,0.3)"
-                        : "none",
-                    transition:
-                      "opacity 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease",
+                    transition: "opacity 0.35s ease, transform 0.35s ease",
+                    borderRadius: "16px",
                   }}
                 />
+
+                {/* Inactive overlay hint */}
+                {activeTab !== tab.key && (
+                  <div
+                    className="absolute inset-0 flex items-center justify-center"
+                    style={{ borderRadius: "16px" }}
+                  >
+                    <span
+                      className="text-white text-xs sm:text-sm font-medium px-4 py-2 rounded-full"
+                      style={{
+                        background: "rgba(0,0,0,0.55)",
+                        border: "1px solid rgba(255,255,255,0.15)",
+                        backdropFilter: "blur(6px)",
+                      }}
+                    >
+                      {tab.label}
+                    </span>
+                  </div>
+                )}
               </div>
             </FadeSection>
           ))}
@@ -252,21 +306,18 @@ function AdFormat() {
   const formats = [
     { key: "banner", label: "Banner AD", img: bannerAd },
     { key: "native", label: "Native AD", img: nativeAd },
-    { key: "video", label: "Video AD", img: interstitialAd  },
+    { key: "video", label: "Video AD", img: interstitialAd },
     { key: "interstitial", label: "Interstitial AD", img: videoAd },
   ];
 
   const current = formats.find((f) => f.key === active);
 
   return (
-<section className="bg-black flex items-center justify-center px-4 sm:px-8 pt-24 pb-12">      
-  <div className="flex flex-col sm:flex-row items-center gap-10 sm:gap-16 w-full max-w-4xl">
-
+    <section className="bg-black flex items-center justify-center px-4 sm:px-8 pt-24 pb-12">
+      <div className="flex flex-col sm:flex-row items-center gap-10 sm:gap-16 w-full max-w-4xl">
         {/* PHONE */}
         <div className="flex-shrink-0">
-          <div
-            className="relative w-44 sm:w-52 h-[380px] sm:h-[460px] rounded-[2.5rem] border-[6px] border-[#1e2336] bg-black overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.6)] transition-all duration-300"
-          >
+          <div className="relative w-44 sm:w-52 h-[380px] sm:h-[460px] rounded-[2.5rem] border-[6px] border-[#1e2336] bg-black overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.6)] transition-all duration-300">
             {/* notch */}
             <div className="absolute top-3 left-1/2 -translate-x-1/2 w-14 h-2 bg-[#1e2336] rounded-full z-10" />
 
@@ -302,7 +353,6 @@ function AdFormat() {
             ))}
           </div>
         </div>
-
       </div>
     </section>
   );
@@ -324,7 +374,7 @@ function GetInTouch() {
     >
       <div
         className="absolute bottom-0 left-0 w-full pointer-events-none"
-        style={{ zIndex: 0, }}
+        style={{ zIndex: 0 }}
       >
         <img
           src={earthImg}
@@ -358,7 +408,7 @@ function GetInTouch() {
         </svg>
       </div>
       <div className="relative px-4 pb-28 sm:pb-36" style={{ zIndex: 1 }}>
-        <div className="max-w-3xl mx-auto" style={{marginBottom:"50px"}}>
+        <div className="max-w-3xl mx-auto" style={{ marginBottom: "50px" }}>
           <h2
             className="font-display font-bold text-white text-center mb-8 sm:mb-10"
             style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}

@@ -57,7 +57,7 @@ export default function Footer({ setActivePage }) {
                 className="flex-1 bg-transparent px-3 sm:px-4 py-2.5 text-xs sm:text-sm text-white outline-none placeholder-gray-500 min-w-0"
               />
               <button
-                className="px-4 sm:px-5 py-2.5 text-xs sm:text-sm font-semibold text-white flex-shrink-0 transition-colors hover:text-brand-blue whitespace-nowrap"
+                className="px-4 sm:px-5 py-2.5 text-xs sm:text-sm font-semibold text-white flex-shrink-0 transition-colors hover:text-[#007BFF] whitespace-nowrap"
                 style={{
                   background: "linear-gradient(90deg,#0060FF,#0090FF)",
                   borderRadius: "100px",
@@ -123,7 +123,7 @@ export default function Footer({ setActivePage }) {
               {/* Email */}
               <div className="flex items-start gap-3">
                 <svg
-                  className="text-brand-blue mt-0.5 flex-shrink-0"
+                  className="text-[#007BFF] mt-0.5 flex-shrink-0"
                   width="15"
                   height="15"
                   viewBox="0 0 24 24"
@@ -136,7 +136,7 @@ export default function Footer({ setActivePage }) {
                 </svg>
                 <a
                   href="mailto:info@axpoennt.com"
-                  className="text-gray-400 text-sm hover:text-brand-blue transition-colors break-all"
+                  className="text-gray-400 text-sm hover:text-[#007BFF] transition-colors break-all"
                 >
                   info@axpoennt.com
                 </a>
@@ -144,7 +144,7 @@ export default function Footer({ setActivePage }) {
               {/* India office */}
               <div className="flex items-start gap-3">
                 <svg
-                  className="text-brand-blue mt-0.5 flex-shrink-0"
+                  className="text-[#007BFF] mt-0.5 flex-shrink-0"
                   width="15"
                   height="15"
                   viewBox="0 0 24 24"
@@ -163,7 +163,7 @@ export default function Footer({ setActivePage }) {
               {/* Dubai office */}
               <div className="flex items-start gap-3">
                 <svg
-                  className="text-brand-blue mt-0.5 flex-shrink-0"
+                  className="text-[#007BFF] mt-0.5 flex-shrink-0"
                   width="15"
                   height="15"
                   viewBox="0 0 24 24"
