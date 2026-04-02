@@ -36,20 +36,71 @@ function MobileFourAs() {
   const [active, setActive] = useState(0);
 
   return (
-    <div className="py-12 px-4">
-      <div className="max-w-lg mx-auto">
-        {/* Tab row */}
-        <div className="flex border-b border-white/10 mb-6 overflow-x-auto scrollbar-hide">
+    <div className="py-0">
+      {/* Full-bleed image with overlay — same feel as desktop */}
+      <div className="relative w-full" style={{ minHeight: "100svh" }}>
+        <img
+          src={SLIDES[active].img}
+          alt={SLIDES[active].key}
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ filter: "brightness(0.32) saturate(0.85)" }}
+        />
+
+        {/* Gradient overlay */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to top, rgba(2,6,20,1) 0%, rgba(2,6,20,0.4) 50%, transparent 100%)",
+          }}
+        />
+
+        {/* Text content */}
+        <div
+          className="absolute inset-0 flex flex-col justify-center px-6 pb-32 pt-20 max-w-sm"
+          style={{ zIndex: 5 }}
+        >
+          <h3
+            className="text-white font-bold mb-3"
+            style={{
+              fontFamily: "Gilroy-Bold, sans-serif",
+              fontSize: "clamp(1.4rem, 6vw, 2rem)",
+              lineHeight: "115%",
+              transition: "opacity 0.5s ease, transform 0.5s ease",
+            }}
+          >
+            {SLIDES[active].subtitle}
+          </h3>
+          <p
+            className="text-gray-300 leading-relaxed"
+            style={{ fontSize: "clamp(0.82rem, 3.5vw, 1rem)" }}
+          >
+            {SLIDES[active].body}
+          </p>
+        </div>
+
+        {/* Bottom tab bar — mirrors desktop */}
+        <div
+          className="absolute bottom-0 left-0 right-0"
+          style={{
+            borderTop: "1px solid rgba(255,255,255,0.12)",
+            display: "flex",
+            background: "rgba(2,6,20,0.85)",
+            backdropFilter: "blur(8px)",
+            zIndex: 10,
+          }}
+        >
           {SLIDES.map((s, j) => (
             <button
               key={s.key}
               onClick={() => setActive(j)}
-              className="flex-shrink-0 flex-1 py-3 text-xs sm:text-sm font-medium transition-all duration-300 focus:outline-none relative whitespace-nowrap px-2"
+              className="relative flex-1 py-3 text-xs font-medium transition-all duration-300 focus:outline-none"
               style={{
                 color: active === j ? "#ffffff" : "rgba(156,163,175,0.7)",
                 background:
                   active === j ? "rgba(0,80,200,0.22)" : "transparent",
-                minWidth: "70px",
+                border: "none",
+                cursor: "pointer",
               }}
             >
               {active === j && (
@@ -64,42 +115,6 @@ function MobileFourAs() {
               {s.key}
             </button>
           ))}
-        </div>
-
-        {/* Active slide */}
-        <div
-          className="relative rounded-2xl overflow-hidden"
-          style={{ aspectRatio: "4/3" }}
-        >
-          <img
-            src={SLIDES[active].img}
-            alt={SLIDES[active].key}
-            className="w-full h-full object-cover"
-            style={{ filter: "brightness(0.4)" }}
-          />
-          <div
-            className="absolute inset-0 flex flex-col justify-end p-5 sm:p-6"
-            style={{
-              background:
-                "linear-gradient(to top, rgba(2,6,20,0.95) 0%, transparent 60%)",
-            }}
-          >
-            <h3
-              className="text-white font-bold mb-2"
-              style={{
-                fontSize: "clamp(1.1rem, 3.5vw, 1.5rem)",
-                lineHeight: 1.2,
-              }}
-            >
-              {SLIDES[active].subtitle}
-            </h3>
-            <p
-              className="text-gray-300 leading-relaxed"
-              style={{ fontSize: "clamp(0.8rem, 2vw, 0.95rem)" }}
-            >
-              {SLIDES[active].body}
-            </p>
-          </div>
         </div>
       </div>
     </div>

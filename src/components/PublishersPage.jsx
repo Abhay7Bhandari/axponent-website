@@ -1,4 +1,3 @@
-// ── PublishersPage.jsx (Responsive) ──
 import { useState } from "react";
 import FadeSection from "./FadeSection";
 import earthImg from "../assets/images/Earth.png";
@@ -47,19 +46,20 @@ function MonetizationCards() {
       <section className="py-10 sm:py-14 md:py-16 px-4">
         <div className="max-w-6xl mx-auto">
           <div
-            className="rounded-2xl p-6 sm:p-8 md:p-12"
+            className="rounded-2xl p-5 sm:p-8 md:p-12"
             style={{
               background: "rgba(10,20,60,0.5)",
               border: "1px solid rgba(0,100,255,0.15)",
             }}
           >
             <h2
-              className="font-display font-bold text-white text-center mb-6 sm:mb-10"
-              style={{ fontSize: "clamp(1.2rem, 2.5vw, 1.875rem)" }}
+              className="font-display font-bold text-white text-center mb-5 sm:mb-10"
+              style={{ fontSize: "clamp(1rem, 2.5vw, 1.875rem)" }}
             >
               See The Difference Our App Monetization Makes.
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+            {/* Mobile: vertical stack; sm+: 3-col grid */}
+            <div className="flex flex-col sm:grid sm:grid-cols-3 gap-3 sm:gap-6">
               {cards.map((card, i) => (
                 <img
                   key={i}
@@ -82,8 +82,8 @@ function PublisherCategories() {
       <section className="py-10 sm:py-14 md:py-16 px-4">
         <div className="max-w-3xl mx-auto">
           <h2
-            className="font-display font-bold text-white text-center mb-8 sm:mb-12 leading-snug"
-            style={{ fontSize: "clamp(1.4rem, 3vw, 2.25rem)" }}
+            className="font-display font-bold text-white text-center mb-6 sm:mb-12 leading-snug"
+            style={{ fontSize: "clamp(1.2rem, 3vw, 2.25rem)" }}
           >
             Meeting Diverse Publisher
             <br />
@@ -122,30 +122,46 @@ function WhatToExpect() {
         />
         <div className="max-w-5xl mx-auto relative z-10">
           <h2
-            className="font-display font-bold text-white text-center mb-8 sm:mb-12"
-            style={{ fontSize: "clamp(1.4rem, 3vw, 2.25rem)" }}
+            className="font-display font-bold text-white text-center mb-6 sm:mb-12"
+            style={{ fontSize: "clamp(1.2rem, 3vw, 2.25rem)" }}
           >
             What You Can Expect
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
-            {topRow.map((card, i) => (
+
+          {/* Mobile: vertical stack */}
+          <div className="flex flex-col sm:hidden gap-3">
+            {[...topRow, ...bottomRow].map((card, i) => (
               <img
                 key={i}
                 src={card.img}
                 alt={card.alt}
-                className="w-full rounded-xl object-cover transition-all duration-300 hover:scale-[1.02]"
+                className="w-full rounded-xl object-cover"
               />
             ))}
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
-            {bottomRow.map((card, i) => (
-              <img
-                key={i}
-                src={card.img}
-                alt={card.alt}
-                className="w-full rounded-xl object-cover transition-all duration-300 hover:scale-[1.02]"
-              />
-            ))}
+
+          {/* sm+: original grid layout */}
+          <div className="hidden sm:block">
+            <div className="grid grid-cols-3 gap-4 mb-4">
+              {topRow.map((card, i) => (
+                <img
+                  key={i}
+                  src={card.img}
+                  alt={card.alt}
+                  className="w-full rounded-xl object-cover transition-all duration-300 hover:scale-[1.02]"
+                />
+              ))}
+            </div>
+            <div className="grid grid-cols-2 gap-4 max-w-2xl mx-auto">
+              {bottomRow.map((card, i) => (
+                <img
+                  key={i}
+                  src={card.img}
+                  alt={card.alt}
+                  className="w-full rounded-xl object-cover transition-all duration-300 hover:scale-[1.02]"
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -169,7 +185,7 @@ function BecomePublisher() {
     >
       <div
         className="absolute bottom-0 left-0 w-full pointer-events-none"
-        style={{ zIndex: 0}}
+        style={{ zIndex: 0 }}
       >
         <img
           src={earthImg}
@@ -203,58 +219,50 @@ function BecomePublisher() {
         </svg>
       </div>
       <div className="relative px-4 pb-28 sm:pb-36" style={{ zIndex: 1 }}>
-        <div className="max-w-3xl mx-auto" style={{marginBottom:"40px"}}>
+        <div className="max-w-3xl mx-auto" style={{ marginBottom: "40px" }}>
           <h2
             className="font-display font-bold text-white text-center mb-8 sm:mb-10"
-            style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}
+            style={{ fontSize: "clamp(1.5rem, 4vw, 3rem)" }}
           >
             Become A Publisher
           </h2>
           <div className="flex flex-col gap-3">
+            {/* On mobile: stack name/email vertically; sm+: side by side */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <input
-                name="name"
-                type="text"
-                placeholder="Enter Your Name"
-                value={form.name}
-                onChange={handleChange}
-                className="px-4 py-3 rounded-lg text-sm text-white outline-none placeholder-gray-500 transition-all"
-                style={{
-                  background: "rgba(255,255,255,0.05)",
-                  border: "1px solid rgba(0,120,255,0.3)",
-                  backdropFilter: "blur(8px)",
-                }}
-                onFocus={(e) =>
-                  (e.target.style.borderColor = "rgba(0,180,255,0.7)")
-                }
-                onBlur={(e) =>
-                  (e.target.style.borderColor = "rgba(0,120,255,0.3)")
-                }
-              />
-              <input
-                name="email"
-                type="email"
-                placeholder="Enter Your Mail"
-                value={form.email}
-                onChange={handleChange}
-                className="px-4 py-3 rounded-lg text-sm text-white outline-none placeholder-gray-500 transition-all"
-                style={{
-                  background: "rgba(255,255,255,0.05)",
-                  border: "1px solid rgba(0,120,255,0.3)",
-                  backdropFilter: "blur(8px)",
-                }}
-                onFocus={(e) =>
-                  (e.target.style.borderColor = "rgba(0,180,255,0.7)")
-                }
-                onBlur={(e) =>
-                  (e.target.style.borderColor = "rgba(0,120,255,0.3)")
-                }
-              />
+              {[
+                { name: "name", placeholder: "Enter Your Name", type: "text" },
+                {
+                  name: "email",
+                  placeholder: "Enter Your Mail",
+                  type: "email",
+                },
+              ].map((f) => (
+                <input
+                  key={f.name}
+                  name={f.name}
+                  type={f.type}
+                  placeholder={f.placeholder}
+                  value={form[f.name]}
+                  onChange={handleChange}
+                  className="px-4 py-3 rounded-lg text-sm text-white outline-none placeholder-gray-500 transition-all"
+                  style={{
+                    background: "rgba(255,255,255,0.05)",
+                    border: "1px solid rgba(0,120,255,0.3)",
+                    backdropFilter: "blur(8px)",
+                  }}
+                  onFocus={(e) =>
+                    (e.target.style.borderColor = "rgba(0,180,255,0.7)")
+                  }
+                  onBlur={(e) =>
+                    (e.target.style.borderColor = "rgba(0,120,255,0.3)")
+                  }
+                />
+              ))}
             </div>
             <textarea
               name="message"
               placeholder="Your Message..."
-              rows={6}
+              rows={5}
               value={form.message}
               onChange={handleChange}
               className="px-4 py-3 rounded-lg text-sm text-white outline-none placeholder-gray-500 resize-none transition-all"
@@ -271,7 +279,6 @@ function BecomePublisher() {
               }
             />
             <button
-              type="submit"
               onClick={handleSubmit}
               className="w-full py-3 rounded-lg text-white font-semibold text-sm transition-all hover:opacity-90"
               style={{

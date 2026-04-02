@@ -158,7 +158,7 @@ function StatCard({ num, label, className = "", style = {}, align = "left" }) {
         }}
       />
       <div
-        className="relative flex flex-col justify-center py-6 sm:py-8 md:py-9 px-5 sm:px-7 md:px-8"
+        className="relative flex flex-col justify-center py-5 sm:py-7 md:py-9 px-4 sm:px-6 md:px-8"
         style={{
           zIndex: 3,
           alignItems: align === "center" ? "center" : "flex-start",
@@ -166,16 +166,19 @@ function StatCard({ num, label, className = "", style = {}, align = "left" }) {
         }}
       >
         <div
-          className="font-display font-bold leading-none mb-2"
+          className="font-display font-bold leading-none mb-1 sm:mb-2"
           style={{
-            fontSize: "clamp(1.6rem, 3.5vw, 3.25rem)",
+            fontSize: "clamp(1.4rem, 5vw, 3.25rem)",
             color: "#ffffff",
             letterSpacing: "-0.02em",
           }}
         >
           {num}
         </div>
-        <div className="text-gray-400 text-xs sm:text-sm leading-snug whitespace-pre-line group-hover:text-gray-300 transition-colors duration-300">
+        <div
+          className="text-gray-400 leading-snug whitespace-pre-line group-hover:text-gray-300 transition-colors duration-300"
+          style={{ fontSize: "clamp(10px, 2vw, 14px)" }}
+        >
           {label}
         </div>
       </div>
@@ -205,15 +208,11 @@ export default function Stats() {
           />
         </div>
 
-        {/* Stats grid */}
         <div
           className="max-w-6xl mx-auto relative"
-          style={{
-            zIndex: 1,
-            marginTop: "clamp(120px, 30vw, 600px)",
-          }}
+          style={{ zIndex: 1, marginTop: "clamp(80px, 20vw, 600px)" }}
         >
-          {/* Mobile: simple 2-col grid */}
+          {/* ── Mobile: 2-col simple grid ── */}
           <div
             className="grid grid-cols-2 sm:hidden gap-0 overflow-hidden"
             style={{ background: "rgba(2,6,18,0.16)" }}
@@ -223,7 +222,7 @@ export default function Stats() {
             ))}
           </div>
 
-          {/* Tablet (sm–lg): 3-col grid */}
+          {/* ── Tablet: 3-col grid ── */}
           <div
             className="hidden sm:grid lg:hidden grid-cols-3 gap-0 overflow-hidden"
             style={{ background: "rgba(2,6,18,0.16)" }}
@@ -233,7 +232,7 @@ export default function Stats() {
             ))}
           </div>
 
-          {/* Desktop: original artistic grid */}
+          {/* ── Desktop: artistic grid ── */}
           <div
             className="hidden lg:grid overflow-hidden"
             style={{
@@ -241,7 +240,6 @@ export default function Stats() {
               background: "rgba(2,6,18,0.16)",
             }}
           >
-            {/* Row 1 */}
             <StatCard
               num={STATS[0].num}
               label={STATS[0].label}
@@ -257,7 +255,6 @@ export default function Stats() {
               label={STATS[2].label}
               style={{ gridColumn: "5 / span 2", borderRight: "none" }}
             />
-            {/* Row 2 */}
             <StatCard
               num={STATS[3].num}
               label={STATS[3].label}
@@ -268,7 +265,6 @@ export default function Stats() {
               label={STATS[4].label}
               style={{ gridColumn: "4 / span 3" }}
             />
-            {/* Row 3 */}
             <StatCard
               num={STATS[5].num}
               label={STATS[5].label}

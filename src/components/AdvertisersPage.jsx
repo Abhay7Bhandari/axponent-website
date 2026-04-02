@@ -100,13 +100,10 @@ function PartnerTabs() {
 
   useEffect(() => {
     const tabKeys = tabs.map((t) => t.key);
-
     const handleScroll = () => {
       if (isScrollingProgrammatically.current) return;
-
       let closestKey = null;
       let closestDistance = Infinity;
-
       tabKeys.forEach((key) => {
         const el = sectionRefs.current[key];
         if (!el) return;
@@ -119,10 +116,8 @@ function PartnerTabs() {
           closestKey = key;
         }
       });
-
       if (closestKey) setActiveTab(closestKey);
     };
-
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -130,13 +125,14 @@ function PartnerTabs() {
   return (
     <section className="py-10 sm:py-14 md:py-16 px-4">
       <div className="max-w-6xl mx-auto">
-        {/* ── Sticky Tab Bar ── */}
-        <div className="sticky z-30 mb-8 sm:mb-12" style={{ top: "72px" }}>
+        {/* Sticky Tab Bar */}
+        <div
+          className="sticky z-30 mb-6 sm:mb-8 md:mb-12"
+          style={{ top: "72px" }}
+        >
           <div
-            className="flex items-center justify-center mx-auto"
-            style={{
-              borderBottom: "1px solid rgba(255,255,255,0.1)",
-            }}
+            className="flex items-center justify-center mx-auto overflow-x-auto scrollbar-hide"
+            style={{ borderBottom: "1px solid rgba(255,255,255,0.1)" }}
           >
             {tabs.map((tab) => (
               <button
@@ -146,9 +142,10 @@ function PartnerTabs() {
                 style={{
                   color: activeTab === tab.key ? "#ffffff" : "#6B7280",
                   fontWeight: activeTab === tab.key ? 600 : 400,
-                  fontSize: "clamp(11px, 1.3vw, 14px)",
+                  /* Smaller font + padding on mobile */
+                  fontSize: "clamp(10px, 2.5vw, 14px)",
                   whiteSpace: "nowrap",
-                  padding: "12px clamp(16px, 3vw, 36px)",
+                  padding: "10px clamp(10px, 3vw, 36px)",
                   background: "transparent",
                   border: "none",
                   cursor: "pointer",
@@ -156,8 +153,6 @@ function PartnerTabs() {
                 }}
               >
                 {tab.label}
-
-                {/* Active underline */}
                 {activeTab === tab.key && (
                   <span
                     className="absolute bottom-0 left-0"
@@ -175,13 +170,13 @@ function PartnerTabs() {
           </div>
         </div>
 
-        {/* ── Scrollable Image Sections ── */}
-        <div className="flex flex-col gap-6 sm:gap-8 md:gap-10">
+        {/* Scrollable Image Sections */}
+        <div className="flex flex-col gap-4 sm:gap-6 md:gap-10">
           {tabs.map((tab) => (
             <FadeSection key={tab.key}>
               <div
                 ref={(el) => (sectionRefs.current[tab.key] = el)}
-                className="relative cursor-pointer rounded-2xl overflow-hidden"
+                className="relative cursor-pointer rounded-xl sm:rounded-2xl overflow-hidden"
                 onClick={() => handleTabClick(tab.key)}
                 style={{
                   boxShadow:
@@ -200,19 +195,15 @@ function PartnerTabs() {
                     transform:
                       activeTab === tab.key ? "scale(1)" : "scale(0.985)",
                     transition: "opacity 0.35s ease, transform 0.35s ease",
-                    borderRadius: "16px",
+                    borderRadius: "inherit",
                   }}
                 />
-
-                {/* Inactive overlay hint */}
                 {activeTab !== tab.key && (
-                  <div
-                    className="absolute inset-0 flex items-center justify-center"
-                    style={{ borderRadius: "16px" }}
-                  >
+                  <div className="absolute inset-0 flex items-center justify-center">
                     <span
-                      className="text-white text-xs sm:text-sm font-medium px-4 py-2 rounded-full"
+                      className="text-white font-medium px-3 py-1.5 rounded-full"
                       style={{
+                        fontSize: "clamp(10px, 2.5vw, 14px)",
                         background: "rgba(0,0,0,0.55)",
                         border: "1px solid rgba(255,255,255,0.15)",
                         backdropFilter: "blur(6px)",
@@ -298,15 +289,64 @@ function AdFormat() {
   const current = formats.find((f) => f.key === active);
 
   return (
-    <section className="bg-black flex items-center justify-center px-4 sm:px-8 pt-24 pb-12">
-      <div className="flex flex-col sm:flex-row items-center gap-10 sm:gap-16 w-full max-w-4xl">
-        {/* PHONE */}
-        <div className="flex-shrink-0">
-          <div className="relative w-44 sm:w-52 h-[380px] sm:h-[460px] rounded-[2.5rem] border-[6px] border-[#1e2336] bg-black overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.6)] transition-all duration-300">
-            {/* notch */}
-            <div className="absolute top-3 left-1/2 -translate-x-1/2 w-14 h-2 bg-[#1e2336] rounded-full z-10" />
+    <section className="bg-black px-4 sm:px-8 pt-16 sm:pt-24 pb-10 sm:pb-12">
+      {/* Mobile: stacked layout */}
+      <div className="flex flex-col items-center sm:hidden gap-6 w-full max-w-sm mx-auto">
+        <h2 className="text-white text-2xl font-bold text-center">Ad Format</h2>
 
-            {/* screen content (REAL IMAGE) */}
+        {/* Tab row — horizontal scrollable on mobile */}
+        <div
+          className="flex gap-0 w-full overflow-x-auto scrollbar-hide"
+          style={{ borderBottom: "1px solid rgba(255,255,255,0.1)" }}
+        >
+          {formats.map(({ key, label }) => (
+            <button
+              key={key}
+              onClick={() => setActive(key)}
+              className="relative flex-shrink-0 py-2 px-3 text-xs transition-all duration-200 focus:outline-none"
+              style={{
+                color: active === key ? "#ffffff" : "#6B7280",
+                fontWeight: active === key ? 600 : 400,
+                background: "transparent",
+                border: "none",
+                whiteSpace: "nowrap",
+                cursor: "pointer",
+              }}
+            >
+              {label}
+              {active === key && (
+                <span
+                  className="absolute bottom-0 left-0"
+                  style={{
+                    width: "100%",
+                    height: "2px",
+                    background: "#00A8FF",
+                    borderRadius: "2px 2px 0 0",
+                    display: "block",
+                  }}
+                />
+              )}
+            </button>
+          ))}
+        </div>
+
+        {/* Phone mockup */}
+        <div className="relative w-40 h-[340px] rounded-[2.5rem] border-[6px] border-[#1e2336] bg-black overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
+          <div className="absolute top-3 left-1/2 -translate-x-1/2 w-14 h-2 bg-[#1e2336] rounded-full z-10" />
+          <img
+            key={current.img}
+            src={current.img}
+            alt={current.label}
+            className="w-full h-full object-cover transition-all duration-500"
+          />
+        </div>
+      </div>
+
+      {/* Desktop: original side-by-side layout */}
+      <div className="hidden sm:flex flex-row items-center gap-10 sm:gap-16 w-full max-w-4xl mx-auto">
+        <div className="flex-shrink-0">
+          <div className="relative w-44 sm:w-52 h-[380px] sm:h-[460px] rounded-[2.5rem] border-[6px] border-[#1e2336] bg-black overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
+            <div className="absolute top-3 left-1/2 -translate-x-1/2 w-14 h-2 bg-[#1e2336] rounded-full z-10" />
             <img
               key={current.img}
               src={current.img}
@@ -315,14 +355,11 @@ function AdFormat() {
             />
           </div>
         </div>
-
-        {/* TEXT */}
         <div>
           <h2 className="text-white text-2xl sm:text-3xl font-bold mb-6">
             Ad Format
           </h2>
-
-          <div className="flex flex-row sm:flex-col gap-3">
+          <div className="flex flex-col gap-3">
             {formats.map(({ key, label }) => (
               <button
                 key={key}
