@@ -6,6 +6,8 @@ import cardViewability from "../assets/images/cards/card 3.png";
 import cardPlacements from "../assets/images/cards/card 4.png";
 import cardPublishers from "../assets/images/cards/card 5.png";
 import measurementImg from "../assets/images/partners/measurement-partners.png";
+import measurementMobileImg from "../assets/images/partners/measurement-mobile.png";
+import mediaMobileImg from "../assets/images/partners/media-mobile.png";
 import mediaImg from "../assets/images/partners/media-partners.png";
 import bannerAd from "../assets/images/advertisers/banner_ad.png";
 import nativeAd from "../assets/images/advertisers/native_ad.png";
@@ -75,16 +77,29 @@ function PrecisionCards() {
 
 function PartnerTabs() {
   const [activeTab, setActiveTab] = useState("measurement");
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 640);
   const sectionRefs = useRef({});
   const isScrollingProgrammatically = useRef(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 640);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const tabs = [
     {
       key: "measurement",
       label: "Measurement & Attribution Partners",
       img: measurementImg,
+      mobileImg: measurementMobileImg,
     },
-    { key: "media", label: "Media & Platform Partners", img: mediaImg },
+    {
+      key: "media",
+      label: "Media & Platform Partners",
+      img: mediaImg,
+      mobileImg: mediaMobileImg,
+    },
   ];
 
   const handleTabClick = (key) => {
@@ -93,9 +108,7 @@ function PartnerTabs() {
     if (!el) return;
     isScrollingProgrammatically.current = true;
     el.scrollIntoView({ behavior: "smooth", block: "center" });
-    setTimeout(() => {
-      isScrollingProgrammatically.current = false;
-    }, 900);
+    setTimeout(() => { isScrollingProgrammatically.current = false; }, 900);
   };
 
   useEffect(() => {
@@ -108,13 +121,8 @@ function PartnerTabs() {
         const el = sectionRefs.current[key];
         if (!el) return;
         const rect = el.getBoundingClientRect();
-        const elementCenter = rect.top + rect.height / 2;
-        const viewportCenter = window.innerHeight / 2;
-        const distance = Math.abs(elementCenter - viewportCenter);
-        if (distance < closestDistance) {
-          closestDistance = distance;
-          closestKey = key;
-        }
+        const distance = Math.abs(rect.top + rect.height / 2 - window.innerHeight / 2);
+        if (distance < closestDistance) { closestDistance = distance; closestKey = key; }
       });
       if (closestKey) setActiveTab(closestKey);
     };
@@ -126,26 +134,23 @@ function PartnerTabs() {
     <section className="py-10 sm:py-14 md:py-16 px-4">
       <div className="max-w-6xl mx-auto">
         {/* Sticky Tab Bar */}
-        <div
-          className="sticky z-30 mb-6 sm:mb-8 md:mb-12"
-          style={{ top: "72px" }}
-        >
+        <div className="sticky z-30 mb-6 sm:mb-8 md:mb-12" style={{ top: "72px" }}>
           <div
-            className="flex items-center justify-center mx-auto overflow-x-auto scrollbar-hide"
+            className="flex items-stretch justify-center"
             style={{ borderBottom: "1px solid rgba(255,255,255,0.1)" }}
           >
             {tabs.map((tab) => (
               <button
                 key={tab.key}
                 onClick={() => handleTabClick(tab.key)}
-                className="relative flex-shrink-0 transition-all duration-300 focus:outline-none"
+                className="relative flex-1 transition-all duration-300 focus:outline-none text-center"
                 style={{
                   color: activeTab === tab.key ? "#ffffff" : "#6B7280",
                   fontWeight: activeTab === tab.key ? 600 : 400,
-                  /* Smaller font + padding on mobile */
-                  fontSize: "clamp(10px, 2.5vw, 14px)",
-                  whiteSpace: "nowrap",
-                  padding: "10px clamp(10px, 3vw, 36px)",
+                  /* Allow wrap so text fits on mobile without overflow */
+                  whiteSpace: "normal",
+                  lineHeight: "1.35",
+                  padding: "10px clamp(8px, 3vw, 36px) 14px",
                   background: "transparent",
                   border: "none",
                   cursor: "pointer",
@@ -179,34 +184,37 @@ function PartnerTabs() {
                 className="relative cursor-pointer rounded-xl sm:rounded-2xl overflow-hidden"
                 onClick={() => handleTabClick(tab.key)}
                 style={{
-                  boxShadow:
-                    activeTab === tab.key
-                      ? "0 0 0 2px rgba(0,168,255,0.55), 0 20px 60px rgba(0,80,200,0.3)"
-                      : "none",
+                  boxShadow: activeTab === tab.key
+                    ? "0 0 0 2px rgba(0,168,255,0.55), 0 20px 60px rgba(0,80,200,0.3)"
+                    : "none",
                   transition: "box-shadow 0.35s ease",
                 }}
               >
                 <img
-                  src={tab.img}
+                  src={isMobile ? tab.mobileImg : tab.img}
                   alt={tab.label}
                   className="w-full object-cover block"
                   style={{
+                    /* Portrait ratio on mobile, auto on desktop */
+                    aspectRatio: isMobile ? "9/14" : "auto",
+                    objectPosition: "top center",
                     opacity: activeTab === tab.key ? 1 : 0.45,
-                    transform:
-                      activeTab === tab.key ? "scale(1)" : "scale(0.985)",
+                    transform: activeTab === tab.key ? "scale(1)" : "scale(0.985)",
                     transition: "opacity 0.35s ease, transform 0.35s ease",
                     borderRadius: "inherit",
                   }}
                 />
+
                 {activeTab !== tab.key && (
-                  <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="absolute inset-0 flex items-center justify-center px-4">
                     <span
-                      className="text-white font-medium px-3 py-1.5 rounded-full"
+                      className="text-white font-medium px-3 py-1.5 rounded-full text-center"
                       style={{
-                        fontSize: "clamp(10px, 2.5vw, 14px)",
+                        fontSize: "clamp(11px, 3vw, 14px)",
                         background: "rgba(0,0,0,0.55)",
                         border: "1px solid rgba(255,255,255,0.15)",
                         backdropFilter: "blur(6px)",
+                        lineHeight: "1.4",
                       }}
                     >
                       {tab.label}
@@ -217,6 +225,7 @@ function PartnerTabs() {
             </FadeSection>
           ))}
         </div>
+
       </div>
     </section>
   );
@@ -331,13 +340,13 @@ function AdFormat() {
         </div>
 
         {/* Phone mockup */}
-        <div className="relative w-40 h-[340px] rounded-[2.5rem] border-[6px] border-[#1e2336] bg-black overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
+        <div className="relative w-40 h-[340px] rounded-[2.5rem] bg-black ">
           <div className="absolute top-3 left-1/2 -translate-x-1/2 w-14 h-2 bg-[#1e2336] rounded-full z-10" />
           <img
             key={current.img}
             src={current.img}
-            alt={current.label}
-            className="w-full h-full object-cover transition-all duration-500"
+            alt={current.img}
+            className="w-full h-full transition-all duration-500"
           />
         </div>
       </div>
@@ -345,13 +354,13 @@ function AdFormat() {
       {/* Desktop: original side-by-side layout */}
       <div className="hidden sm:flex flex-row items-center gap-10 sm:gap-16 w-full max-w-4xl mx-auto">
         <div className="flex-shrink-0">
-          <div className="relative w-44 sm:w-52 h-[380px] sm:h-[460px] rounded-[2.5rem] border-[6px] border-[#1e2336] bg-black overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
-            <div className="absolute top-3 left-1/2 -translate-x-1/2 w-14 h-2 bg-[#1e2336] rounded-full z-10" />
+          <div className="relative w-44 sm:w-52 h-[380px] sm:h-[460px] rounded-[2.5rem]  bg-black ">
+            {/* <div className="absolute top-3 left-1/2 -translate-x-1/2 w-14 h-2 bg-[#1e2336] rounded-full z-10" /> */}
             <img
               key={current.img}
               src={current.img}
               alt={current.label}
-              className="w-full h-full object-cover transition-all duration-500"
+              className="w-full h-full transition-all duration-500"
             />
           </div>
         </div>

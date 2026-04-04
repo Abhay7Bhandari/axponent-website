@@ -10,6 +10,12 @@ import payoutsImg from "../assets/images/publishers/expect/competitive-payouts.p
 import trackingImg from "../assets/images/publishers/expect/transparent-tracking.png";
 import supportImg from "../assets/images/publishers/expect/dedicated-support.png";
 import scalingImg from "../assets/images/publishers/expect/long-term-scaling.png";
+import mobileImg1 from "../assets/images/publishers/mobile-diverse-publisher/201.png";
+import mobileImg2 from "../assets/images/publishers/mobile-diverse-publisher/3.png";
+import mobileImg3 from "../assets/images/publishers/mobile-diverse-publisher/4.png";
+import mobileImg4 from "../assets/images/publishers/mobile-diverse-publisher/5.png";
+import mobileImg5 from "../assets/images/publishers/mobile-diverse-publisher/6.png";
+import mobileImg6 from "../assets/images/publishers/mobile-diverse-publisher/7.png";
 
 function PublishersHero() {
   return (
@@ -48,7 +54,6 @@ function MonetizationCards() {
           <div
             className="rounded-2xl p-5 sm:p-8 md:p-12"
             style={{
-              background: "rgba(10,20,60,0.5)",
               border: "1px solid rgba(0,100,255,0.15)",
             }}
           >
@@ -77,6 +82,14 @@ function MonetizationCards() {
 }
 
 function PublisherCategories() {
+  const mobileImages = [
+    { img: mobileImg1, alt: "Publisher Category 1" },
+    { img: mobileImg2, alt: "Publisher Category 2" },
+    { img: mobileImg3, alt: "Publisher Category 3" },
+    { img: mobileImg4, alt: "Publisher Category 4" },
+    { img: mobileImg5, alt: "Publisher Category 5" },
+    { img: mobileImg6, alt: "Publisher Category 6" },
+  ];
   return (
     <FadeSection>
       <section className="py-10 sm:py-14 md:py-16 px-4">
@@ -89,10 +102,22 @@ function PublisherCategories() {
             <br />
             Needs with Precision
           </h2>
+          {/* Mobile: single column stack of images */}
+          <div className="grid grid-cols-1 gap-4 sm:hidden">
+            {mobileImages.map((card, i) => (
+              <img
+                key={i}
+                src={card.img}
+                alt={card.alt}
+                className="w-full rounded-2xl object-cover"
+              />
+            ))}
+          </div>
+          {/* Web: single image */}
           <img
             src={categoriesImg}
             alt="Publisher Categories"
-            className="w-full rounded-2xl object-cover"
+            className="w-full rounded-2xl object-cover hidden sm:block"
           />
         </div>
       </section>
@@ -128,8 +153,8 @@ function WhatToExpect() {
             What You Can Expect
           </h2>
 
-          {/* Mobile: vertical stack */}
-          <div className="flex flex-col sm:hidden gap-3">
+          {/* Mobile: single-column image stack */}
+          <div className="grid grid-cols-1 gap-3 sm:hidden">
             {[...topRow, ...bottomRow].map((card, i) => (
               <img
                 key={i}

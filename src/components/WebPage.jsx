@@ -32,6 +32,12 @@ import Nativellintent from "../assets/images/web/Traffic-Channels/Nativellintent
 import PerformacePublisher from "../assets/images/web/Traffic-Channels/PerformacePublisher.svg";
 import PerformacePublisherllintent from "../assets/images/web/Traffic-Channels/PerformacePublisherllintent.svg";
 import categoriesImg from "../assets/images/web/categories.png";
+import mobileImg1 from "../assets/images/web/mobile-high-value-audience/201 (1).png";
+import mobileImg2 from "../assets/images/web/mobile-high-value-audience/3 (1).png";
+import mobileImg3 from "../assets/images/web/mobile-high-value-audience/4 (1).png";
+import mobileImg4 from "../assets/images/web/mobile-high-value-audience/5 (1).png";
+import mobileImg5 from "../assets/images/web/mobile-high-value-audience/6 (1).png";
+import mobileImg6 from "../assets/images/web/mobile-high-value-audience/7 (1).png";
 
 const WEB_LOGOS = [
   { name: "Agoda", src: webLogo1 },
@@ -149,22 +155,54 @@ function BrandTicker() {
 }
 
 function DiverseNeeds() {
+  const mobileImages = [
+    { img: mobileImg2, alt: "High-Value Audience 2" },
+    { img: mobileImg3, alt: "High-Value Audience 3" },
+    { img: mobileImg4, alt: "High-Value Audience 4" },
+    { img: mobileImg5, alt: "High-Value Audience 5" },
+    { img: mobileImg6, alt: "High-Value Audience 6" },
+    { img: mobileImg1, alt: "High-Value Audience 1" },
+  ];
   return (
     <FadeSection>
       <section className="py-10 sm:py-14 md:py-16 px-4">
         <div className="max-w-3xl mx-auto">
+          {/* Mobile heading */}
           <h2
-            className="font-display font-bold text-white text-center mb-8 sm:mb-12 leading-snug"
+            className="font-display font-bold text-white text-center mb-8 sm:mb-12 leading-snug sm:hidden"
             style={{ fontSize: "clamp(1.4rem, 3vw, 2.25rem)" }}
           >
-            Meeting Diverse Publisher
+            Reach High-value
             <br />
-            Needs with Precision
+            Audience across
+            <br />
+            key verticals
           </h2>
+          {/* Web heading */}
+          <h2
+            className="font-display font-bold text-white text-center mb-8 sm:mb-12 leading-snug hidden sm:block"
+            style={{ fontSize: "clamp(1.4rem, 3vw, 2.25rem)" }}
+          >
+            Reach High -Value Audiences
+            <br />
+            Across Key Verticals
+          </h2>
+          {/* Mobile: single column stack of images */}
+          <div className="grid grid-cols-1 gap-4 sm:hidden">
+            {mobileImages.map((card, i) => (
+              <img
+                key={i}
+                src={card.img}
+                alt={card.alt}
+                className="w-full rounded-2xl object-cover"
+              />
+            ))}
+          </div>
+          {/* Web: single image */}
           <img
             src={categoriesImg}
             alt="Categories"
-            className="w-full rounded-2xl object-cover"
+            className="w-full rounded-2xl object-cover hidden sm:block"
           />
         </div>
       </section>
