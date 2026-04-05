@@ -244,7 +244,7 @@ function BecomePublisher() {
         </svg>
       </div>
       <div className="relative px-4 pb-28 sm:pb-36" style={{ zIndex: 1 }}>
-        <div className="max-w-3xl mx-auto" style={{ marginBottom: "40px" }}>
+        <div className="max-w-3xl mx-auto" style={{ marginBottom: "60px" }}>
           <h2
             className="font-display font-bold text-white text-center mb-8 sm:mb-10"
             style={{ fontSize: "clamp(1.5rem, 4vw, 3rem)" }}
