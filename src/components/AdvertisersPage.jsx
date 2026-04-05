@@ -16,17 +16,17 @@ import interstitialAd from "../assets/images/advertisers/interstitial_ad.png";
 
 function AdvertisersHero() {
   return (
-    <section className="relative min-h-[50vh] flex flex-col items-center justify-center text-center px-4 pt-24 sm:pt-28 pb-12 sm:pb-16 overflow-hidden">
+    <section className="relative min-h-[45vh] sm:min-h-[50vh] flex flex-col items-center justify-center text-center px-4 pt-24 sm:pt-28 pb-12 sm:pb-16 overflow-hidden">
       <div className="stars" />
       <FadeSection>
         <h1
           className="font-display font-bold text-white mb-4 sm:mb-6 leading-tight"
-          style={{ fontSize: "clamp(1.8rem, 5vw, 3.5rem)" }}
+          style={{ fontSize: "clamp(1.6rem, 4vw, 3rem)" }}
         >
-          PARTNERS/<span style={{ color: "#007BFF" }}>ADVERTISERS</span>
+          PARTNERS/<br className="sm:hidden" /><span style={{ color: "#007BFF" }}>ADVERTISERS</span>
         </h1>
         <p
-          className="text-gray-400 max-w-xl mx-auto leading-relaxed"
+          className="text-gray-400 max-w-2xl mx-auto leading-relaxed"
           style={{ fontSize: "clamp(0.85rem, 1.5vw, 1rem)" }}
         >
           Axponent partners with trusted global measurement, media, and
