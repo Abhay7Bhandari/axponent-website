@@ -32,7 +32,7 @@ const TICKER = [...LOGOS, ...LOGOS];
 
 export default function LogoTicker() {
   return (
-    <div className="py-8 sm:py-10 border-y border-white/5 overflow-hidden">
+    <div className="py-8 sm:py-10  overflow-hidden">
       <div
         className="flex animate-marquee gap-10 sm:gap-16 w-max items-center"
         style={{ animation: "marquee 30s linear infinite" }}

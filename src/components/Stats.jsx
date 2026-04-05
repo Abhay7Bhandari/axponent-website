@@ -11,6 +11,17 @@ const STATS = [
   { num: "200+", label: "brand partners" },
 ];
 
+// Configure inner lines for each card index
+// Add/customize lines per index as needed
+const INNER_LINES_CONFIG = {
+  0: [{ position: "40%", width: "1px" }], // 65+ - one line
+  1: [{ position: "30%" }, { position: "70%" }], // 3 - two lines
+  2: [], // 4 - one line
+  3: [],
+  4: [{ position: "25%" }, { position: "75%" }], // 5Mn+ - two lines
+  5: [{ position: "70%" }], // 200+ - colored line
+};
+
 function useGlowCanvas(cardRef, canvasRef) {
   useEffect(() => {
     const card = cardRef.current;
@@ -128,7 +139,14 @@ function useGlowCanvas(cardRef, canvasRef) {
   }, []);
 }
 
-function StatCard({ num, label, className = "", style = {}, align = "left" }) {
+function StatCard({
+  num,
+  label,
+  className = "",
+  style = {},
+  align = "left",
+  innerLines = [],
+}) {
   const cardRef = useRef(null);
   const canvasRef = useRef(null);
   useGlowCanvas(cardRef, canvasRef);
@@ -163,8 +181,23 @@ function StatCard({ num, label, className = "", style = {}, align = "left" }) {
           zIndex: 3,
           alignItems: align === "center" ? "center" : "flex-start",
           textAlign: align,
+          position: "relative",
         }}
       >
+        {innerLines.map((line, idx) => (
+          <div
+            key={idx}
+            style={{
+              position: "absolute",
+              left: line.position || "50%",
+              top: 0,
+              bottom: 0,
+              width: line.width || "1px",
+              background: line.color || "rgba(255,255,255,0.13)",
+              pointerEvents: "none",
+            }}
+          />
+        ))}
         <div
           className="font-display font-bold leading-none mb-1 sm:mb-2"
           style={{
@@ -173,7 +206,14 @@ function StatCard({ num, label, className = "", style = {}, align = "left" }) {
             letterSpacing: "-0.02em",
           }}
         >
-          {num}
+          {num.includes("+") ? (
+            <>
+              {num.slice(0, -1)}
+              <span style={{ color: "#00A8FF" }}>+</span>
+            </>
+          ) : (
+            num
+          )}
         </div>
         <div
           className="text-gray-400 leading-snug whitespace-pre-line group-hover:text-gray-300 transition-colors duration-300"
@@ -217,9 +257,42 @@ export default function Stats() {
             className="grid grid-cols-2 sm:hidden gap-0 overflow-hidden"
             style={{ background: "rgba(2,6,18,0.16)" }}
           >
-            {STATS.map((s, i) => (
-              <StatCard key={i} num={s.num} label={s.label} />
-            ))}
+            {[0, 1, 3, 2, 4, 5].map((index) => {
+              const isFullWidth = [0, 1, 4, 5].includes(index);
+              const isTopCard = index === 0;
+              const isLeftHalf = index === 3;
+              const isRightHalf = index === 2;
+              const borderColor = "rgba(255,255,255,0.13)";
+              const mobileBorderStyle = {
+                border: "none",
+                borderBottom: `1px solid ${borderColor}`,
+                borderLeft: isRightHalf ? `1px solid ${borderColor}` : "none",
+                borderRight: isLeftHalf ? `1px solid ${borderColor}` : "none",
+                ...(isTopCard
+                  ? {
+                      borderTop: `1px solid ${borderColor}`,
+                      paddingLeft: "20px",
+                      borderLeft: `1px solid ${borderColor}`,
+                    }
+                  : {}),
+              };
+              const mobileAlign =
+                index === 1 || index === 2 || index === 4 || index === 5
+                  ? "center"
+                  : "left";
+
+              return (
+                <StatCard
+                  key={index}
+                  num={STATS[index].num}
+                  label={STATS[index].label}
+                  className={isFullWidth ? "col-span-2" : ""}
+                  style={mobileBorderStyle}
+                  align={mobileAlign}
+                  innerLines={INNER_LINES_CONFIG[index] || []}
+                />
+              );
+            })}
           </div>
 
           {/* ── Tablet: 3-col grid ── */}
@@ -227,9 +300,24 @@ export default function Stats() {
             className="hidden sm:grid lg:hidden grid-cols-3 gap-0 overflow-hidden"
             style={{ background: "rgba(2,6,18,0.16)" }}
           >
-            {STATS.map((s, i) => (
-              <StatCard key={i} num={s.num} label={s.label} />
-            ))}
+            {STATS.map((s, i) => {
+              const borderColor = "rgba(255,255,255,0.13)";
+              const tabletBorderStyle = {
+                border: "none",
+                borderBottom: `1px solid ${borderColor}`,
+                borderLeft: `1px solid ${borderColor}`,
+                borderRight: `1px solid ${borderColor}`,
+                borderTop: i < 3 ? `1px solid ${borderColor}` : "none",
+              };
+              return (
+                <StatCard
+                  key={i}
+                  num={s.num}
+                  label={s.label}
+                  style={tabletBorderStyle}
+                />
+              );
+            })}
           </div>
 
           {/* ── Desktop: artistic grid ── */}
