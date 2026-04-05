@@ -243,17 +243,27 @@ function TrafficChannels() {
   const n = nodes.length;
   const [activeIdx, setActiveIdx] = useState(0);
   const [hoveredIdx, setHoveredIdx] = useState(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const [screenSize, setScreenSize] = useState("desktop");
 
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 640);
+    const check = () => {
+      const w = window.innerWidth;
+      if (w < 480) setScreenSize("mobile");
+      else if (w < 1024) setScreenSize("tablet");
+      else setScreenSize("desktop");
+    };
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
   }, []);
 
-  const RADIUS = isMobile ? 120 : 200;
+  const isMobile = screenSize === "mobile";
+  const isTablet = screenSize === "tablet";
+
+  const RADIUS = isMobile ? 100 : isTablet ? 155 : 200;
+
   const nodeAngles = nodes.map((_, i) => 90 + (i / n) * 360);
+
   const [dotAngle, setDotAngle] = useState(nodeAngles[0]);
   const dotAngleRef = useRef(nodeAngles[0]);
   const targetAngleRef = useRef(nodeAngles[0]);
@@ -262,13 +272,13 @@ function TrafficChannels() {
 
   const animateTo = (targetRaw) => {
     if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    let current = dotAngleRef.current;
-    let diff = ((((targetRaw - current) % 360) + 540) % 360) - 180;
-    const finalTarget = current + diff;
-    targetAngleRef.current = finalTarget;
+    const current = dotAngleRef.current;
+    const diff = ((((targetRaw - current) % 360) + 540) % 360) - 180;
+    targetAngleRef.current = current + diff;
+
     const step = () => {
-      const cur = dotAngleRef.current,
-        tgt = targetAngleRef.current;
+      const cur = dotAngleRef.current;
+      const tgt = targetAngleRef.current;
       if (Math.abs(tgt - cur) < 0.5) {
         dotAngleRef.current = tgt;
         setDotAngle(tgt);
@@ -294,6 +304,7 @@ function TrafficChannels() {
     setHoveredIdx(null);
     animateTo(nodeAngles[activeIdx]);
   };
+
   useEffect(
     () => () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
@@ -305,41 +316,145 @@ function TrafficChannels() {
   const dotX = Math.cos(dotRad) * RADIUS;
   const dotY = -Math.sin(dotRad) * RADIUS;
 
-  const stageSize = isMobile ? 320 : 560;
+  const stageSize = isMobile ? 300 : isTablet ? 460 : 560;
+  const glowDiameter = RADIUS * 2 - 4; // fills inside the ring
+
+  const labelR = RADIUS + (isMobile ? 44 : isTablet ? 58 : 74);
+  const iconSz = isMobile ? 32 : isTablet ? 42 : 52;
+  const nodeW = isMobile ? 70 : isTablet ? 96 : 120;
+  const fontSize = isMobile ? "8px" : isTablet ? "10px" : "11px";
 
   return (
     <FadeSection>
       <style>{`
-        @keyframes tc-orb-breathe {
-          0%, 100% { box-shadow: 0px -5px 250px 204px rgba(0,123,255,0.40); }
-          50%       { box-shadow: 0px -5px 280px 224px rgba(0,123,255,0.55); }
+        /* ── smooth breathe — no dark centre ── */
+        @keyframes tc-glow-pulse {
+          0%, 100% { opacity: 0.85; transform: translate(-50%,-50%) scale(0.97); }
+          50%       { opacity: 1;   transform: translate(-50%,-50%) scale(1.03); }
         }
-        .tc-node { position: absolute; display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; cursor: pointer; transition: transform 0.25s; }
-        .tc-node:hover { transform: translate(-50%, -50%) scale(1.08) !important; }
-        .tc-icon-wrap { border-radius: 12px; display: flex; align-items: center; justify-content: center; transition: background 0.3s, box-shadow 0.3s; padding: 5px; box-sizing: border-box; }
-        .tc-icon-wrap.active { background: rgba(255,255,255,0.15); border: 1.5px solid rgba(255,255,255,0.75); box-shadow: 0 0 16px rgba(255,255,255,0.3); }
-        .tc-icon-wrap.inactive { background: transparent; border: 1px solid transparent; }
-        .tc-orbit-dot { position: absolute; border-radius: 50%; background: #ffffff; box-shadow: 0 0 6px 2px rgba(255,255,255,0.85); z-index: 8; }
-        @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+ 
+        .tc-node {
+          position: absolute;
+          display: flex; flex-direction: column;
+          align-items: center; gap: 5px;
+          text-align: center; cursor: pointer;
+          transition: transform 0.25s ease;
+        }
+        .tc-node:hover { transform: translate(-50%,-50%) scale(1.1) !important; }
+ 
+        .tc-icon-wrap {
+          border-radius: 12px;
+          display: flex; align-items: center; justify-content: center;
+          padding: 6px; box-sizing: border-box;
+          transition: background 0.3s, border 0.3s, box-shadow 0.3s;
+        }
+        .tc-icon-wrap.active {
+          background: rgba(255,255,255,0.14);
+          border: 1.5px solid rgba(255,255,255,0.72);
+          box-shadow: 0 0 14px rgba(255,255,255,0.28),
+                      0 0 26px rgba(0,160,255,0.16);
+        }
+        .tc-icon-wrap.inactive {
+          background: transparent; border: 1px solid transparent; box-shadow: none;
+        }
+ 
+        .tc-orbit-dot {
+          position: absolute; border-radius: 50%;
+          background: #fff;
+          box-shadow: 0 0 7px 3px rgba(255,255,255,0.88);
+          z-index: 8; pointer-events: none;
+        }
+ 
+        /* responsive show/hide */
+        @media (max-width: 479px) {
+          .tc-orbit-stage { display: none !important; }
+          .tc-mobile-grid { display: grid !important; }
+        }
+        @media (min-width: 480px) {
+          .tc-orbit-stage { display: block; }
+          .tc-mobile-grid { display: none !important; }
+        }
+ 
+        .tc-mobile-grid {
+          display: none;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px; padding: 0 4px;
+        }
+        .tc-mobile-item {
+          display: flex; flex-direction: column;
+          align-items: center; gap: 7px; text-align: center;
+          cursor: pointer; padding: 14px 8px 12px;
+          border-radius: 14px;
+          transition: background 0.25s, border 0.25s;
+        }
+        .tc-mobile-item.active {
+          background: rgba(0,100,255,0.13);
+          border: 1px solid rgba(0,168,255,0.35);
+        }
+        .tc-mobile-item.inactive {
+          background: rgba(255,255,255,0.035);
+          border: 1px solid rgba(255,255,255,0.07);
+        }
       `}</style>
-      <section className="py-12 sm:py-16 md:py-20 px-4">
+
+      <section className="py-12 sm:py-16 md:py-20 px-4 overflow-hidden">
         <div className="max-w-5xl mx-auto">
+          {/* Title */}
           <h2
-            className="text-white font-display text-center mb-8 sm:mb-12 md:mb-16"
+            className="text-white text-center mb-8 sm:mb-12 md:mb-16"
             style={{
+              fontFamily: "'Gilroy-Medium', sans-serif",
               fontWeight: 400,
-              fontSize: "clamp(1.5rem, 4vw, 3.75rem)",
+              fontSize: "clamp(1.75rem, 4vw, 3.75rem)",
               lineHeight: "96%",
             }}
           >
             Traffic Channels
           </h2>
-          {/* Stage */}
+
+          {/* ── Mobile grid ── */}
+          <div className="tc-mobile-grid">
+            {nodes.map((node, i) => {
+              const isActive = i === activeIdx;
+              return (
+                <div
+                  key={i}
+                  className={`tc-mobile-item ${isActive ? "active" : "inactive"}`}
+                  onClick={() => setActiveIdx(i)}
+                >
+                  <img
+                    src={isActive ? node.iconActive : node.iconInactive}
+                    alt={node.label}
+                    style={{
+                      width: 44,
+                      height: 44,
+                      objectFit: "contain",
+                      opacity: isActive ? 1 : 0.42,
+                      transition: "opacity 0.3s",
+                    }}
+                  />
+                  <span
+                    style={{
+                      fontSize: "10px",
+                      fontWeight: isActive ? 700 : 400,
+                      color: isActive ? "#fff" : "rgba(148,163,184,0.65)",
+                      lineHeight: 1.35,
+                      whiteSpace: "pre-line",
+                    }}
+                  >
+                    {node.label}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* ── Orbit diagram ── */}
           <div
-            className="relative mx-auto"
+            className="tc-orbit-stage relative mx-auto"
             style={{ width: stageSize, height: stageSize, maxWidth: "92vw" }}
           >
-            {/* Orbit ring */}
+            {/* Single white orbit ring */}
             <div
               style={{
                 position: "absolute",
@@ -350,43 +465,57 @@ function TrafficChannels() {
                 borderRadius: "50%",
                 border: "1.5px solid rgba(255,255,255,0.55)",
                 transform: "translate(-50%,-50%)",
+                pointerEvents: "none",
+                zIndex: 2,
               }}
             />
-            {/* Center orb */}
+
+            {/* ══ GLOW — solid blue fill, no dark centre ══
+                Key fix: gradient starts at full-opacity blue at 0% (centre)
+                and fades outward to transparent at the edge.
+                → no "hole", no dark spot, smooth even fill.              */}
             <div
               style={{
                 position: "absolute",
                 top: "50%",
                 left: "50%",
-                transform: "translate(-50%,-50%)",
-                width: isMobile ? 20 : 31,
-                height: isMobile ? 20 : 31,
+                width: glowDiameter,
+                height: glowDiameter,
                 borderRadius: "50%",
-                background: "#007BFF",
-                boxShadow: "0px -5px 250px 204px rgba(0,123,255,0.40)",
-                animation: "tc-orb-breathe 3.5s ease-in-out infinite",
-                zIndex: 5,
+                background:
+                  "radial-gradient(circle, " +
+                  "rgba(0, 80, 220, 0.72)  0%,  " /* bright solid centre      */ +
+                  "rgba(0, 90, 230, 0.65) 25%,  " /* even fill across centre  */ +
+                  "rgba(0, 80, 200, 0.45) 55%,  " /* gentle mid fade          */ +
+                  "rgba(0, 50, 160, 0.15) 80%,  " /* approaching edge         */ +
+                  "transparent           100%)" /* clean edge, no bleed     */,
+                transform: "translate(-50%,-50%)",
+                animation: "tc-glow-pulse 3.5s ease-in-out infinite",
+                zIndex: 3,
+                pointerEvents: "none",
+                clipPath: "circle(50%)" /* hard-clip to orbit ring  */,
               }}
             />
-            {/* Dot */}
+
+            {/* White orbit dot */}
             <div
               className="tc-orbit-dot"
               style={{
                 left: `calc(50% + ${dotX}px)`,
                 top: `calc(50% + ${dotY}px)`,
-                width: isMobile ? 8 : 11,
-                height: isMobile ? 8 : 11,
+                width: isMobile ? 7 : 11,
+                height: isMobile ? 7 : 11,
                 transform: "translate(-50%,-50%)",
               }}
             />
-            {/* Nodes */}
+
+            {/* Channel nodes */}
             {nodes.map((node, i) => {
               const isActive = i === highlightIdx;
               const rad = (nodeAngles[i] * Math.PI) / 180;
-              const labelR = RADIUS + (isMobile ? 50 : 74);
               const lx = Math.cos(rad) * labelR;
               const ly = -Math.sin(rad) * labelR;
-              const iconSize = isMobile ? 36 : 52;
+
               return (
                 <div
                   key={i}
@@ -396,7 +525,7 @@ function TrafficChannels() {
                     top: `calc(50% + ${ly}px)`,
                     transform: "translate(-50%,-50%)",
                     zIndex: 7,
-                    width: isMobile ? 80 : 120,
+                    width: nodeW,
                   }}
                   onClick={() => handleNodeClick(i)}
                   onMouseEnter={() => handleNodeEnter(i)}
@@ -404,7 +533,7 @@ function TrafficChannels() {
                 >
                   <div
                     className={`tc-icon-wrap ${isActive ? "active" : "inactive"}`}
-                    style={{ width: iconSize, height: iconSize }}
+                    style={{ width: iconSz, height: iconSz }}
                   >
                     <img
                       src={isActive ? node.iconActive : node.iconInactive}
@@ -413,18 +542,21 @@ function TrafficChannels() {
                         width: "100%",
                         height: "100%",
                         objectFit: "contain",
-                        opacity: isActive ? 1 : 0.4,
+                        opacity: isActive ? 1 : 0.38,
+                        transition: "opacity 0.3s",
                       }}
                     />
                   </div>
+
                   <span
                     style={{
-                      fontSize: isMobile ? "9px" : "11px",
+                      fontSize,
                       fontWeight: isActive ? 700 : 400,
-                      color: isActive ? "#fff" : "rgba(148,163,184,0.6)",
+                      color: isActive ? "#ffffff" : "rgba(148,163,184,0.58)",
                       lineHeight: 1.35,
                       whiteSpace: "pre-line",
-                      textShadow: "0 1px 6px rgba(0,0,0,0.9)",
+                      textShadow: "0 1px 8px rgba(0,0,0,0.95)",
+                      transition: "color 0.3s, font-weight 0.15s",
                     }}
                   >
                     {node.label}
@@ -433,6 +565,7 @@ function TrafficChannels() {
               );
             })}
           </div>
+          {/* end orbit stage */}
         </div>
       </section>
     </FadeSection>
