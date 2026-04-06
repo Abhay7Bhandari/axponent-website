@@ -146,6 +146,7 @@ function RaiseFunds() {
 
   return (
     <section
+      id="enquire-form"
       className="relative overflow-hidden"
       style={{ paddingTop: "60px", paddingBottom: "0", minHeight: "600px" }}
     >

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
@@ -27,20 +27,56 @@ function HomePage() {
     <>
       <Hero />
       <Stats />
-      <WhatWeDo /> 
+      <WhatWeDo />
       <LogoTicker />
-      <HowWeDo /> 
+      <HowWeDo />
       <FourAs />
-      <CaseStudy /> 
+      <CaseStudy />
       <TrustedBy />
       <Testimonials />
-      <Events /> 
+      <Events />
     </>
   );
 }
 
 export default function App() {
   const [activePage, setActivePage] = useState("Home");
+
+  // ── Enquire Now scroll logic ─────────────────────────────────────────────
+  // Each page that has a form renders an element with id="enquire-form".
+  // Pages WITHOUT a form (Home, Our Products) have no form, so we scroll
+  // to the Footer's "Get In Touch" column instead (id="footer-contact").
+  //
+  // Flow:
+  //   1. If we're already on a page that has a form → scroll immediately.
+  //   2. If the current page has NO form → navigate to Advertisers (which
+  //      always has a form) and scroll after a short paint delay.
+  // ────────────────────────────────────────────────────────────────────────
+  const PAGES_WITH_FORM = [
+    "Advertisers",
+    "Publishers",
+    "Web",
+    "Careers",
+    "Venture Capital",
+  ];
+
+  const scrollToForm = useCallback(() => {
+    // small delay so the DOM is ready after a page change
+    setTimeout(() => {
+      const el = document.getElementById("enquire-form");
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 80);
+  }, []);
+
+  const handleEnquireNow = useCallback(() => {
+    if (PAGES_WITH_FORM.includes(activePage)) {
+      // Already on a page with a form — just scroll
+      scrollToForm();
+    }
+  }, [activePage, scrollToForm]);
+  // ─────────────────────────────────────────────────────────────────────────
 
   const renderPage = () => {
     switch (activePage) {
@@ -63,9 +99,12 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-brand-dark">
-      <Navbar activePage={activePage} setActivePage={setActivePage} />
+      <Navbar
+        activePage={activePage}
+        setActivePage={setActivePage}
+        onEnquireNow={handleEnquireNow}
+      />
       {renderPage()}
-      {/* <Footer /> */}
       <Footer setActivePage={setActivePage} />
     </div>
   );

@@ -23,7 +23,9 @@ function AdvertisersHero() {
           className="font-display font-bold text-white mb-4 sm:mb-6 leading-tight"
           style={{ fontSize: "clamp(1.6rem, 4vw, 3rem)" }}
         >
-          PARTNERS/<br className="sm:hidden" /><span style={{ color: "#007BFF" }}>ADVERTISERS</span>
+          PARTNERS/
+          <br className="sm:hidden" />
+          <span style={{ color: "#007BFF" }}>ADVERTISERS</span>
         </h1>
         <p
           className="text-gray-400 max-w-2xl mx-auto leading-relaxed"
@@ -83,8 +85,8 @@ function PartnerTabs() {
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 640);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const tabs = [
@@ -108,7 +110,9 @@ function PartnerTabs() {
     if (!el) return;
     isScrollingProgrammatically.current = true;
     el.scrollIntoView({ behavior: "smooth", block: "center" });
-    setTimeout(() => { isScrollingProgrammatically.current = false; }, 900);
+    setTimeout(() => {
+      isScrollingProgrammatically.current = false;
+    }, 900);
   };
 
   useEffect(() => {
@@ -121,8 +125,13 @@ function PartnerTabs() {
         const el = sectionRefs.current[key];
         if (!el) return;
         const rect = el.getBoundingClientRect();
-        const distance = Math.abs(rect.top + rect.height / 2 - window.innerHeight / 2);
-        if (distance < closestDistance) { closestDistance = distance; closestKey = key; }
+        const distance = Math.abs(
+          rect.top + rect.height / 2 - window.innerHeight / 2,
+        );
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestKey = key;
+        }
       });
       if (closestKey) setActiveTab(closestKey);
     };
@@ -134,7 +143,10 @@ function PartnerTabs() {
     <section className="py-10 sm:py-14 md:py-16 px-4">
       <div className="max-w-6xl mx-auto">
         {/* Sticky Tab Bar */}
-        <div className="sticky z-30 mb-6 sm:mb-8 md:mb-12" style={{ top: "72px" }}>
+        <div
+          className="sticky z-30 mb-6 sm:mb-8 md:mb-12"
+          style={{ top: "72px" }}
+        >
           <div
             className="flex items-stretch justify-center"
             style={{ borderBottom: "1px solid rgba(255,255,255,0.1)" }}
@@ -184,9 +196,10 @@ function PartnerTabs() {
                 className="relative cursor-pointer rounded-xl sm:rounded-2xl overflow-hidden"
                 onClick={() => handleTabClick(tab.key)}
                 style={{
-                  boxShadow: activeTab === tab.key
-                    ? "0 0 0 2px rgba(0,168,255,0.55), 0 20px 60px rgba(0,80,200,0.3)"
-                    : "none",
+                  boxShadow:
+                    activeTab === tab.key
+                      ? "0 0 0 2px rgba(0,168,255,0.55), 0 20px 60px rgba(0,80,200,0.3)"
+                      : "none",
                   transition: "box-shadow 0.35s ease",
                 }}
               >
@@ -199,7 +212,8 @@ function PartnerTabs() {
                     aspectRatio: isMobile ? "9/14" : "auto",
                     objectPosition: "top center",
                     opacity: activeTab === tab.key ? 1 : 0.45,
-                    transform: activeTab === tab.key ? "scale(1)" : "scale(0.985)",
+                    transform:
+                      activeTab === tab.key ? "scale(1)" : "scale(0.985)",
                     transition: "opacity 0.35s ease, transform 0.35s ease",
                     borderRadius: "inherit",
                   }}
@@ -225,7 +239,6 @@ function PartnerTabs() {
             </FadeSection>
           ))}
         </div>
-
       </div>
     </section>
   );
@@ -400,6 +413,7 @@ function GetInTouch() {
 
   return (
     <section
+      id="enquire-form"
       className="relative overflow-hidden"
       style={{ paddingTop: "60px", paddingBottom: "0" }}
     >

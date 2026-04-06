@@ -11,7 +11,8 @@ const NAV_LINKS = [
   "Venture Capital",
 ];
 
-export default function Navbar({ activePage, setActivePage }) {
+// onEnquireNow — new prop passed from App.jsx
+export default function Navbar({ activePage, setActivePage, onEnquireNow }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -34,6 +35,13 @@ export default function Navbar({ activePage, setActivePage }) {
     setOpen(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  // ── Enquire Now handler ──────────────────────────────────────────────────
+  const handleEnquire = () => {
+    setOpen(false); // close mobile menu if open
+    if (onEnquireNow) onEnquireNow();
+  };
+  // ────────────────────────────────────────────────────────────────────────
 
   return (
     <>
@@ -105,7 +113,9 @@ export default function Navbar({ activePage, setActivePage }) {
 
           {/* Right: CTA + Mobile menu */}
           <div className="flex items-center gap-2 flex-shrink-0">
+            {/* Desktop Enquire Now */}
             <button
+              onClick={handleEnquire}
               className="hidden lg:block text-xs xl:text-sm font-semibold text-white focus:outline-none"
               style={{
                 background: "rgba(248,246,253,0.1)",
@@ -198,7 +208,9 @@ export default function Navbar({ activePage, setActivePage }) {
           </button>
         ))}
 
+        {/* Mobile Enquire Now */}
         <button
+          onClick={handleEnquire}
           className="mt-4 px-8 py-3 rounded-full text-base font-semibold text-white"
           style={{ background: "linear-gradient(90deg, #0060ff, #0090ff)" }}
         >

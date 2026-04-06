@@ -205,6 +205,7 @@ function BecomePublisher() {
 
   return (
     <section
+      id="enquire-form"
       className="relative overflow-hidden"
       style={{ paddingTop: "60px", paddingBottom: "0" }}
     >
