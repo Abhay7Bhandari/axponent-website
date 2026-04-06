@@ -37,7 +37,7 @@ export default function Hero() {
         <h1
           className="font-display font-bold text-white mb-4 sm:mb-6 leading-tight"
           style={{
-            fontSize: "clamp(2.2rem, 7vw, 5rem)",
+            fontSize: "clamp(2.2rem, 5vw, 5rem)",
             animation: "fadeup 0.7s ease both",
           }}
         >

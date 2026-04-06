@@ -269,7 +269,7 @@ function AdFraudDetection() {
                   style={{
                     background: "rgba(10,15,40,0.7)",
                     border: "1px solid rgba(0,80,200,0.2)",
-                    borderLeft: "3px solid #00A8FF",
+                    borderLeft: "3px solid #007BFF",
                   }}
                 >
                   <span className="text-gray-300 text-sm leading-relaxed">

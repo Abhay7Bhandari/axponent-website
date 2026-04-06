@@ -19,7 +19,7 @@ function OwnedAssetsHero() {
       <div className="stars" />
       <FadeSection>
         <h1 className="font-display font-bold text-4xl sm:text-5xl md:text-5xl lg:text-5xl text-white mb-6 leading-tight">
-          INVENTORIES & <span style={{ color: "#00A8FF" }}>OWNED ASSETS</span>
+          INVENTORIES & <span style={{ color: "#007BFF" }}>OWNED ASSETS</span>
         </h1>
         <p className="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
           Axponent combines premium global inventory access with a growing

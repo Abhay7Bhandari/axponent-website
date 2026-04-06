@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Inter", "sans-serif"],
-        display: ["Syne", "sans-serif"],
+        sans: ["gilroy", "sans-serif"],
+        display: ["gilroy", "sans-serif"],
       },
       colors: {
         brand: {

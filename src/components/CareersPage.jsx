@@ -20,7 +20,7 @@ function CareersHero() {
         <FadeSection>
           <h1
             className="font-display font-bold text-white leading-tight mb-4 sm:mb-5"
-            style={{ fontSize: "clamp(2rem, 6vw, 5rem)" }}
+            style={{ fontSize: "clamp(2rem, 4vw, 5rem)" }}
           >
             GROW WITH <span style={{ color: "#007BFF" }}>AXPONENT</span>
           </h1>

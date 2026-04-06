@@ -79,7 +79,7 @@ function MobileFourAs() {
                 transition: "opacity 0.5s ease, transform 0.5s ease",
               }}
             >
-              Axponent <span style={{ color: "#00A8FF" }}>4A'S</span>
+              Axponent <span style={{ color: "#007BFF" }}>4A'S</span>
             </h2>
           ) : (
             <>
@@ -299,7 +299,7 @@ function DesktopFourAs() {
                       transform: isActive ? "translateY(0px)" : "translateY(30px)",
                     }}
                   >
-                    Axponent <span style={{ color: "#00A8FF" }}>4A'S</span>
+                    Axponent <span style={{ color: "#007BFF" }}>4A'S</span>
                   </h2>
                 </div>
               ) : (
