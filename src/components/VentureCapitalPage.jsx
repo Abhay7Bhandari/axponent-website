@@ -148,8 +148,9 @@ function RaiseFunds() {
     <section
       id="enquire-form"
       className="relative overflow-hidden"
-      style={{ paddingTop: "60px", paddingBottom: "0", minHeight: "600px" }}
+      style={{ paddingTop: "0", paddingBottom: "0" }}
     >
+      {/* Earth image — pinned to bottom */}
       <div
         className="absolute bottom-0 left-0 w-full pointer-events-none"
         style={{ zIndex: 0 }}
@@ -166,6 +167,8 @@ function RaiseFunds() {
           }}
         />
       </div>
+
+      {/* Scroll Down indicator */}
       <div className="hidden lg:flex flex-col items-center gap-2 fixed right-6 top-1/2 -translate-y-1/2 z-10">
         <span
           className="text-gray-500 text-xs tracking-widest select-none"
@@ -185,70 +188,87 @@ function RaiseFunds() {
           <path d="M12 5v14M5 12l7 7 7-7" />
         </svg>
       </div>
+
+      {/* Form content */}
       <div
-        className="max-w-3xl mx-auto relative px-4 pb-28 sm:pb-36"
-        style={{ zIndex: 1, marginBottom: "40px" }}
+        className="relative px-4"
+        style={{
+          zIndex: 1,
+          paddingTop: "clamp(40px, 8vw, 80px)",
+          paddingBottom: "clamp(120px, 22vw, 320px)",
+        }}
       >
-        <h2
-          className="font-display font-bold text-white text-center mb-8 sm:mb-12"
-          style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}
-        >
-          Raise Funds!
-        </h2>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {[
-              { name: "name", placeholder: "Enter Your Name", type: "text" },
-              { name: "email", placeholder: "Enter Your Mail", type: "email" },
-            ].map((f) => (
-              <input
-                key={f.name}
-                name={f.name}
-                type={f.type}
-                placeholder={f.placeholder}
-                value={form[f.name]}
-                onChange={handleChange}
-                className="px-4 py-3 rounded-lg text-sm text-white outline-none placeholder-gray-500 transition-all"
-                style={{
-                  background: "rgba(255,255,255,0.04)",
-                  border: "1px solid rgba(0,120,255,0.3)",
-                }}
-                onFocus={(e) =>
-                  (e.target.style.borderColor = "rgba(0,180,255,0.7)")
-                }
-                onBlur={(e) =>
-                  (e.target.style.borderColor = "rgba(0,120,255,0.3)")
-                }
-              />
-            ))}
-          </div>
-          <textarea
-            name="message"
-            placeholder="Your Message..."
-            rows={5}
-            value={form.message}
-            onChange={handleChange}
-            className="px-4 py-3 rounded-lg text-sm text-white outline-none placeholder-gray-500 resize-none transition-all"
-            style={{
-              background: "rgba(255,255,255,0.04)",
-              border: "1px solid rgba(0,120,255,0.3)",
-            }}
-            onFocus={(e) =>
-              (e.target.style.borderColor = "rgba(0,180,255,0.7)")
-            }
-            onBlur={(e) => (e.target.style.borderColor = "rgba(0,120,255,0.3)")}
-          />
-          <button
-            type="submit"
-            className="w-full py-3 rounded-lg text-white font-semibold text-sm transition-all hover:opacity-90"
-            style={{
-              background: "linear-gradient(90deg, #0060FF, #00B0FF)",
-              boxShadow: "0 4px 24px rgba(0,120,255,0.4)",
-            }}
+        <div className="max-w-3xl mx-auto">
+          <h2
+            className="font-display font-bold text-white text-center mb-8 sm:mb-12"
+            style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}
           >
-            Submit
-          </button>
-        </form>
+            Raise Funds!
+          </h2>
+
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[
+                { name: "name", placeholder: "Enter Your Name", type: "text" },
+                {
+                  name: "email",
+                  placeholder: "Enter Your Mail",
+                  type: "email",
+                },
+              ].map((f) => (
+                <input
+                  key={f.name}
+                  name={f.name}
+                  type={f.type}
+                  placeholder={f.placeholder}
+                  value={form[f.name]}
+                  onChange={handleChange}
+                  className="px-4 py-3 rounded-lg text-sm text-white outline-none placeholder-gray-500 transition-all"
+                  style={{
+                    background: "rgba(255,255,255,0.04)",
+                    border: "1px solid rgba(0,120,255,0.3)",
+                  }}
+                  onFocus={(e) =>
+                    (e.target.style.borderColor = "rgba(0,180,255,0.7)")
+                  }
+                  onBlur={(e) =>
+                    (e.target.style.borderColor = "rgba(0,120,255,0.3)")
+                  }
+                />
+              ))}
+            </div>
+
+            <textarea
+              name="message"
+              placeholder="Your Message..."
+              rows={5}
+              value={form.message}
+              onChange={handleChange}
+              className="px-4 py-3 rounded-lg text-sm text-white outline-none placeholder-gray-500 resize-none transition-all"
+              style={{
+                background: "rgba(255,255,255,0.04)",
+                border: "1px solid rgba(0,120,255,0.3)",
+              }}
+              onFocus={(e) =>
+                (e.target.style.borderColor = "rgba(0,180,255,0.7)")
+              }
+              onBlur={(e) =>
+                (e.target.style.borderColor = "rgba(0,120,255,0.3)")
+              }
+            />
+
+            <button
+              type="submit"
+              className="w-full py-3 rounded-lg text-white font-semibold text-sm transition-all hover:opacity-90"
+              style={{
+                background: "linear-gradient(90deg, #0060FF, #00B0FF)",
+                boxShadow: "0 4px 24px rgba(0,120,255,0.4)",
+              }}
+            >
+              Submit
+            </button>
+          </form>
+        </div>
       </div>
     </section>
   );
