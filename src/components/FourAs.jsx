@@ -4,79 +4,141 @@ import activationImg from "../assets/images/home/four-as/activation.png";
 import acquisitionImg from "../assets/images/home/four-as/acquisition.png";
 import amplificationImg from "../assets/images/home/four-as/amplification.png";
 
+// textSide: "left" | "right" | "center"
 const SLIDES = [
   {
     key: "Axponent 4A'S",
     isTitle: true,
     img: null,
+    textSide: "center",
+    animStyle: (isActive) => ({
+      opacity: isActive ? 1 : 0,
+      transform: isActive ? "scale(1)" : "scale(0.92)",
+      transition: "opacity 0.65s ease 0.15s, transform 0.65s cubic-bezier(0.22,1,0.36,1) 0.15s",
+    }),
+    animStyleBody: null,
   },
   {
     key: "Analysis",
     subtitle: "Audience, funnel, and attribution insights",
     body: "We start with data. By analyzing audience behavior, conversion funnels, and attribution signals, we identify where real value comes from and where growth opportunities lie. This foundation ensures every campaign is aligned with performance and ROI from the start.",
     img: analysisImg,
+    textSide: "left",
+    animStyle: (isActive) => ({
+      opacity: isActive ? 1 : 0,
+      transform: isActive ? "translateY(0px)" : "translateY(40px)",
+      transition: "opacity 0.65s ease 0.15s, transform 0.65s cubic-bezier(0.22,1,0.36,1) 0.15s",
+    }),
+    animStyleBody: (isActive) => ({
+      opacity: isActive ? 1 : 0,
+      transform: isActive ? "translateY(0px)" : "translateY(40px)",
+      transition: "opacity 0.65s ease 0.28s, transform 0.65s cubic-bezier(0.22,1,0.36,1) 0.28s",
+    }),
   },
   {
     key: "Activation",
     subtitle: "Early funnel optimization",
     body: "Before scaling, we test and refine. We validate audiences, creatives, and channels to build a strong performance baseline while optimizing early engagement and conversions to ensure campaigns scale efficiently.",
     img: activationImg,
+    textSide: "right",
+    animStyle: (isActive) => ({
+      opacity: isActive ? 1 : 0,
+      transform: isActive ? "scale(1) translateY(0px)" : "scale(0.94) translateY(30px)",
+      transition: "opacity 0.7s ease 0.15s, transform 0.75s cubic-bezier(0.22,1,0.36,1) 0.15s",
+    }),
+    animStyleBody: (isActive) => ({
+      opacity: isActive ? 1 : 0,
+      transform: isActive ? "scale(1) translateY(0px)" : "scale(0.94) translateY(30px)",
+      transition: "opacity 0.7s ease 0.32s, transform 0.75s cubic-bezier(0.22,1,0.36,1) 0.32s",
+    }),
   },
+
+  
   {
     key: "Acquisition",
     subtitle: "Intent-led, CPA-driven media execution",
     body: "Our focus is on acquiring users that matter. With intent-led targeting and CPA-driven buying, we deliver high-quality users through data-backed media execution designed for measurable outcomes and long-term value.",
     img: acquisitionImg,
+    textSide: "left",
+    animStyle: (isActive) => ({
+      opacity: isActive ? 1 : 0,
+      transform: isActive ? "translateY(0px)" : "translateY(50px)",
+      transition: "opacity 0.6s ease 0.15s, transform 0.65s cubic-bezier(0.34,1.56,0.64,1) 0.15s",
+    }),
+    animStyleBody: (isActive) => ({
+      opacity: isActive ? 1 : 0,
+      transform: isActive ? "translateY(0px)" : "translateY(50px)",
+      transition: "opacity 0.6s ease 0.3s, transform 0.65s cubic-bezier(0.34,1.56,0.64,1) 0.3s",
+    }),
   },
   {
     key: "Amplification",
     subtitle: "Scalable, profitable growth",
     body: "Once performance is validated, we scale with purpose. We expand into new markets, increase budgets strategically, and unlock new growth opportunities while maintaining quality and profitability.",
     img: amplificationImg,
+    textSide: "right",
+    animStyle: (isActive) => ({
+      opacity: isActive ? 1 : 0,
+      transform: isActive ? "scale(1) translateY(0px)" : "scale(0.94) translateY(30px)",
+      transition: "opacity 0.7s ease 0.15s, transform 0.75s cubic-bezier(0.22,1,0.36,1) 0.15s",
+    }),
+    animStyleBody: (isActive) => ({
+      opacity: isActive ? 1 : 0,
+      transform: isActive ? "scale(1) translateY(0px)" : "scale(0.94) translateY(30px)",
+      transition: "opacity 0.7s ease 0.32s, transform 0.75s cubic-bezier(0.22,1,0.36,1) 0.32s",
+    }),
   },
 ];
 
-// Mobile accordion/stack version
+function GradientOverlay({ textSide }) {
+  const grad =
+    textSide === "right"
+      ? "linear-gradient(to left, rgba(2,6,20,0.95) 0%, rgba(2,6,20,0.65) 45%, rgba(2,6,20,0.15) 75%, transparent 100%), linear-gradient(to top, rgba(2,6,20,1) 0%, transparent 25%)"
+      : "linear-gradient(to right, rgba(2,6,20,0.95) 0%, rgba(2,6,20,0.65) 45%, rgba(2,6,20,0.15) 75%, transparent 100%), linear-gradient(to top, rgba(2,6,20,1) 0%, transparent 25%)";
+  return <div className="absolute inset-0" style={{ background: grad }} />;
+}
+
+// Mobile version
 function MobileFourAs() {
   const [active, setActive] = useState(0);
+  const slide = SLIDES[active];
+  const isRight = slide.textSide === "right";
 
   return (
     <div className="py-0">
-      {/* Full-bleed image with overlay — same feel as desktop */}
       <div className="relative w-full" style={{ minHeight: "100svh" }}>
-        {SLIDES[active].isTitle ? (
+        {slide.isTitle ? (
           <div className="absolute inset-0 bg-black" />
         ) : (
           <>
             <img
-              src={SLIDES[active].img}
-              alt={SLIDES[active].key}
+              src={slide.img}
+              alt={slide.key}
               className="absolute inset-0 w-full h-full object-cover"
               style={{ filter: "brightness(0.32) saturate(0.85)" }}
             />
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(to top, rgba(2,6,20,1) 0%, rgba(2,6,20,0.4) 50%, transparent 100%)",
-              }}
-            />
+            <GradientOverlay textSide={slide.textSide} />
           </>
         )}
 
         {/* Text content */}
         <div
-          className="absolute inset-0 flex flex-col justify-center px-6 pb-32 pt-20 max-w-sm"
-          style={{ zIndex: 5 }}
+          className="absolute inset-y-0 flex flex-col justify-center px-6 pb-32 pt-20"
+          style={{
+            zIndex: 5,
+            maxWidth: "28rem",
+            left: isRight ? "auto" : 0,
+            right: isRight ? 0 : "auto",
+          }}
         >
-          {SLIDES[active].isTitle ? (
+          {slide.isTitle ? (
             <h2
-              className="text-white text-center font-bold"
+              className="text-white text-center font-bold w-full"
               style={{
                 fontFamily: "Gilroy-Bold, sans-serif",
                 fontSize: "clamp(2rem, 6vw, 3.5rem)",
                 lineHeight: "110%",
-                transition: "opacity 0.5s ease, transform 0.5s ease",
+                ...slide.animStyle(true),
               }}
             >
               Axponent <span style={{ color: "#007BFF" }}>4A'S</span>
@@ -89,22 +151,27 @@ function MobileFourAs() {
                   fontFamily: "Gilroy-Bold, sans-serif",
                   fontSize: "clamp(1.4rem, 6vw, 2rem)",
                   lineHeight: "115%",
-                  transition: "opacity 0.5s ease, transform 0.5s ease",
+                  textAlign: "left",
+                  ...slide.animStyle(true),
                 }}
               >
-                {SLIDES[active].subtitle}
+                {slide.subtitle}
               </h3>
               <p
                 className="text-gray-300 leading-relaxed"
-                style={{ fontSize: "clamp(0.82rem, 3.5vw, 1rem)" }}
+                style={{
+                  fontSize: "clamp(0.82rem, 3.5vw, 1rem)",
+                  textAlign: "left",
+                  ...slide.animStyleBody(true),
+                }}
               >
-                {SLIDES[active].body}
+                {slide.body}
               </p>
             </>
           )}
         </div>
 
-        {/* Bottom tab bar — mirrors desktop */}
+        {/* Bottom tab bar */}
         <div
           className="absolute bottom-0 left-0 right-0"
           style={{
@@ -122,8 +189,7 @@ function MobileFourAs() {
               className="relative flex-1 py-3 text-xs font-medium transition-all duration-300 focus:outline-none"
               style={{
                 color: active === j ? "#ffffff" : "rgba(156,163,175,0.7)",
-                background:
-                  active === j ? "rgba(0,80,200,0.22)" : "transparent",
+                background: active === j ? "rgba(0,80,200,0.22)" : "transparent",
                 border: "none",
                 cursor: "pointer",
                 ...(s.isTitle
@@ -147,8 +213,7 @@ function MobileFourAs() {
                 <span
                   className="absolute top-0 left-0 right-0 h-[2px]"
                   style={{
-                    background:
-                      "linear-gradient(90deg,transparent,#00A8FF,transparent)",
+                    background: "linear-gradient(90deg,transparent,#00A8FF,transparent)",
                   }}
                 />
               )}
@@ -220,6 +285,7 @@ function DesktopFourAs() {
         {SLIDES.map((slide, i) => {
           const isActive = i === active;
           const isPrev = i === prev;
+          const isRight = slide.textSide === "right";
 
           return (
             <div
@@ -230,7 +296,7 @@ function DesktopFourAs() {
                 pointerEvents: isActive ? "auto" : "none",
               }}
             >
-              {/* Background image or black title background */}
+              {/* Background image */}
               <div
                 className="absolute inset-0"
                 style={{
@@ -250,19 +316,14 @@ function DesktopFourAs() {
                 )}
               </div>
 
-              {/* Gradient overlay */}
-              {!slide.isTitle && (
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background:
-                      "linear-gradient(to right, rgba(2,6,20,0.95) 0%, rgba(2,6,20,0.65) 45%, rgba(2,6,20,0.15) 75%, transparent 100%), linear-gradient(to top, rgba(2,6,20,1) 0%, transparent 25%)",
-                  }}
-                />
-              )}
+              {/* Gradient — flips for right-side slides */}
+              {!slide.isTitle && <GradientOverlay textSide={slide.textSide} />}
 
-              {/* SCROLL DOWN label */}
-              <div className="hidden lg:flex flex-col items-center gap-2 absolute right-6 top-1/2 -translate-y-1/2 z-20">
+              {/* SCROLL DOWN — opposite side of text */}
+              <div
+                className="hidden lg:flex flex-col items-center gap-2 absolute top-1/2 -translate-y-1/2 z-20"
+                style={{ [isRight ? "left" : "right"]: "1.5rem" }}
+              >
                 <span
                   className="text-gray-600 text-[10px] tracking-widest select-none"
                   style={{ writingMode: "vertical-rl" }}
@@ -282,7 +343,7 @@ function DesktopFourAs() {
                 </svg>
               </div>
 
-              {/* Text content — responsive positioning */}
+              {/* Text content */}
               {slide.isTitle ? (
                 <div
                   className="absolute inset-0 flex items-center justify-center px-8 md:px-16 lg:px-24"
@@ -294,9 +355,7 @@ function DesktopFourAs() {
                       fontFamily: "Gilroy-Bold, sans-serif",
                       fontSize: "clamp(2rem, 5vw, 5rem)",
                       lineHeight: "100%",
-                      transition: "opacity 0.65s ease 0.15s, transform 0.65s cubic-bezier(0.22,1,0.36,1) 0.15s",
-                      opacity: isActive ? 1 : 0,
-                      transform: isActive ? "translateY(0px)" : "translateY(30px)",
+                      ...slide.animStyle(isActive),
                     }}
                   >
                     Axponent <span style={{ color: "#007BFF" }}>4A'S</span>
@@ -304,8 +363,18 @@ function DesktopFourAs() {
                 </div>
               ) : (
                 <div
-                  className="absolute inset-0 flex flex-col justify-center px-8 md:px-16 lg:px-24 pb-20 max-w-2xl"
-                  style={{ zIndex: 10 }}
+                  className="absolute inset-y-0 flex flex-col justify-center pb-20"
+                  style={{
+                    zIndex: 10,
+                    width: "48%",
+                    maxWidth: "44rem",
+                    // Anchor to left or right
+                    left: isRight ? "auto" : 0,
+                    right: isRight ? 0 : "auto",
+                    paddingLeft: isRight ? "3rem" : "clamp(2rem, 6vw, 6rem)",
+                    paddingRight: isRight ? "clamp(2rem, 6vw, 6rem)" : "1.5rem",
+                    textAlign: "left",
+                  }}
                 >
                   <h3
                     className="text-white mb-4 sm:mb-6"
@@ -313,12 +382,7 @@ function DesktopFourAs() {
                       fontFamily: "Gilroy-Bold, sans-serif",
                       fontSize: "clamp(1.5rem, 3.5vw, 3rem)",
                       lineHeight: "110%",
-                      transition:
-                        "opacity 0.65s ease 0.15s, transform 0.65s cubic-bezier(0.22,1,0.36,1) 0.15s",
-                      opacity: isActive ? 1 : 0,
-                      transform: isActive
-                        ? "translateY(0px)"
-                        : "translateY(40px)",
+                      ...slide.animStyle(isActive),
                     }}
                   >
                     {slide.subtitle}
@@ -328,12 +392,7 @@ function DesktopFourAs() {
                     style={{
                       fontSize: "clamp(0.9rem, 1.5vw, 1.25rem)",
                       lineHeight: "150%",
-                      transition:
-                        "opacity 0.65s ease 0.28s, transform 0.65s cubic-bezier(0.22,1,0.36,1) 0.28s",
-                      opacity: isActive ? 1 : 0,
-                      transform: isActive
-                        ? "translateY(0px)"
-                        : "translateY(40px)",
+                      ...slide.animStyleBody(isActive),
                     }}
                   >
                     {slide.body}
@@ -359,8 +418,7 @@ function DesktopFourAs() {
                     className="relative flex-1 py-4 text-sm font-medium transition-all duration-300 focus:outline-none"
                     style={{
                       color: active === idx ? "#ffffff" : "rgba(156,163,175,0.7)",
-                      background:
-                        active === idx ? "rgba(0,80,200,0.22)" : "transparent",
+                      background: active === idx ? "rgba(0,80,200,0.22)" : "transparent",
                       ...(s.isTitle
                         ? {
                             position: "absolute",
@@ -382,8 +440,7 @@ function DesktopFourAs() {
                       <span
                         className="absolute top-0 left-0 right-0 h-[2px]"
                         style={{
-                          background:
-                            "linear-gradient(90deg,transparent,#00A8FF,transparent)",
+                          background: "linear-gradient(90deg,transparent,#00A8FF,transparent)",
                         }}
                       />
                     )}
