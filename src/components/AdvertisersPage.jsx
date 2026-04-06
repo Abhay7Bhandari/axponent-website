@@ -415,8 +415,9 @@ function GetInTouch() {
     <section
       id="enquire-form"
       className="relative overflow-hidden"
-      style={{ paddingTop: "60px", paddingBottom: "0" }}
+      style={{ paddingTop: "0", paddingBottom: "0" }}
     >
+      {/* Earth image — pinned to bottom */}
       <div
         className="absolute bottom-0 left-0 w-full pointer-events-none"
         style={{ zIndex: 0 }}
@@ -433,6 +434,8 @@ function GetInTouch() {
           }}
         />
       </div>
+
+      {/* Scroll Down indicator */}
       <div className="hidden lg:flex flex-col items-center gap-2 fixed right-6 top-1/2 -translate-y-1/2 z-10">
         <span
           className="text-gray-500 text-xs tracking-widest"
@@ -452,14 +455,24 @@ function GetInTouch() {
           <path d="M12 5v14M5 12l7 7 7-7" />
         </svg>
       </div>
-      <div className="relative px-4 pb-28 sm:pb-36" style={{ zIndex: 1 }}>
-        <div className="max-w-3xl mx-auto" style={{ marginBottom: "60px" }}>
+
+      {/* Form content */}
+      <div
+        className="relative px-4"
+        style={{
+          zIndex: 1,
+          paddingTop: "clamp(40px, 8vw, 80px)",
+          paddingBottom: "clamp(120px, 22vw, 320px)",
+        }}
+      >
+        <div className="max-w-3xl mx-auto">
           <h2
             className="font-display font-bold text-white text-center mb-8 sm:mb-10"
             style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}
           >
             Get In Touch
           </h2>
+
           <div className="flex flex-col gap-3">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
@@ -496,6 +509,7 @@ function GetInTouch() {
                 />
               ))}
             </div>
+
             <textarea
               name="message"
               placeholder="Your Message..."
@@ -515,6 +529,7 @@ function GetInTouch() {
                 (e.target.style.borderColor = "rgba(0,100,255,0.3)")
               }
             />
+
             <button
               type="submit"
               onClick={handleSubmit}
