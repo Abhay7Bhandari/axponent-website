@@ -42,16 +42,6 @@ function HomePage() {
 export default function App() {
   const [activePage, setActivePage] = useState("Home");
 
-  // ── Enquire Now scroll logic ─────────────────────────────────────────────
-  // Each page that has a form renders an element with id="enquire-form".
-  // Pages WITHOUT a form (Home, Our Products) have no form, so we scroll
-  // to the Footer's "Get In Touch" column instead (id="footer-contact").
-  //
-  // Flow:
-  //   1. If we're already on a page that has a form → scroll immediately.
-  //   2. If the current page has NO form → navigate to Advertisers (which
-  //      always has a form) and scroll after a short paint delay.
-  // ────────────────────────────────────────────────────────────────────────
   const PAGES_WITH_FORM = [
     "Advertisers",
     "Publishers",
@@ -76,7 +66,6 @@ export default function App() {
       scrollToForm();
     }
   }, [activePage, scrollToForm]);
-  // ─────────────────────────────────────────────────────────────────────────
 
   const renderPage = () => {
     switch (activePage) {
