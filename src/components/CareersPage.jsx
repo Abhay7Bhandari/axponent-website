@@ -56,68 +56,6 @@ function CareersHero() {
   );
 }
 
-// function WhyWorkHere() {
-//   const slides = [
-//     { number: "01", title: "Exposure to global markets and ", highlight: "large-scale campaigns", img: globalMarketsImg, alt: "Exposure to global markets" },
-//     { number: "02", title: "Culture of ownership, learning, ", highlight: "and accountability", img: cultureImg, alt: "Culture of ownership" },
-//     { number: "03", title: "Opportunity to work with leading ", highlight: "platforms and partners", img: platformsImg, alt: "Platforms and partners" },
-//   ];
-
-//   return (
-//     <section className="py-8 sm:py-10 px-0">
-//       <div className="flex flex-col gap-4 sm:gap-6">
-//         {slides.map((slide) => (
-//           <FadeSection key={slide.number}>
-//             <div
-//               className="relative w-full overflow-hidden"
-//               style={{
-//                 background: "#000000",
-//                 border: "1px solid rgba(0,80,200,0.2)",
-//                 borderRadius: "16px",
-//               }}
-//             >
-//               {/* Title + number — 2 lines */}
-//               <div className="flex flex-row justify-between items-start gap-4 px-5 sm:px-10 pt-8 sm:pt-10 pb-4">
-//                 <h3
-//                   className="font-display font-bold text-white leading-snug"
-//                   style={{
-//                     fontSize: "clamp(1rem, 2.5vw, 1.6rem)",
-//                     maxWidth: "85%",
-//                   }}
-//                 >
-//                   {slide.title}
-//                   <span style={{ color: "#007BFF" }}>{slide.highlight}</span>
-//                 </h3>
-//                 <div
-//                   className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-bold text-white"
-//                   style={{
-//                     background: "#007BFF",
-//                     boxShadow: "0 4px 20px rgba(0,100,255,0.5)",
-//                     fontSize: "13px",
-//                     letterSpacing: "0.05em",
-//                   }}
-//                 >
-//                   {slide.number}
-//                 </div>
-//               </div>
-
-//               {/* Full screen image with curved edges */}
-//               <div className="px-5 sm:px-10 pt-16 sm:pt-20 pb-6" style={{ height: "clamp(400px, 60vh, 700px)" }}>
-//                 <img
-//                   src={slide.img}
-//                   alt={slide.alt}
-//                   className="w-full h-full object-cover rounded-lg"
-//                   style={{ borderRadius: "12px" }}
-//                 />
-//               </div>
-//             </div>
-//           </FadeSection>
-//         ))}
-//       </div>
-//     </section>
-//   );
-// }
-
 function WhyWorkHere() {
   const slides = [
     {
@@ -253,7 +191,7 @@ function WorkWithUs() {
       <div className="hidden lg:flex flex-col items-center gap-2 fixed right-6 top-1/2 -translate-y-1/2 z-20">
       </div>
       <div className="relative px-4 pb-28 sm:pb-36" style={{ zIndex: 1 }}>
-        <div className="max-w-3xl mx-auto" style={{ marginBottom: "50px" }}>
+        <div className="max-w-3xl mx-auto" style={{ marginBottom: "60px" }}>
           <h2 className="font-display font-bold text-white text-center mb-8 sm:mb-10" style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}>
             Work With Us!
           </h2>

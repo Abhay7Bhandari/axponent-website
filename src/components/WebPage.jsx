@@ -336,7 +336,7 @@ function TrafficChannels() {
           0%, 100% { opacity: 0.85; transform: translate(-50%,-50%) scale(0.97); }
           50%       { opacity: 1;   transform: translate(-50%,-50%) scale(1.03); }
         }
-
+ 
         .tc-node {
           position: absolute;
           display: flex; flex-direction: column;
@@ -345,7 +345,7 @@ function TrafficChannels() {
           transition: transform 0.25s ease;
         }
         .tc-node:hover { transform: translate(-50%,-50%) scale(1.1) !important; }
-
+ 
         .tc-icon-wrap {
           border-radius: 12px;
           display: flex; align-items: center; justify-content: center;
@@ -363,7 +363,7 @@ function TrafficChannels() {
           border: 1px solid transparent;
           box-shadow: none;
         }
-
+ 
         .tc-orbit-dot {
           position: absolute; border-radius: 50%;
           background: #fff;
